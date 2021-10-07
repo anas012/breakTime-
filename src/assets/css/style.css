@@ -696,18 +696,18 @@ video:focus {
   box-shadow: 0 3px 5px 0 rgba(132, 146, 166, 0.3);
 }
 
-.btn-light {
+/* .btn-light {
   background-color: #f8f9fc !important;
   border: 1px solid #f8f9fc !important;
   color: #ffffff !important;
   box-shadow: 0 3px 5px 0 rgba(248, 249, 252, 0.3);
-}
+} */
 
-.btn-light:hover, .btn-light:focus, .btn-light:active, .btn-light.active, .btn-light.focus {
+/* .btn-light:hover, .btn-light:focus, .btn-light:active, .btn-light.active, .btn-light.focus {
   background-color: #d4daed !important;
   border-color: #d4daed !important;
   color: #ffffff !important;
-}
+} */
 
 .btn-soft-light {
   background-color: rgba(248, 249, 252, 0.1) !important;
@@ -813,7 +813,7 @@ video:focus {
   box-shadow: 0 3px 5px 0 rgba(32, 41, 66, 0.3);
 }
 
-.btn {
+/* .btn {
   padding: 8px 20px;
   outline: none;
   text-decoration: none;
@@ -822,16 +822,16 @@ video:focus {
   transition: all 0.3s;
   font-weight: 600;
   border-radius: 6px;
-}
+} */
 
 .btn:focus {
   box-shadow: none !important;
 }
 
-.btn.btn-sm {
+/* .btn.btn-sm {
   padding: 7px 16px;
   font-size: 10px;
-}
+} */
 
 .btn.btn-lg {
   padding: 14px 30px;
@@ -851,10 +851,10 @@ video:focus {
   border: 1px solid #dee2e6 !important;
 }
 
-.btn.btn-light:hover, .btn.btn-light:focus, .btn.btn-light:active, .btn.btn-light.active, .btn.btn-light.focus {
+/* .btn.btn-light:hover, .btn.btn-light:focus, .btn.btn-light:active, .btn.btn-light.active, .btn.btn-light.focus {
   background-color: #d4daed !important;
   color: #3c4858 !important;
-}
+} */
 
 .btn.btn-soft-light {
   color: rgba(60, 72, 88, 0.5) !important;

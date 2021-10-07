@@ -1,0 +1,48 @@
+
+    <p-breadcrumb [model]="items" styleClass="breadcrumb"></p-breadcrumb>
+
+<div class="card">
+    <h5 class="card-header">Items</h5>
+    <div class="card-body">
+ 
+<div class="row">
+  <div class="col-sm-4">
+  <div class="card style" >
+    
+      <img src="../../../assets/img/burger.jfif" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+       <div class="d-flex justify-content-center">
+         <button href="#" *ngIf="addtocart" (click)="Addtocart()"  class="btn btn-danger">Add To cart</button> 
+        <p-inputNumber *ngIf="cart" [(ngModel)]="value" inputStyleClass="w-25" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+        decrementButtonClass="p-button-danger" (onInput)="input($event)" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+        </p-inputNumber>      
+          </div>
+      </div>
+    </div>
+ 
+  </div>
+  <div class="col-sm-4">
+    <div class="card style" >
+      <img src="../../../assets/img/burger.jfif" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="" class="btn btn-danger">Add to Cart</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card style">
+      <img src="../../../assets/img/burger.jfif" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

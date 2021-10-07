@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light h-100">
-  <div class="container-fluid">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+ 
  
     <ul class="navbar-nav temp">
       <li>
@@ -33,16 +33,16 @@
           </form>
         </li>
         <li>
-          <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info"></button>
+          <button pButton pRipple type="button" icon="pi pi-user" (click)="UserAccount.toggle($event)" class="p-button-rounded p-button-info "></button>
               
-          <button class="btn btn-light radius">
+          <button class="btn btn-sm  radius" (click)="cartsidebar=true">
             <img src="../../../assets/icons/cart.svg" class="icon" />
             
             <p-badge *ngIf="badgealert" [value]="badgevalue" severity="danger"></p-badge>
            </button>
           </li>
           </ul> 
-        </div>
+      
     <div
       class="collapse navbar-collapse justify-content-md-center justify-content-sm-start"
       id="navbarSupportedContent"
@@ -51,27 +51,153 @@
     </div>
 </nav>
 <br>
-<div class="container">
+<br>
+<br>
+ <div class="container-fluid">
 
-<div class="row">
-  <div class="col-sm-2">
-      <p class="bg-dark">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium fuga, dignissimos ad voluptas quas aspernatur voluptatem! Debitis iste natus quisquam mollitia, sequi voluptates sint quod esse labore veritatis fugiat. Ratione.
-      </p>
-  </div>
-
-  <div class="col-sm-10">
-    <div class="row">
-      <div class="col-sm-4">
-
-      </div>
-      <div class="col-sm-4">
-
-      </div>
-      <div class="col-sm-4">
+  <div class="row justify-content-center">
+   
+       <div class="col-sm-3" id="test">
+          
+          <h5 class="card-header text-dark ">
+           Categories</h5>
+               
         
-      </div>
+              <p-tieredMenu styleClass="w-100" [autoDisplay]="true"  #menu [model]="items"></p-tieredMenu>
+        
+        
+     
+             
+  
+</div>
+   
+  
+    <div class="col-sm-8">
+      <div class="container">
+     <router-outlet></router-outlet>
+  </div>
+  </div>
+  </div>
+  </div> 
+
+<footer class="bg-light">
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <br>
+      <h6>Break Time </h6>
+      <a href="#">Privacy Policy</a>
+      <br>
+      <a href="#">Terms And condition</a>
+      
     </div>
+    <div class="col-sm-4">
+      <br>
+      <h6>Cities</h6>
+      <p>Lahore</p>
+      <p>Karachi</p>
+      <p>Islamabad</p>
+      
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <h6>Reach out us at</h6>
+      <p class="font-weight-bold">Email
+        <br>
+        <span class="font-weight-light">breaktime@gmail.com</span>
+      </p>
+     
+      
+      <p class="font-weight-bold">Working Days
+<br>
+        <span class="font-weight-light">Mon-Tues</span>
+      </p>
+      
+      
+    </div>
+
+  </div>
+  </div>
+</footer>
+<!--Cart Side bar-->
+<p-sidebar [showCloseIcon]="false" styleClass="sidebarr" position="right" transitionOptions="350ms" [(visible)]="cartsidebar">
+ 
+    <div class="containerfluid">
+<div class="row Mycart">   
+  <h5 class="text-dark">My Cart
+    </h5>
+    <span class=" ml-1 text-danger">(0 items)</span>
+   
+    <button  type="button" (click)="cartsidebar=false" class="btn btn-sm btn-light ml-auto btnstyle "><icon class="pi pi-times"></icon></button>
+</div>
+<br>
+</div>
+<div class="containerfluid"> 
+<div class="row">
+  <div class="justify-content-end ml-auto mr-3">
+    <button class="btn btn-sm ml-auto crossbtn "><icon class="pi pi-times"></icon></button>
   </div>
 </div>
+  <div class="row"> 
+ <img src="../../../assets/img/bread.jpg"class="ml-1 imgsize"/>
+<p class=" ml-5 mt-1">Bread
+  <br>
+<span>Qty 2</span>
+</p>
+
+<!-- <p class="mt-4">Qty 6</p> -->
+<span class="font-weight-bold mt-3 ml-auto mr-4 ">Rs 56</span>
+
 </div>
+<hr>
+</div>
+<div class="containerfluid">
+
+     <div class="d-flex justify-content-center style1">
+  <button class="btn btn-danger">Continue Shopping</button>
+  </div>
+
+
+
+
+</div>
+
+</p-sidebar>
+
+
+<p-overlayPanel #UserAccount>
+  <ng-template pTemplate>
+    <div>    
+      <h5 class="ml-4">Name</h5>
+      <span class="ml-4">0334232323</span>
+</div>
+<hr>
+    <ul class="navbar-nav">
+      
+      <li><a class="dropdown-item" href="#">My Orders
+        <br>
+        <span class="font-weight-light">Manage and track your orders</span>
+      </a>
+     
+      </li>
+      <li><a class="dropdown-item" href="#">My Profile
+
+        <br>
+        <span class="font-weight-light">Mange your profile,address etc</span>
+      </a>
+    </li>
+    <li><a class="dropdown-item" href="#">Complaints</a></li>
+    <li><a class="dropdown-item" href="#">Signout</a></li>
+  </ul>
+  <hr>
+  <ul class="navbar-nav">
+    <li><a class="dropdown-item" href="#">Suggest a New Products</a></li>
+    <li><a class="dropdown-item" href="#">Terms & Conditons</a></li>
+    <li><a class="dropdown-item" href="#">Return & Cancellation Policy</a></li>
+
+    <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+
+    
+</ul>
+  </ng-template>
+</p-overlayPanel>

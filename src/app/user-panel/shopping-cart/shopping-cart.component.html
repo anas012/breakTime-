@@ -1,0 +1,151 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+ 
+ 
+    <ul class="navbar-nav temp">
+      <li>
+      
+        <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      </li>
+      <li class="nav-item">
+        <a class="navbar-brand float-right" href="#">Break Time</a> 
+      </li>
+            <li class="nav-item">
+          <button class="btn btn-light ml-2 mr-3">Deliver At</button>
+        </li>
+        <li>  
+        <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </form>
+        </li>
+        <li>
+          <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info "></button>
+              
+          <button class="btn btn-sm btn-light radius" (click)="cartsidebar=true">
+            <img src="../../../assets/icons/cart.svg" class="icon" />
+            
+            <p-badge *ngIf="badgealert" [value]="badgevalue" severity="danger"></p-badge>
+           </button>
+          </li>
+          </ul> 
+      
+    <div
+      class="collapse navbar-collapse justify-content-md-center justify-content-sm-start"
+      id="navbarSupportedContent"
+    > 
+     
+    </div>
+</nav>
+<section class="bg-half bg-light d-table w-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <div class="page-next-level">
+                    <h4 class="title"> Shopping Cart </h4>
+                    <div class="page-next">
+                        <nav aria-label="breadcrumb" class="d-inline-block">
+                            <ul class="breadcrumb bg-white rounded shadow mb-0">
+                                <li class="breadcrumb-item"><a href="index.html">Break Time</a></li>
+                                <li class="breadcrumb-item"><a href="index-shop.html">Shop</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div> <!--end container-->
+</section><!--end section-->
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Hero End -->
+
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <h5 class="card-header">Vertical</h5>
+                    <p-table [value]="Details" [scrollable]="true" scrollHeight="400px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="min-width:200px">Name</th>
+                                <th style="min-width:200px">Image</th>
+                                <th style="min-width:200px">Price</th>
+                                <th style="min-width:200px">Total</th>
+                                <th style="min-width:200px">Actions</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-Details>
+                            <tr>
+                                <td >{{Details.Name}}</td>
+                                <td> <img [src]='Details.image' [alt]="" class="imgsize"/></td>
+                                <td >{{Details.price}}</td>
+                                <td >{{Details.total}}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                    <button class="btn btn-info btn-sm">Update</button>
+                                
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+        <div class="row">
+            <div class="col-lg-8 col-md-6 mt-4 pt-2">
+                <a href="javascript:void(0)" class="btn btn-primary">Shop More</a>
+                <a href="javascript:void(0)" class="btn btn-soft-primary ms-2">Update Cart</a>
+            </div>
+            <div class="col-lg-4 col-md-6 ms-auto mt-4 pt-2">
+                <div class="card">
+                <div class="table-responsive bg-white rounded shadow">
+            
+                        <table class="table table-center table-padding mb-0">
+                        <tbody>
+                            <tr>
+                                <td class="h6">Subtotal</td>
+                                <td class="text-center fw-bold">$ 2190</td>
+                            </tr>
+                            <tr>
+                                <td class="h6">Taxes</td>
+                                <td class="text-center fw-bold">$ 219</td>
+                            </tr>
+                            <tr class="bg-light">
+                                <td class="h6">Total</td>
+                                <td class="text-center fw-bold">$ 2409</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+                </div>
+                <div class="mt-4 pt-2 text-end">
+                    <a href="shop-checkouts.html" class="btn btn-primary">Proceed to checkout</a>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section><!--end section-->
+<!-- End -->
