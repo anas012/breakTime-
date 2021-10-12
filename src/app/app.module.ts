@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UserPanelModule } from './user-panel/user-panel.module';
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
@@ -40,6 +38,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { OrdersModule } from './views/orders/orders.module';
 import { ItemsModule } from './views/items/items.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorserviceService } from './services/interceptor.service';
 @NgModule({
   imports: [
     BrowserModule,
@@ -58,11 +58,13 @@ import { ItemsModule } from './views/items/items.module';
     UserPanelModule,
     OrdersModule,
     ItemsModule,
+    HttpClientModule,
     IconSetModule.forRoot(),
   ],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
+   
   
 
   ],
@@ -71,11 +73,18 @@ import { ItemsModule } from './views/items/items.module';
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorserviceService,
+      multi: true,
+    },
     IconSetService,
   ],
   bootstrap: [ AppComponent ],
   exports: [
 
+  
+ 
   ]
 })
 export class AppModule { }

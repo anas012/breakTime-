@@ -1,4 +1,5 @@
-<div class="card">
+
+ <div class="card">
     
     <div class="card-header d-flex">
 
@@ -13,33 +14,21 @@
       >
     </span>
     </div>
-  
-
-
-
-   
 
 <p-table [value]="Details" styleClass="p-datatable-striped" [paginator]="true" [rows]="3" [showCurrentPageReport]="true" 
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[1,3,4]">
     <ng-template pTemplate="header">
         <tr>
-            <th>Product Name</th>
-            <th>Qty</th>
-            <th>Biling Address</th>
-            <th>Total Price</th>
            
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-Details>
         <tr>
-            <td>{{Details.productId}}</td>
-            <td> <img [src]='Details.image' [alt]="" class="imgsize"/></td>
-            <td>{{Details.Name}}</td>
-            <td>{{Details.price}}</td>
-            <td>
+           
+            <!-- <td>
                 <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-info"></button>
                 <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
-            </td>
+            </td> -->
         </tr>
     </ng-template>
     <ng-template pTemplate="paginatorleft">
@@ -49,4 +38,4 @@
         <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-table>
-</div>
+</div> 

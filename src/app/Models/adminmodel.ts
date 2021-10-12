@@ -5,3 +5,9 @@ export interface cartdetails
     image:string;
     price:number;
 }
+
+export interface ordersdetails
+{
+   OrderNo:number;
+   
+}

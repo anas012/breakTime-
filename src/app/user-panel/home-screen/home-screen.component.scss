@@ -87,15 +87,28 @@ position: fixed;
     }
 
 }
+.sidebarr
+{
+    width: 25rem!important;
+}
 .Mycart
 {
   padding: 10px!important;
   box-shadow:  1.5px 1.5px 1.5px 1.5px grey!important;
 }
-.sidebarr
+
+@media (max-width: 1024px) {
+    .p-sidebar .p-sidebar-header 
+    {
+        padding: 0rem!important;
+    }
+    .sidebarr
 {
-    margin-top: 2rem!important;
+    width: 20rem!important;
 }
+}
+
+
 .btnstyle
 {
    border-radius: 20px!important;
@@ -107,9 +120,7 @@ position: fixed;
     color: white !important;
 }
 @media (max-width: 1023px) {
-    .Mycart {
-        margin-top: 3rem!important;
-    }
+    
     .footer
     {
         margin-top: 35rem!important;
@@ -130,13 +141,13 @@ position: fixed;
 
 .style1
     {
-    margin-top: 20rem!important;
+    margin-top: 28rem!important;
     }
     @media only screen and  (max-width: 1025px) {
       
         .style1
         {
-            margin-top: 25rem !important;
+            margin-top: 22rem !important;
             }
        
     }
@@ -156,3 +167,38 @@ position: fixed;
         height: 2px!important;
         width: 2px !important;
     }
+
+    .feildheight
+{
+  height: 2.4rem !important;
+  width: 4.8rem !important;
+}
+.help-block
+{
+    color: red;
+}
+.custom:hover
+{
+    cursor: pointer;
+}
+.h
+{
+overflow: hidden;
+}
+.p-dialog-content{
+    overflow: hidden !important;
+  }
+  .custombar1 {
+    .p-scrollpanel-wrapper {
+      border-right: 9px solid var(--layer-1);
+    }
+  
+    .p-scrollpanel-bar {
+      background-color:rgb(245, 236, 237);
+      opacity: 0.1;
+      border-radius: 0;
+      .p-scrollpanel-wrapper:hover {
+        background-color: rgb(245, 236, 237) !important;
+      }
+    }
+  }

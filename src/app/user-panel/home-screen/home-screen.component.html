@@ -1,10 +1,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
- 
- 
-    <ul class="navbar-nav temp">
-      <li>
-      
-        <button
+  <ul class="navbar-nav temp">
+    <li>
+      <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -15,189 +12,440 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      </li>
-      <li class="nav-item">
-        <a class="navbar-brand float-right" href="#">Break Time</a> 
-      </li>
-            <li class="nav-item">
-          <button class="btn btn-light ml-2 mr-3">Deliver At</button>
-        </li>
-        <li>  
-        <form class="form-inline my-2 my-lg-0">
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
-        </li>
-        <li>
-          <button pButton pRipple type="button" icon="pi pi-user" (click)="UserAccount.toggle($event)" class="p-button-rounded p-button-info "></button>
-              
-          <button class="btn btn-sm  radius" (click)="cartsidebar=true">
-            <img src="../../../assets/icons/cart.svg" class="icon" />
-            
-            <p-badge *ngIf="badgealert" [value]="badgevalue" severity="danger"></p-badge>
-           </button>
-          </li>
-          </ul> 
-      
-    <div
-      class="collapse navbar-collapse justify-content-md-center justify-content-sm-start"
-      id="navbarSupportedContent"
-    > 
-     
-    </div>
-</nav>
-<br>
-<br>
-<br>
- <div class="container-fluid">
+    </li>
+    <li class="nav-item">
+      <a class="navbar-brand float-right" href="#">Break Time</a>
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-light ml-2 mr-3">Deliver At</button>
+    </li>
+    <li>
+      <form class="form-inline my-2 my-lg-0">
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+      </form>
+    </li>
+    <li>
+      <button
+      *ngIf="!islogin"
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-user"
+        (click)="UserLogin.toggle($event)"
+        class="p-button-rounded p-button-info"
+      ></button>
 
-  <div class="row justify-content-center">
-   
-       <div class="col-sm-3" id="test">
-          
-          <h5 class="card-header text-dark ">
-           Categories</h5>
-               
-        
-              <p-tieredMenu styleClass="w-100" [autoDisplay]="true"  #menu [model]="items"></p-tieredMenu>
-        
-        
-     
-             
-  
+      <button
+      *ngIf="islogin"
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-user"
+        (click)="UserAccount.toggle($event)"
+        class="p-button-rounded p-button-info"
+      ></button>
+
+      <button class="btn btn-sm radius" (click)="cartsidebar = true">
+        <img src="../../../assets/icons/cart.svg" class="icon" />
+
+        <p-badge
+          *ngIf="badgealert"
+          [value]="badgevalue"
+          severity="danger"
+        ></p-badge>
+      </button>
+    </li>
+  </ul>
+
+  <div
+    class="
+      collapse
+      navbar-collapse
+      justify-content-md-center justify-content-sm-start
+    "
+    id="navbarSupportedContent"
+  ></div>
+</nav>
+<br />
+<br />
+<br />
+<div class="container-fluid">
+<router-outlet></router-outlet>
 </div>
-   
-  
-    <div class="col-sm-8">
-      <div class="container">
-     <router-outlet></router-outlet>
-  </div>
-  </div>
-  </div>
-  </div> 
 
 <footer class="bg-light">
   <div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <br>
-      <h6>Break Time </h6>
-      <a href="#">Privacy Policy</a>
-      <br>
-      <a href="#">Terms And condition</a>
-      
-    </div>
-    <div class="col-sm-4">
-      <br>
-      <h6>Cities</h6>
-      <p>Lahore</p>
-      <p>Karachi</p>
-      <p>Islamabad</p>
-      
-    </div>
-    <div class="col-sm-4">
-      <br>
-      <h6>Reach out us at</h6>
-      <p class="font-weight-bold">Email
-        <br>
-        <span class="font-weight-light">breaktime@gmail.com</span>
-      </p>
-     
-      
-      <p class="font-weight-bold">Working Days
-<br>
-        <span class="font-weight-light">Mon-Tues</span>
-      </p>
-      
-      
-    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <br />
+        <h6>Break Time</h6>
+        <a href="#">Privacy Policy</a>
+        <br />
+        <a href="#">Terms And condition</a>
+      </div>
+      <div class="col-sm-4">
+        <br />
+        <h6>Cities</h6>
+        <p>Lahore</p>
+        <p>Karachi</p>
+        <p>Islamabad</p>
+      </div>
+      <div class="col-sm-4">
+        <br />
+        <h6>Reach out us at</h6>
+        <p class="font-weight-bold">
+          Email
+          <br />
+          <span class="font-weight-light">breaktime@gmail.com</span>
+        </p>
 
-  </div>
+        <p class="font-weight-bold">
+          Working Days
+          <br />
+          <span class="font-weight-light">Mon-Tues</span>
+        </p>
+      </div>
+    </div>
   </div>
 </footer>
 <!--Cart Side bar-->
-<p-sidebar [showCloseIcon]="false" styleClass="sidebarr" position="right" transitionOptions="350ms" [(visible)]="cartsidebar">
- 
-    <div class="containerfluid">
-<div class="row Mycart">   
-  <h5 class="text-dark">My Cart
-    </h5>
-    <span class=" ml-1 text-danger">(0 items)</span>
-   
-    <button  type="button" (click)="cartsidebar=false" class="btn btn-sm btn-light ml-auto btnstyle "><icon class="pi pi-times"></icon></button>
-</div>
-<br>
-</div>
-<div class="containerfluid"> 
-<div class="row">
-  <div class="justify-content-end ml-auto mr-3">
-    <button class="btn btn-sm ml-auto crossbtn "><icon class="pi pi-times"></icon></button>
+<p-sidebar
+  [showCloseIcon]="false"
+  styleClass="sidebarr"
+  position="right"
+  [baseZIndex]="50"
+  [(visible)]="cartsidebar"
+>
+  <div class="containerfluid">
+    <div class="row Mycart">
+      <h5 class="text-dark">My Cart</h5>
+      <span class="ml-1 text-danger">(0 items)</span>
+
+      <button
+        type="button"
+        (click)="cartsidebar = false"
+        class="btn btn-sm btn-light ml-auto btnstyle"
+      >
+        <icon class="pi pi-times"></icon>
+      </button>
+    </div>
+    <br/>
   </div>
-</div>
-  <div class="row"> 
- <img src="../../../assets/img/bread.jpg"class="ml-1 imgsize"/>
-<p class=" ml-5 mt-1">Bread
-  <br>
-<span>Qty 2</span>
-</p>
+  <div class="containerfluid">
+    <div class="row">
+      <div class="justify-content-end ml-auto mr-3">
+        <button class="btn btn-sm ml-auto crossbtn">
+          <icon class="pi pi-times"></icon>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <img src="../../../assets/img/bread.jpg" class="ml-1 imgsize" />
+      <p class="ml-5 mt-1">
+        Bread
+        <br />
+        <span>Qty 2</span>
+      </p>
 
-<!-- <p class="mt-4">Qty 6</p> -->
-<span class="font-weight-bold mt-3 ml-auto mr-4 ">Rs 56</span>
-
-</div>
-<hr>
-</div>
-<div class="containerfluid">
-
-     <div class="d-flex justify-content-center style1">
-  <button class="btn btn-danger">Continue Shopping</button>
+      <!-- <p class="mt-4">Qty 6</p> -->
+      <span class="font-weight-bold mt-3 ml-auto mr-4">Rs 56</span>
+    </div>
+    <hr />
   </div>
-
-
-
-
-</div>
-
+  <div class="containerfluid">
+    <div class="d-flex justify-content-center style1">
+      <button class="btn btn-danger">Continue Shopping</button>
+    </div>
+  </div>
 </p-sidebar>
 
-
 <p-overlayPanel #UserAccount>
-  <ng-template pTemplate>
-    <div>    
+  <ng-template pTemplate >
+    <div>
       <h5 class="ml-4">Name</h5>
       <span class="ml-4">0334232323</span>
-</div>
-<hr>
+    </div>
+    <hr />
     <ul class="navbar-nav">
-      
-      <li><a class="dropdown-item" href="#">My Orders
-        <br>
-        <span class="font-weight-light">Manage and track your orders</span>
-      </a>
-     
+      <li>
+        <a class="dropdown-item" href="#"
+          >My Orders
+          <br />
+          <span class="font-weight-light">Manage and track your orders</span>
+        </a>
       </li>
-      <li><a class="dropdown-item" href="#">My Profile
+      <li>
+        <a class="dropdown-item" href="#"
+          >My Profile
 
-        <br>
-        <span class="font-weight-light">Mange your profile,address etc</span>
-      </a>
-    </li>
-    <li><a class="dropdown-item" href="#">Complaints</a></li>
-    <li><a class="dropdown-item" href="#">Signout</a></li>
-  </ul>
-  <hr>
-  <ul class="navbar-nav">
-    <li><a class="dropdown-item" href="#">Suggest a New Products</a></li>
-    <li><a class="dropdown-item" href="#">Terms & Conditons</a></li>
-    <li><a class="dropdown-item" href="#">Return & Cancellation Policy</a></li>
+          <br />
+          <span class="font-weight-light">Mange your profile,address etc</span>
+        </a>
+      </li>
+      <li><a class="dropdown-item" href="#">Complaints</a></li>
+      <li><a class="dropdown-item" href="#">Signout</a></li>
+    </ul>
+    <hr />
+    <ul class="navbar-nav">
+      <li><a class="dropdown-item" href="#">Suggest a New Products</a></li>
+      <li><a class="dropdown-item" href="#">Terms & Conditons</a></li>
+      <li>
+        <a class="dropdown-item" href="#">Return & Cancellation Policy</a>
+      </li>
 
-    <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+      <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
 
-    
-</ul>
+      <li><a class="dropdown-item" href="#">FAQs</a></li>
+    </ul>
   </ng-template>
 </p-overlayPanel>
+
+<p-overlayPanel #UserLogin>
+
+
+  <ng-template pTemplate>
+    <div>
+      <button class="btn btn-danger w-100" (click)="showloginmodal()" (click)="UserLogin.hide($event)">Login or Signup</button>
+    </div>
+
+    <hr />
+    <ul class="navbar-nav">
+      <li><a class="dropdown-item" href="#">Suggest a New Products</a></li>
+      <li><a class="dropdown-item" href="#">Terms & Conditons</a></li>
+      <li>
+        <a class="dropdown-item" href="#">Return & Cancellation Policy</a>
+      </li>
+
+      <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+      <li><a class="dropdown-item" href="#">FAQs</a></li>
+    </ul>
+  </ng-template>
+</p-overlayPanel>
+
+
+<!--Login Modal code-->
+<p-dialog  [modal]="true" [(visible)]="loginmodal" [breakpoints]="{'500px': '98vw'}" styleClass="w-25"
+    [draggable]="false" [resizable]="false">
+ 
+   <p class="font-weight-bold">Welcome Back</p>
+
+   <p >Dont have an Account? <a (click)="opensignup()" class="text-danger custom">Signup Now</a></p>
+
+   <!--end col-->
+   <form  (ngSubmit)="onLogin(login)" #login="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Phone<span class="text-danger"> *</span></label>
+      <div class="form-icon position-relative">
+        <i data-feather="user" class="fea icon-sm icons"></i>
+        <div class="row">
+          
+          <select
+            class="form-select form-control feildheight ml-3"
+            name="countrycode"
+            [(ngModel)]="countrycode"
+            ngModel
+            name="countrycode"
+            aria-label="Default select example"
+            required
+          >
+            <option selected>+92</option>
+            <option value="+93">+93</option>
+
+          </select>
+         
+      
+          <p-inputMask
+        
+            styleClass="form-control"
+            mask="9999999999"
+            id="phone"
+            ngModel
+            name="phone"
+            #phone="ngModel"
+            placeholder="(333) 123-45678"
+            required
+          >
+          </p-inputMask>
+        </div>
+      </div>
+      <span class="help-block" *ngIf="!phone.valid && phone.touched"
+        >Please enter phone number</span> 
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label"
+          >Password<span class="text-danger"> *</span></label
+        >
+        <br>
+       
+          <i data-feather="user" class="fea icon-sm icons"></i>
+          <p-password
+                    inputStyleClass="form-control"
+                    styleClass="w-100"
+                    placeholder="password"
+                    name="password"
+                    ngModel
+                    name="password"
+                    #passwordd="ngModel"
+                    [feedback]="false"
+                    required
+                  ></p-password>
+            <div>   
+        <span
+          class="help-block"
+          *ngIf="!passwordd.valid && passwordd.touched"
+          >Please enter password</span
+        >
+      </div>
+      </div>
+    <div class="text-center">
+<span><a href="#" class="text-danger">Forgot Password?</a></span>
+    </div>
+    <br>
+
+      <div>
+        <button class="btn btn-danger w-100" [disabled]="!login.valid">Login</button>
+      </div>
+    </form>
+</p-dialog>
+<!--Signup Modal code-->
+
+<p-dialog [modal]="true" [(visible)]="signupmodal" [breakpoints]="{'500px': '98vw'}" styleClass="w-25 mt-5"
+    [draggable]="false" [resizable]="false">
+   
+   <p class="font-weight-bold">Create your Account</p>
+  
+   <form  (ngSubmit)="onRegister(R)" #R="ngForm">
+  
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <div class="form-icon position-relative">
+        <i data-feather="user-check" class="fea icon-sm icons"></i>
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Email"
+        name="email"
+        ngModel
+        name="email"
+        #email="ngModel"
+        required
+      />
+
+      <span
+        class="help-block"
+        *ngIf="
+          !email.valid &&
+          email.touched
+        "
+        >Please enter Email</span
+      >
+      </div>
+  
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label"
+      >Password<span class="text-danger">*</span></label
+    >
+    <br>
+   
+      <i data-feather="user" class="fea icon-sm icons"></i>
+      <p-password
+             inputStyleClass="w-100"
+                styleClass="w-100"
+                placeholder="password"
+                name="password"
+                ngModel
+                name="password"
+                #password3="ngModel"
+                [toggleMask]="true"
+                [feedback]="true"
+                required
+              ></p-password>
+           
+    <span
+      class="help-block"
+      *ngIf="!password3.valid && password3.touched"
+      >Please enter password</span
+    >
+  </div>
+ 
+    <div class="mb-3">
+      <label class="form-label">Full name</label>
+      <div class="form-icon position-relative">
+        <i data-feather="user-check" class="fea icon-sm icons"></i>
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Name"
+        name="name"
+        ngModel
+        name="name"
+        #name="ngModel"
+        required
+      />
+
+      <span
+        class="help-block"
+        *ngIf="
+          !name.valid &&
+          name.touched
+        "
+        >Please enter full name</span
+      >
+  
+    </div>
+  </div> 
+
+    <div class="mb-3">
+      <label class="form-label">Phone<span class="text-danger"> *</span></label>
+      <div class="form-icon position-relative">
+        <i data-feather="user" class="fea icon-sm icons"></i>
+        <div class="row">
+          
+          <select
+            class="form-select form-control feildheight ml-3"
+            name="countrycode"
+            [(ngModel)]="country"
+            ngModel
+            name="countrycode"
+            aria-label="Default select example"
+            required
+          >
+            <option selected>+92</option>
+            <option value="+93">+93</option>
+
+          </select>
+         
+          <p-inputMask
+            styleClass="form-control" 
+            mask="9999999999"
+            id="phone"
+            ngModel
+            name="phone"
+            #phonee="ngModel"
+            placeholder="(333) 123-45678"
+            required
+          >
+          </p-inputMask>
+        </div>
+      </div>
+      <span class="help-block" *ngIf="!phonee.valid && phonee.touched"
+        >Please enter phone number</span> 
+      </div>
+      <div>
+        <button class="btn btn-danger w-100" [disabled]="!R.valid">Signup</button> 
+      </div>
+      <br>
+      <span class="font-weight-light text-justify">By clicking Signup you agreeing to the terms and conditions of Break Time</span>
+
+    </form>
+  
+    </p-dialog>

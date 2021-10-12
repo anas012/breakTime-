@@ -17,16 +17,24 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import {TableModule} from 'primeng/table';
 import { ItemsComponent } from './home-screen/items/items.component';
-import { MainpageComponent } from './home-screen/mainpage/mainpage.component';
-
+import {DialogModule} from 'primeng/dialog';
+import {InputMaskModule} from 'primeng/inputmask';
+import {PasswordModule} from 'primeng/password';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {ToastModule} from 'primeng/toast';
+import { StartuppageComponent } from './home-screen/startuppage/startuppage.component';
+import { MainpageComponent } from './home-screen/startuppage/mainpage/mainpage.component';
+
+
 @NgModule({
   declarations: [
     HomeScreenComponent,
     CheckoutComponent,
     ShoppingCartComponent,
     ItemsComponent,
-    MainpageComponent
+    StartuppageComponent,
+    MainpageComponent,
+
   ],
   imports: [
     CommonModule,
@@ -42,14 +50,22 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
     MegaMenuModule,
     SidebarModule,
     TableModule,
-    BreadcrumbModule
+    DialogModule,
+    BreadcrumbModule,
+    InputMaskModule,
+    PasswordModule,
+    ToastModule
+    
+
   ],
   exports: [
     HomeScreenComponent,
     CheckoutComponent,
     ShoppingCartComponent,
     ItemsComponent,
-    MainpageComponent
+    StartuppageComponent,
+    MainpageComponent,
+
   ]
 })
 export class UserPanelModule { }

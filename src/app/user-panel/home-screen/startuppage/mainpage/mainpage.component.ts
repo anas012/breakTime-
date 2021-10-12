@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthserviceService } from '../../../../services/authservice.service';
 
 @Component({
   selector: 'app-mainpage',
@@ -6,17 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mainpage.component.scss']
 })
 export class MainpageComponent implements OnInit {
-  badgevalue:number;
-  badgealert=false;
-  value=0;
-  addtocart=true;
-  cart:boolean;
-  constructor() { }
+value:number;
+addtocart=true;
+cart:boolean;
+  constructor(private auth:AuthserviceService) { 
+    this.getAllcategories();
+  }
 
   ngOnInit(): void {
-
-    this.badgealert=true;
-    this.badgevalue=1;
+  }
+  getAllcategories()
+  {
+    this.auth.getAllcategory().subscribe((res)=>
+    {
+      console.log(res);
+    })
   }
   Addtocart()
   {
