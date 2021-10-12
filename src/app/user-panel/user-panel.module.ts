@@ -16,7 +16,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import {TableModule} from 'primeng/table';
-import { ItemsComponent } from './home-screen/items/items.component';
+import { ItemsComponent } from './home-screen/startuppage/items/items.component';
 import {DialogModule} from 'primeng/dialog';
 import {InputMaskModule} from 'primeng/inputmask';
 import {PasswordModule} from 'primeng/password';

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ItemsModule } from '../views/items/items.module';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
-import { ItemsComponent } from './home-screen/items/items.component';
+import { ItemsComponent } from './home-screen/startuppage/items/items.component';
 import { MainpageComponent } from './home-screen/startuppage/mainpage/mainpage.component';
 import { StartuppageComponent } from './home-screen/startuppage/startuppage.component';
 
