@@ -5,6 +5,8 @@ import { NgForm } from "@angular/forms";
 import { login } from "../../Models/Login";
 import { register } from "../../Models/signup";
 import { AuthserviceService } from "../../services/authservice.service";
+import { cart, userregister } from "../../Models/usermodel";
+
 
 @Component({
   selector: "app-home-screen",
@@ -16,13 +18,17 @@ export class HomeScreenComponent implements OnInit {
   loginmodal: boolean;
   signupmodal: boolean;
   items: MenuItem[];
-  countrycode: string;
+  country: string;
   islogin:boolean;
   isguest:boolean;
   cat:any[];
+  arrayofitems:cart[]=[];
+  subtotal:number;
+  itemcount:number;
   constructor(private router: Router, private route: ActivatedRoute,private auth:AuthserviceService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
       this.islogin=false;
     
      this.router.navigate(["startup"], { relativeTo: this.route });
@@ -41,9 +47,15 @@ export class HomeScreenComponent implements OnInit {
     if (!form.valid) return;
     else {
       var c = this.userlogin(form);
-      console.log(c);
+      this.auth.login(c).subscribe((res)=>
+      
+      {
+        console.log(res);
+      })
+
+    
       this.islogin=true;
-      console.log("login"+''+ this.islogin);
+      
     }
   }
   onRegister(form: NgForm) {
@@ -54,25 +66,50 @@ export class HomeScreenComponent implements OnInit {
     {
         var c=this.userRegister(form);
         console.log(c);
+        this.auth.register(c).subscribe((res:userregister)=>
+        {
+          console.log(res);
+        })
     }
   }
 
   userRegister(form: NgForm) {
     const user: register = {
-      phone: this.countrycode + form.value.phone,
-      password: form.value.password,
-      email: form.value.email,
-      name: form.value.name,
+      Phone: this.country + form.value.phone,
+      Password: form.value.password,
+      Email: form.value.email,
+      Name: form.value.name,
     };
     return user;
   }
 
   userlogin(form: NgForm) {
     const user: login = {
-      phone: this.countrycode + form.value.phone,
-
-      password: form.value.password,
+     Email:form.value.email,
+      Password: form.value.password,
     };
     return user;
+  }
+  cart()
+  {
+    this.arrayofitems=this.auth.getitemsarray();
+    this.itemcount=this.arrayofitems.length;
+    this.calculatetotal();
+    
+  }
+  calculatetotal()
+  {
+    let sum=0;
+    for (let i=0;i<this.arrayofitems.length;i++)
+    {
+     
+      this.subtotal=parseInt(this.arrayofitems[i].Totalprice)
+      sum=sum+this.subtotal;
+    }
+    this.subtotal=sum;
+  }
+  proccedtocheckout()
+  {
+    this.router.navigate(['checkout']);
   }
 }

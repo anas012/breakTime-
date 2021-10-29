@@ -21,6 +21,14 @@ export const navItems: INavData[] = [
     url: "/main/items",
     icon: "icon-speedometer",
   },
- 
-  
+  {
+    name: "Add Items",
+    url: "/main/Additems",
+    icon: "icon-speedometer",
+  },
+  {
+    name: "Category",
+    url: "/main/cat",
+    icon: "icon-speedometer",
+  },
 ];

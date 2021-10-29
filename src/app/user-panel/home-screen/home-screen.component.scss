@@ -141,13 +141,13 @@ position: fixed;
 
 .style1
     {
-    margin-top: 28rem!important;
+    margin-top: 2rem!important;
     }
-    @media only screen and  (max-width: 1025px) {
+    @media only screen and  (max-width: 1024px) {
       
         .style1
         {
-            margin-top: 22rem !important;
+            margin-top: 3rem !important;
             }
        
     }
@@ -194,11 +194,15 @@ overflow: hidden;
     }
   
     .p-scrollpanel-bar {
-      background-color:rgb(245, 236, 237);
+      background-color:grey;
       opacity: 0.1;
       border-radius: 0;
       .p-scrollpanel-wrapper:hover {
-        background-color: rgb(245, 236, 237) !important;
+        background-color: grey !important;
       }
     }
   }
+.p-sidebar-content
+{
+overflow: hidden !important;
+}

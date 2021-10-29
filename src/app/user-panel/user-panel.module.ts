@@ -24,8 +24,8 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {ToastModule} from 'primeng/toast';
 import { StartuppageComponent } from './home-screen/startuppage/startuppage.component';
 import { MainpageComponent } from './home-screen/startuppage/mainpage/mainpage.component';
-
-
+import {SkeletonModule} from 'primeng/skeleton';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   declarations: [
     HomeScreenComponent,
@@ -54,7 +54,9 @@ import { MainpageComponent } from './home-screen/startuppage/mainpage/mainpage.c
     BreadcrumbModule,
     InputMaskModule,
     PasswordModule,
-    ToastModule
+    ToastModule,
+    SkeletonModule,
+    DropdownModule
     
 
   ],

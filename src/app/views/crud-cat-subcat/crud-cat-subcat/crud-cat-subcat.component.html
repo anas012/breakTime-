@@ -1,0 +1,92 @@
+<div class="card">
+<h5 class="card-header">Category</h5>
+<div class="card-body">
+<form>
+    <div>
+        <h5><b>Add new Category and Subcategory</b></h5>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label>Category Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control w-100" placeholder="Enter Category name">
+          </div>
+          <div class="col">
+              <label>Subcategory Name<span class="text-danger">*</span></label>                              
+            <input type="text" class="form-control w-100" placeholder="Enter SubCategory name">
+          </div>
+        </div>
+        <br>
+    
+    <div>
+<button class="btn btn-primary btn-sm">Add category</button>
+    </div>
+</form>
+<br>
+
+
+<form>
+    <div>
+        <h5><b>Add a Subcategory</b></h5>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label>Select Category <span class="text-danger">*</span></label>
+           <br>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-100 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
+          <div class="col">
+            <label>Subcategory Name <span class="text-danger">*</span></label>                              
+          <input type="text" class="form-control" placeholder="Enter SubCategory name">
+        </div>
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-primary btn-sm"
+        >Add subcategory</button>
+    </div>
+</form>
+<br>
+<form>
+    <div>
+        <h5><b>Delete a Category</b></h5>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label>Select Category <span class="text-danger">*</span></label>
+           <br>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-50 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
+          
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-danger btn-sm"
+        >Delete Category</button>
+    </div>
+</form>
+<br>
+<form>
+    <div>
+        <h5><b>Delete a SubCategory</b></h5>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label>Select Category <span class="text-danger">*</span></label>
+           <br>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-100 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
+          <div class="col">
+            <label>Select SubCategory <span class="text-danger">*</span></label>
+           <br>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-100 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-danger btn-sm"
+        >Delete subcategory</button>
+    </div>
+</form>
+
+</div>
+</div>

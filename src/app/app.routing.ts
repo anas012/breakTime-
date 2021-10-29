@@ -34,6 +34,14 @@ export const routes: Routes = [
         path: 'items',
         loadChildren: () => import('./views/items/items.module').then(m => m.ItemsModule)
       },
+      {
+        path: 'Additems',
+        loadChildren: () => import('./views/additems/additems.module').then(m => m.AdditemsModule)
+      },
+      {
+        path: 'cat',
+        loadChildren: () => import('./views/crud-cat-subcat/crud-cat-subcat.module').then(m => m.CrudCatSubcatModule)
+      },
     ]
   },
   

@@ -11,31 +11,11 @@ value:number;
 addtocart=true;
 cart:boolean;
   constructor(private auth:AuthserviceService) { 
-    this.getAllcategories();
+    
   }
 
   ngOnInit(): void {
   }
-  getAllcategories()
-  {
-    this.auth.getAllcategory().subscribe((res)=>
-    {
-      console.log(res);
-    })
-  }
-  Addtocart()
-  {
-
-    this.value=1;
-    this.addtocart=false;
-    this.cart=true;
-  }
-  input(e)
-  {
-if(this.value==0)
-{
-  this.addtocart=true;
-  this.cart=false;
-}
-  }
+ 
+  
 }

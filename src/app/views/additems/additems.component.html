@@ -1,0 +1,49 @@
+<div class="card">
+    <h5 class="card-header">Add new Items</h5>
+<div class="card-body">
+<form>
+    <div class="row">
+        <div class="col">
+            <label>Selcet Category</label>
+           <br>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-75 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
+          <div class="col">
+              <label>Select Subcategory</label>
+              <br>
+              <p-dropdown [options]="cities" [(ngModel)]="selectedsubcat" styleClass="w-75 height"  placeholder="Select a Subcategory" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <label>Item Name</label>
+            <input type="text" class="form-control w-100" placeholder="Item name">
+          </div>
+          <div class="col">
+              <label>Item Purchase Price</label>                              
+            <input type="text" class="form-control w-100" placeholder="Purchase Price">
+          </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label>Item Retail Price</label>
+      <input type="text" class="form-control w-100" placeholder="Reatil Price">
+    </div>
+      <div class="col">
+        <label>Item Quantity</label>     
+        <input type="text" class="form-control" placeholder="Quantity">
+      </div>
+
+  </div>
+  <br>
+  <div>
+<button class="btn btn-primary">Add Product</button>
+  </div>
+</form>
+
+
+</div>
+</div> 
+

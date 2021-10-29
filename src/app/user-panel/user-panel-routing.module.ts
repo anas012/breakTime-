@@ -18,7 +18,7 @@ children:[
 {path:'startup',component:StartuppageComponent,
 children:[
    {path:'mainpage',component:MainpageComponent},
-  {path:'items',component:ItemsComponent}
+  {path:'items/:id',component:ItemsComponent}
 ]
 
 },

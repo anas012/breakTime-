@@ -50,7 +50,7 @@
         class="p-button-rounded p-button-info"
       ></button>
 
-      <button class="btn btn-sm radius" (click)="cartsidebar = true">
+      <button class="btn btn-sm radius" (click)="cartsidebar = true" (click)="cart()">
         <img src="../../../assets/icons/cart.svg" class="icon" />
 
         <p-badge
@@ -120,11 +120,12 @@
   position="right"
   [baseZIndex]="50"
   [(visible)]="cartsidebar"
+  [blockScroll]="true"
 >
   <div class="containerfluid">
     <div class="row Mycart">
       <h5 class="text-dark">My Cart</h5>
-      <span class="ml-1 text-danger">(0 items)</span>
+      <span class="ml-1 text-danger">({{itemcount}} items)</span>
 
       <button
         type="button"
@@ -136,7 +137,10 @@
     </div>
     <br/>
   </div>
+
   <div class="containerfluid">
+    <p-scrollPanel [style]="{width: '100%', height: '400px'}"  styleClass="custombar1">
+    <div *ngFor="let items of arrayofitems">
     <div class="row">
       <div class="justify-content-end ml-auto mr-3">
         <button class="btn btn-sm ml-auto crossbtn">
@@ -145,21 +149,43 @@
       </div>
     </div>
     <div class="row">
+      
       <img src="../../../assets/img/bread.jpg" class="ml-1 imgsize" />
       <p class="ml-5 mt-1">
-        Bread
+        {{items.Name}}
         <br />
-        <span>Qty 2</span>
+        <span><b>{{items.quantity}}</b></span>
+        x
+        <span class="font-weight-light mt-3 ml-auto mr-4">Rs {{items.Price}}</span>
       </p>
-
-      <!-- <p class="mt-4">Qty 6</p> -->
-      <span class="font-weight-bold mt-3 ml-auto mr-4">Rs 56</span>
+      <span class="font-weight-bold mt-4 ml-auto mr-4">Rs {{items.Totalprice}}</span>
+     
+     
     </div>
     <hr />
+
+  
+    </div>
+    </p-scrollPanel>
   </div>
-  <div class="containerfluid">
+  <div class="containerfluid"  *ngIf="islogin">
+    <div class="row">
+      <h6 class="ml-3 font-weight-bold mt-1">SubTotal</h6>
+      <p class="ml-1">(inclusive of all taxes)</p>
+      <span class="ml-auto font-weight-bold mr-3">Rs {{subtotal}}</span>
+    </div>
     <div class="d-flex justify-content-center style1">
-      <button class="btn btn-danger">Continue Shopping</button>
+   
+      <br>
+      <button class="btn btn-danger w-100" (click)="proccedtocheckout()" (click)="cartsidebar=false">Proceed To Checkout</button>
+    </div>
+  </div>
+  <div class="containerfluid"  *ngIf="!islogin">
+   
+    <div class="d-flex justify-content-center style1">
+   
+      <br>
+      <button class="btn btn-danger w-100" (click)="showloginmodal()" (click)="cartsidebar=false">Login/Signup</button>
     </div>
   </div>
 </p-sidebar>
@@ -238,45 +264,33 @@
 
    <!--end col-->
    <form  (ngSubmit)="onLogin(login)" #login="ngForm">
+  
     <div class="mb-3">
-      <label class="form-label">Phone<span class="text-danger"> *</span></label>
+      <label class="form-label">Email</label>
       <div class="form-icon position-relative">
-        <i data-feather="user" class="fea icon-sm icons"></i>
-        <div class="row">
-          
-          <select
-            class="form-select form-control feildheight ml-3"
-            name="countrycode"
-            [(ngModel)]="countrycode"
-            ngModel
-            name="countrycode"
-            aria-label="Default select example"
-            required
-          >
-            <option selected>+92</option>
-            <option value="+93">+93</option>
+        <i data-feather="user-check" class="fea icon-sm icons"></i>
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Email"
+        name="email"
+        ngModel
+        name="email"
+        #email="ngModel"
+        required
+      />
 
-          </select>
-         
-      
-          <p-inputMask
-        
-            styleClass="form-control"
-            mask="9999999999"
-            id="phone"
-            ngModel
-            name="phone"
-            #phone="ngModel"
-            placeholder="(333) 123-45678"
-            required
-          >
-          </p-inputMask>
-        </div>
+      <span
+        class="help-block"
+        *ngIf="
+          !email.valid &&
+          email.touched
+        "
+        >Please enter Email</span
+      >
       </div>
-      <span class="help-block" *ngIf="!phone.valid && phone.touched"
-        >Please enter phone number</span> 
-      </div>
-
+  
+  </div>
 
       <div class="mb-3">
         <label class="form-label"

@@ -6,18 +6,16 @@
         Categories</h5>
             
      
-           <p-tieredMenu styleClass="w-100" [autoDisplay]="true"  #menu [model]="items"></p-tieredMenu>
+           <p-tieredMenu *ngIf="sign" styleClass="w-100" [autoDisplay]="false"  #menu [model]="items"></p-tieredMenu>
      
-     
-  
           
 
 </div>
 
 
  <div class="col-sm-8">
-   <div class="container">
-  <router-outlet></router-outlet>
-</div>
-</div>
+  
+    <router-outlet></router-outlet>
+
+
 </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { bilingdetails } from '../../Models/usermodel';
+import { bilingdetails, cart } from '../../Models/usermodel';
 import {MessageService} from 'primeng/api';
+import { AuthserviceService } from '../../services/authservice.service';
 
 
 
@@ -14,10 +15,15 @@ import {MessageService} from 'primeng/api';
   providers: [MessageService]
 })
 export class CheckoutComponent implements OnInit {
-
-  constructor(private messageService: MessageService) {}
+itemsarray:cart[]=[];
+totalitems:number;
+Subtotal:number;
+ShipChrges:number;
+addrflag=false;
+  constructor(private messageService: MessageService,private auth:AuthserviceService) {}
 
   ngOnInit(): void {
+    this.getitems();
   }
   onaddAddress(form:NgForm)
   {
@@ -31,6 +37,7 @@ else
 var c =this.bilingaddress(form)
 console.log(c);
 this.showbilladressAdd();
+this.addrflag=true;
 }
   }
 
@@ -52,6 +59,41 @@ this.showbilladressAdd();
   }
   showbilladressAdd() {
     this.messageService.add({severity:'success', summary: 'Billing Address Added', detail: 'Billing address Added Succesfully! Click to place Order'});
+}
+getitems()
+{
+  this.itemsarray=this.auth.getitemsarray();
+  this.totalitems=this.itemsarray.length;
+  this.calculatetotal();
+  console.log(this.itemsarray);
+}
+
+calculatetotal()
+{
+  let sum=0;
+  for (let i=0;i<this.itemsarray.length;i++)
+  {
+   
+    this.Subtotal=parseInt(this.itemsarray[i].Totalprice)
+    sum=sum+this.Subtotal;
+  }
+  this.Subtotal=sum;
+  this.ShipChrges=0;
+}
+
+placeorder()
+{
+  if (this.addrflag===false)
+  {
+this.showadressError()
+  }
+  else 
+  {
+
+  }
+}
+showadressError() {
+  this.messageService.add({severity:'error', summary: 'Biling Address not Added', detail: 'Please add the biling address'});
 }
 
 }
