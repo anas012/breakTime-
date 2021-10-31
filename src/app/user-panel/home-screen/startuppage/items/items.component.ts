@@ -22,6 +22,7 @@ export class ItemsComponent implements OnInit {
   array:cart[]=[];
   flag:boolean;
   loader=true;
+  
   constructor(private router:Router,private route:ActivatedRoute,private auth:AuthserviceService) {
    
    }
@@ -74,9 +75,9 @@ if(this.value==0)
     {
     Name:name,
     ProductID: id,
-    Price:price,
-    quantity:1,
-    Totalprice:price
+    CurrentRate:price,
+    TotalPieces:1,
+    TotalValue:price
     }
 
     if(this.array.length!=0)
@@ -86,13 +87,13 @@ if(this.value==0)
       {
         if (id==this.array[i].ProductID)
         {
-          this.array[i].quantity++;
-          let a=this.array[i].Price;
-          let total=parseInt(a)*this.array[i].quantity;
-          this.array[i].Totalprice=total.toString();
+          this.array[i].TotalPieces++;
+          let a=this.array[i].CurrentRate;
+          let total=parseInt(a)*this.array[i].TotalPieces;
+          this.array[i].TotalValue=total.toString();
           console.log(this.array);
           this.flag=true;
-        }
+         }
        
       }
       if (this.flag === false)

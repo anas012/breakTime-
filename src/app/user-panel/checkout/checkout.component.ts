@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { bilingdetails, cart } from '../../Models/usermodel';
+import { bilingdetails, cart, placeorder } from '../../Models/usermodel';
 import {MessageService} from 'primeng/api';
 import { AuthserviceService } from '../../services/authservice.service';
+import { AuthorizedService } from '../../services/authorized.service';
 
 
 
@@ -20,7 +21,9 @@ totalitems:number;
 Subtotal:number;
 ShipChrges:number;
 addrflag=false;
-  constructor(private messageService: MessageService,private auth:AuthserviceService) {}
+order:placeorder;
+userid:string;
+  constructor(private messageService: MessageService,private auth:AuthserviceService,private authorized:AuthorizedService) {}
 
   ngOnInit(): void {
     this.getitems();
@@ -74,26 +77,42 @@ calculatetotal()
   for (let i=0;i<this.itemsarray.length;i++)
   {
    
-    this.Subtotal=parseInt(this.itemsarray[i].Totalprice)
+    this.Subtotal=parseInt(this.itemsarray[i].TotalValue)
     sum=sum+this.Subtotal;
   }
   this.Subtotal=sum;
   this.ShipChrges=0;
 }
 
-placeorder()
+onplaceorder()
 {
   if (this.addrflag===false)
   {
-this.showadressError()
+    this.showadressError()
   }
   else 
   {
-
+    
   }
 }
+
+
 showadressError() {
   this.messageService.add({severity:'error', summary: 'Biling Address not Added', detail: 'Please add the biling address'});
 }
 
+Userorder()
+{
+  this.userid=this.authorized.getuserid();
+//   const order:placeorder=
+// {
+// UserID:this.userid,
+// TotalAmount:this.Subtotal.toString(),
+// OrderDetails:
+// {
+  
+// }
+
+// }
+}
 }

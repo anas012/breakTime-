@@ -1,92 +1,179 @@
+<p-toast
+  position="top-right"
+  styleClass="mt-2"
+  [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+  [baseZIndex]="9999"
+></p-toast>
 <div class="card">
-<h5 class="card-header">Category</h5>
-<div class="card-body">
-<form>
-    <div>
-        <h5><b>Add new Category and Subcategory</b></h5>
-    </div>
-    <div class="row">
+  <h5 class="card-header">Category</h5>
+  <div class="card-body">
+    <form (ngSubmit)="onADDCat(A)" #A="ngForm">
+      <div>
+        <h5><b>Add new Category</b></h5>
+      </div>
+      <div class="row">
         <div class="col">
-            <label>Category Name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control w-100" placeholder="Enter Category name">
-          </div>
-          <div class="col">
-              <label>Subcategory Name<span class="text-danger">*</span></label>                              
-            <input type="text" class="form-control w-100" placeholder="Enter SubCategory name">
-          </div>
+          <label>Category Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control w-50"
+            placeholder="Enter Category name"
+            ngModel
+            name="Category"
+            #category="ngModel"
+            required
+          />
+          <span class="help-block" *ngIf="!category.valid && category.touched"
+            >Please enter Category</span
+          >
         </div>
-        <br>
-    
-    <div>
-<button class="btn btn-primary btn-sm">Add category</button>
-    </div>
-</form>
-<br>
+      </div>
+      <br />
 
+      <div>
+        <button
+          class="btn btn-primary btn-sm"
+          type="submit"
+          [disabled]="!A.valid"
+        >
+          Add category
+        </button>
+      </div>
+    </form>
+    <br />
 
-<form>
-    <div>
+    <form (ngSubmit)="onADDSubcat(B)" #B="ngForm">
+      <div>
         <h5><b>Add a Subcategory</b></h5>
-    </div>
-    <div class="row">
+      </div>
+      <div class="row">
         <div class="col">
-            <label>Select Category <span class="text-danger">*</span></label>
-           <br>
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-100 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
-          </div>
-          <div class="col">
-            <label>Subcategory Name <span class="text-danger">*</span></label>                              
-          <input type="text" class="form-control" placeholder="Enter SubCategory name">
+          <label>Select Category <span class="text-danger">*</span></label>
+          <br />
+          <p-dropdown
+            [options]="Allcat"
+            ngModel
+            name="Category"
+            [(ngModel)]="selectedCat1"
+            optionLabel="Name"
+            styleClass="w-100 height"
+            placeholder="Select a Category"
+            [showClear]="true"
+            required
+          ></p-dropdown>
         </div>
-    </div>
-    <br>
-    <div>
-        <button class="btn btn-primary btn-sm"
-        >Add subcategory</button>
-    </div>
-</form>
-<br>
-<form>
-    <div>
+        <div class="col">
+          <label>Subcategory Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter SubCategory name"
+            ngModel
+            name="SubCategory"
+            #subcategory1="ngModel"
+            required
+          />
+          <span
+            class="help-block"
+            *ngIf="!subcategory1.valid && subcategory1.touched"
+            >Please enter Sub Category</span
+          >
+        </div>
+      </div>
+      <br />
+      <div>
+        <button
+          class="btn btn-primary btn-sm"
+          type="submit"
+          [disabled]="!B.valid"
+        >
+          Add subcategory
+        </button>
+      </div>
+    </form>
+    <br />
+    <form (ngSubmit)="onDeleteCat(C)" #C="ngForm">
+      <div>
         <h5><b>Delete a Category</b></h5>
-    </div>
-    <div class="row">
+      </div>
+      <div class="row">
         <div class="col">
-            <label>Select Category <span class="text-danger">*</span></label>
-           <br>
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-50 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
-          </div>
-          
-    </div>
-    <br>
-    <div>
-        <button class="btn btn-danger btn-sm"
-        >Delete Category</button>
-    </div>
-</form>
-<br>
-<form>
-    <div>
+          <label>Select Category <span class="text-danger">*</span></label>
+          <br />
+          <p-dropdown
+            [options]="Allcat"
+            ngModel
+            name="Category"
+            [(ngModel)]="selectedCat2"
+            styleClass="w-50 height"
+            placeholder="Select a Category"
+            optionLabel="Name"
+            [showClear]="true"
+            required
+          ></p-dropdown>
+        </div>
+      </div>
+      <br />
+      <div>
+        <button
+          class="btn btn-danger btn-sm"
+          type="submit"
+          [disabled]="!C.valid"
+        >
+          Delete Category
+        </button>
+      </div>
+    </form>
+    <br />
+    <form (ngSubmit)="onDeleteSubCat(D)" #D="ngForm">
+      <div>
         <h5><b>Delete a SubCategory</b></h5>
-    </div>
-    <div class="row">
+      </div>
+      <div class="row">
         <div class="col">
-            <label>Select Category <span class="text-danger">*</span></label>
-           <br>
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-100 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
-          </div>
-          <div class="col">
-            <label>Select SubCategory <span class="text-danger">*</span></label>
-           <br>
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCcat" styleClass="w-100 height" placeholder="Select a Category" optionLabel="name" [showClear]="true"></p-dropdown>
-          </div>
-    </div>
-    <br>
-    <div>
-        <button class="btn btn-danger btn-sm"
-        >Delete subcategory</button>
-    </div>
-</form>
-
-</div>
+          <label>Select Category <span class="text-danger">*</span></label>
+          <br />
+          <p-dropdown
+            [options]="Allcat"
+            ngModel
+            name="Category"
+            [(ngModel)]="selectedCat3"
+            styleClass="w-100 height"
+            placeholder="Select a Category"
+            optionLabel="Name"
+            [showClear]="true"
+            (onChange)="onchangeCat($event)"
+            required
+          ></p-dropdown>
+        </div>
+        <div class="col">
+          <label>Select SubCategory <span class="text-danger">*</span></label>
+          <br />
+          <p-dropdown
+            [tabindex]="9999999"
+            [options]="testsubcategory"
+            ngModel
+            name="subCategory"
+            [(ngModel)]="selectedsubCat"
+            styleClass="w-100 height"
+            placeholder="Select a Category"
+            optionLabel="Name"
+            [showClear]="true"
+            [disabled]="disable"
+            required
+          ></p-dropdown>
+        </div>
+      </div>
+      <br />
+      <div>
+        <button
+          class="btn btn-danger btn-sm"
+          type="submit"
+          [disabled]="!D.valid"
+        >
+          Delete subcategory
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

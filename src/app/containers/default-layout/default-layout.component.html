@@ -17,6 +17,8 @@
   [asideMenuToggler]="'lg'"
 >
 <ul class="nav navbar-nav ml-auto">
+  <li class="nav-item d-md-down-none">
+  </li>
   </ul>
   
 </app-header>
@@ -46,8 +48,38 @@
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->
   </main>
+
+  <app-aside [fixed]="true" [display]="false" [ngClass]="'test'">
+   
+    
+        <div class="list-group list-group-accent">
+          <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Welcome, {{adminname}}</div>
+      
+          <ul class="navbar-nav">   
+            <li><a class="dropdown-item" style="cursor: pointer;" type="button" (click)="onlogout()" (click)="adminAccount.hide($event)">Signout</a></li>
+          </ul>
+          
+       
+        </div>
+  
+  </app-aside>
 </div>
 <app-footer>
   <span> Version <strong>1.0.1</strong> </span>
   <span class="ml-auto">Powered by <strong>Break Time</strong> </span>
 </app-footer>
+
+
+<!-- <p-overlayPanel #adminAccount>
+  <ng-template pTemplate >
+    <div>
+      <h5 class="ml-4">{{adminname}}</h5>
+     
+    </div>
+    <hr />
+    <ul class="navbar-nav">   
+      <li><a class="dropdown-item mr-4" style="cursor: pointer;" type="button" (click)="onlogout()" (click)="adminAccount.hide($event)">Signout</a></li>
+    </ul>
+   
+  </ng-template>
+</p-overlayPanel> -->

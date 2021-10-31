@@ -48,4 +48,8 @@ export class AuthserviceService {
   {
     return this.arrayitems;
   }
+  authcheck() {
+    return !!localStorage.getItem('token');
+  }
+  
 }

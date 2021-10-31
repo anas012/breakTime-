@@ -1,3 +1,4 @@
+<p-toast position="top-right"  [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}" [baseZIndex]="9999" styleClass="mt-2"></p-toast>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   <ul class="navbar-nav temp">
     <li>
@@ -154,11 +155,11 @@
       <p class="ml-5 mt-1">
         {{items.Name}}
         <br />
-        <span><b>{{items.quantity}}</b></span>
+        <span><b>{{items.TotalPieces}}</b></span>
         x
-        <span class="font-weight-light mt-3 ml-auto mr-4">Rs {{items.Price}}</span>
+        <span class="font-weight-light mt-3 ml-auto mr-4">Rs {{items.CurrentRate}}</span>
       </p>
-      <span class="font-weight-bold mt-4 ml-auto mr-4">Rs {{items.Totalprice}}</span>
+      <span class="font-weight-bold mt-4 ml-auto mr-4">Rs {{items.TotalValue}}</span>
      
      
     </div>
@@ -190,11 +191,11 @@
   </div>
 </p-sidebar>
 
-<p-overlayPanel #UserAccount>
+<p-overlayPanel #UserAccount  [baseZIndex]="50">
   <ng-template pTemplate >
     <div>
-      <h5 class="ml-4">Name</h5>
-      <span class="ml-4">0334232323</span>
+      <h5 class="ml-4">{{username}}</h5>
+      <span class="ml-4">{{userphone}}</span>
     </div>
     <hr />
     <ul class="navbar-nav">
@@ -214,7 +215,7 @@
         </a>
       </li>
       <li><a class="dropdown-item" href="#">Complaints</a></li>
-      <li><a class="dropdown-item" href="#">Signout</a></li>
+      <li><a class="dropdown-item" style="cursor: pointer;" (click)="onlogout()" (click)="UserAccount.hide($event)">Signout</a></li>
     </ul>
     <hr />
     <ul class="navbar-nav">
@@ -231,7 +232,7 @@
   </ng-template>
 </p-overlayPanel>
 
-<p-overlayPanel #UserLogin>
+<p-overlayPanel #UserLogin  [baseZIndex]="50">
 
 
   <ng-template pTemplate>
@@ -256,7 +257,7 @@
 
 <!--Login Modal code-->
 <p-dialog  [modal]="true" [(visible)]="loginmodal" [breakpoints]="{'500px': '98vw'}" styleClass="w-25"
-    [draggable]="false" [resizable]="false">
+    [draggable]="false" [resizable]="false" [baseZIndex]="50">
  
    <p class="font-weight-bold">Welcome Back</p>
 
@@ -266,7 +267,7 @@
    <form  (ngSubmit)="onLogin(login)" #login="ngForm">
   
     <div class="mb-3">
-      <label class="form-label">Email</label>
+      <label class="form-label">Email <span class="text-danger">*</span></label>
       <div class="form-icon position-relative">
         <i data-feather="user-check" class="fea icon-sm icons"></i>
         <input
@@ -331,14 +332,14 @@
 <!--Signup Modal code-->
 
 <p-dialog [modal]="true" [(visible)]="signupmodal" [breakpoints]="{'500px': '98vw'}" styleClass="w-25 mt-5"
-    [draggable]="false" [resizable]="false">
+    [draggable]="false" [resizable]="false" [baseZIndex]="50">
    
    <p class="font-weight-bold">Create your Account</p>
   
    <form  (ngSubmit)="onRegister(R)" #R="ngForm">
   
     <div class="mb-3">
-      <label class="form-label">Email</label>
+      <label class="form-label">Email <span class="text-danger">*</span></label>
       <div class="form-icon position-relative">
         <i data-feather="user-check" class="fea icon-sm icons"></i>
         <input
@@ -348,15 +349,15 @@
         name="email"
         ngModel
         name="email"
-        #email="ngModel"
+        #emaill="ngModel"
         required
       />
 
       <span
         class="help-block"
         *ngIf="
-          !email.valid &&
-          email.touched
+          !emaill.valid &&
+          emaill.touched
         "
         >Please enter Email</span
       >
@@ -366,7 +367,7 @@
 
   <div class="mb-3">
     <label class="form-label"
-      >Password<span class="text-danger">*</span></label
+      >Password <span class="text-danger">*</span></label
     >
     <br>
    
@@ -378,7 +379,7 @@
                 name="password"
                 ngModel
                 name="password"
-                #password3="ngModel"
+                #passwordd="ngModel"
                 [toggleMask]="true"
                 [feedback]="true"
                 required
@@ -386,13 +387,13 @@
            
     <span
       class="help-block"
-      *ngIf="!password3.valid && password3.touched"
+      *ngIf="!passwordd.valid && passwordd.touched"
       >Please enter password</span
     >
   </div>
  
     <div class="mb-3">
-      <label class="form-label">Full name</label>
+      <label class="form-label">Full name <span class="text-danger">*</span></label>
       <div class="form-icon position-relative">
         <i data-feather="user-check" class="fea icon-sm icons"></i>
         <input
@@ -419,7 +420,7 @@
   </div> 
 
     <div class="mb-3">
-      <label class="form-label">Phone<span class="text-danger"> *</span></label>
+      <label class="form-label">Phone <span class="text-danger"> *</span></label>
       <div class="form-icon position-relative">
         <i data-feather="user" class="fea icon-sm icons"></i>
         <div class="row">
@@ -463,3 +464,16 @@
     </form>
   
     </p-dialog>
+    <!--Error dialougue modal starts-->
+    <p-dialog [(visible)]="errordialoguemodal" [position]="position" [modal]="true" 
+[style]="{width: '35vw' }" [closable]="false" styleClass="mt-5"
+[breakpoints]="{ '960px': '85vw' }" [draggable]="false" [baseZIndex]="50" [resizable]="false">
+<h5 class="text-danger float-left">Error</h5>
+<br><br>
+  <p class="text-center">{{errmessage}}</p>
+
+  <ng-template pTemplate="footer">
+          <p-button icon="pi pi-check" (click)="onOK()" label="Ok" styleClass="p-button-text"></p-button>
+      </ng-template>
+</p-dialog>
+<!--Error dialogue midal ends-->

@@ -6,7 +6,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UserPanelModule } from './user-panel/user-panel.module';
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
-
+import { DropdownModule } from 'primeng/dropdown';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -40,7 +40,8 @@ import { OrdersModule } from './views/orders/orders.module';
 import { ItemsModule } from './views/items/items.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorserviceService } from './services/interceptor.service';
-
+import { ButtonModule } from 'primeng/button';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 @NgModule({
   imports: [
     BrowserModule,
@@ -60,6 +61,9 @@ import { InterceptorserviceService } from './services/interceptor.service';
     OrdersModule,
     ItemsModule,
     HttpClientModule,
+    DropdownModule,
+    ButtonModule,
+    OverlayPanelModule,
     IconSetModule.forRoot(),
   ],
   declarations: [

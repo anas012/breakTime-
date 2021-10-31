@@ -6,6 +6,7 @@ import {
 import { Injectable, Injector } from '@angular/core';
 
 import { finalize } from 'rxjs/operators';
+import { AuthorizedService } from './authorized.service';
 
 //import { SpinnerService } from './spinner.service';
 @Injectable({
@@ -15,10 +16,10 @@ export class InterceptorserviceService implements HttpInterceptor {
   constructor(private injector: Injector) {}
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     //this.spinner.isLoading.next(true);
-   // let authservice = this.injector.get(AuthService);
+   let authservice = this.injector.get(AuthorizedService);
     request = request.clone({
       setHeaders: {
-     //   Authorization: `Bearer ${authservice.gettoken()}`,
+       Authorization: `Bearer ${authservice.gettoken()}`,
       },
     });
     return next.handle(request).pipe(

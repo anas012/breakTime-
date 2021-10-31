@@ -70,14 +70,35 @@ export interface Items {
 }
 export interface cart 
 {
-    Name:string;
+    Name?:string;
     ProductID: number;
-    Price:string;
-    quantity:number;
-    Totalprice?:string;
+    CurrentRate:string;
+    TotalPieces:number;
+    TotalValue?:string;
 }
 
 export interface userregister{
   code:number;
   message:string;
+}
+export interface placeorder
+{
+
+  UserID:string,
+  TotalAmount:string;
+  OrderDetails:[{
+  ProductID:number,
+  TotalPieces:number,
+  CurrentRate:number,
+  TotalValue:number
+  }],
+  Addresses:[{
+      City:string,
+      Details:
+      {
+
+      }
+
+  }]
+  
 }
