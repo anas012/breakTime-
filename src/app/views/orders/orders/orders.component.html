@@ -1,41 +1,86 @@
-
- <div class="card">
-    
-    <div class="card-header d-flex">
-
-        All Orders
-        <span class="ml-auto">
-        <a
-        type="button"
-        class="btn btn-info"
-        (click)="filter.toggle($event)"
-        >Filter
-        <icon class="pi pi-filter"></icon></a
-      >
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div class="card">
+  <div class="card-header d-flex">
+    <strong>All Orders</strong>
+    <span class="ml-auto">
+      <a type="button" class="btn btn-info" (click)="filter.toggle()"
+        >Filter <icon class="pi pi-filter"></icon
+      ></a>
     </span>
-    </div>
+  </div>
 
-<p-table [value]="Details" styleClass="p-datatable-striped" [paginator]="true" [rows]="3" [showCurrentPageReport]="true" 
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[1,3,4]">
+  <p-table [value]="Allorders"  [lazy]="true" [loading]="loading" (onLazyLoad)="loadorders()" dataKey="OrderID" responsiveLayout="scroll">
     <ng-template pTemplate="header">
-        <tr>
-           
-        </tr>
+      <tr>
+        <th style="width: 3rem"></th>
+        <th>OrderID</th>
+        <th>Customer Name</th>
+        <th>Payment Method</th>
+        <th>Order Date</th>
+        <th>Biling Address</th>
+        <th>Total Bill</th>
+        <th>Actions</th>
+      </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-Details>
-        <tr>
-           
-            <!-- <td>
-                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-info"></button>
-                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
-            </td> -->
-        </tr>
+    <ng-template pTemplate="body" let-Allorder let-expanded="expanded">
+      <tr>
+        <td>
+          <button
+            type="button"
+            pButton
+            pRipple
+            [pRowToggler]="Allorder"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          ></button>
+        </td>
+        <td>{{ Allorder.OrderID }}</td>
+        <td>{{ Allorder.CreatedBy }}</td>
+        <td>{{ Allorder.PaymentMethod }}</td>
+        <td>{{ Allorder.OrderDate }}</td>
+        <td>{{ Allorder.streetaddress }}</td>
+        <td>{{ Allorder.TotalBill }}</td>
+        <td>
+          <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"></button>
+          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+        </td>
+      </tr>
     </ng-template>
-    <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    <ng-template pTemplate="rowexpansion" let-Allorders>
+      <tr>
+        <td colspan="8">
+          <div class="p-p-3">
+            <p-table [value]="Allorders.OrderDetails" dataKey="OrderID">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>ProductID</th>
+                  <th>Quantity</th>
+                  <th>Amount</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-order>
+                <tr>
+                  <td>{{ order.ProductID }}</td>
+                  <td>{{ order.TotalPieces }}</td>
+                  <td>{{ order.TotalValue }}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="6">There are no order for this product yet.</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </td>
+      </tr>
     </ng-template>
-    <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-    </ng-template>
-</p-table>
-</div> 
+  </p-table>
+</div>

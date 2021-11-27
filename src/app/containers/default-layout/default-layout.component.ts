@@ -25,7 +25,11 @@ export class DefaultLayoutComponent {
   }
   onlogout()
   {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('userid');
+    localStorage.removeItem('roleID');
+    localStorage.removeItem('name');
+    localStorage.removeItem('phone');
     this.router.navigate(['startup/mainpage'])
   }
 }

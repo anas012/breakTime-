@@ -27,8 +27,8 @@
 {
     display: flex !important;
     flex-direction: row !important;
-    flex-grow: 4 !important;
-    flex-wrap:wrap !important;
+    flex-grow: 6 !important;
+    flex-wrap:wrap!important;
     justify-content:space-around !important;
 }
 
@@ -143,11 +143,12 @@ position: fixed;
     {
     margin-top: 2rem!important;
     }
+    
     @media only screen and  (max-width: 1024px) {
       
         .style1
         {
-            margin-top: 3rem !important;
+            margin-bottom: 4rem !important;
             }
        
     }
@@ -206,3 +207,18 @@ overflow: hidden;
 {
 overflow: hidden !important;
 }
+.pic{
+margin-bottom: 150rem;   
+
+}
+.logo 
+{
+    
+    height: 50px;
+    width: 50px;
+}
+.customnav
+{
+    
+     background-color:#8B4513
+    }

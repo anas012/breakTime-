@@ -2724,11 +2724,12 @@ p {
 }
 
 .bg-half {
-  padding: 184px 0 90px;
+  padding: 70px 90px;
   background-size: cover;
   align-self: center;
   position: relative;
   background-position: center center;
+ 
 }
 
 .bg-auth-home {

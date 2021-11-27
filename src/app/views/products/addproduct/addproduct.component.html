@@ -1,0 +1,111 @@
+<p-toast
+  position="top-right"
+  styleClass="mt-2"
+  [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+  [baseZIndex]="9999"
+></p-toast>
+<div class="card">
+    <h6 class="card-header"><strong>Add new Product</strong></h6>
+<div class="card-body">
+    <form (ngSubmit)="onCreateproduct(P)" #P="ngForm">
+
+        <div class="row">
+          <div class="col">
+            <label>Select Category <span class="text-danger">*</span></label>
+            <br />
+            <p-dropdown
+              [options]="Allcat"
+              ngModel
+              name="Category"
+              [(ngModel)]="selectedCat"
+              styleClass="w-100 height"
+              placeholder="Select a Category"
+              optionLabel="Name"
+              [showClear]="true"
+              (onChange)="onchangeCat($event)"
+              required
+            ></p-dropdown>
+          </div>
+          <div class="col">
+            <label>Select SubCategory <span class="text-danger">*</span></label>
+            <br />
+            <p-dropdown
+              [tabindex]="9999999"
+              [options]="testsubcategory"
+              ngModel
+              name="subCategory"
+              [(ngModel)]="selectedsubCat"
+              styleClass="w-100 height"
+              placeholder="Select a SubCategory"
+              optionLabel="Name"
+              [showClear]="true"
+              [disabled]="disable"
+              required
+            ></p-dropdown>
+          </div>
+        </div>
+        <br />
+       
+        <div class="row">
+            <div class="col">
+                <label>Product Name <span class="text-danger">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Product name"
+                  ngModel
+                  name="Name"
+                  #prdname="ngModel"
+                  required
+                />
+                <span class="help-block" *ngIf="!prdname.valid && prdname.touched"
+                  >Please enter product name</span
+                >
+              </div>
+              <div class="col">
+                <label>Retail Price <span class="text-danger">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Retail price"
+                  ngModel
+                  name="RetailPrice"
+                  #Retail="ngModel"
+                  required
+                />
+                <span class="help-block" *ngIf="!Retail.valid && Retail.touched"
+                  >Please enter Retail Price</span
+                >
+              </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label>Purchase Price <span class="text-danger">*</span></label>
+                <input
+                  type="text"
+                  class="form-control w-50"
+                  placeholder="Enter Purchase price"
+                  ngModel
+                  name="PurchasePrice"
+                  #Purchase="ngModel"
+                  required
+                />
+                <span class="help-block" *ngIf="!Purchase.valid && Purchase.touched"
+                  >Please enter Purchase Price</span
+                >
+              </div>
+        </div>
+        <br>
+         <div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!P.valid"
+          >
+        Add Product
+          </button>
+        </div>
+      </form>
+</div>
+</div>

@@ -1,17 +1,18 @@
-<app-header
+<app-header 
   [navbarBrandRouterLink]="['/dashboard']"
   [fixed]="true"
+  class="navheight"
   [navbarBrandFull]="{
-    src: 'assets/img/brand/logo.svg',
-    width: 89,
-    height: 25,
-    alt: 'CoreUI Logo'
+    src: 'assets/img/BREAK TIME LOGO.png',
+    width: 60,
+    height: 60,
+    alt: 'BreakTime  Logo'
   }"
   [navbarBrandMinimized]="{
-    src: 'assets/img/brand/sygnet.svg',
+    src: 'assets/img/BREAK TIME LOGO.png',
     width: 30,
-    height: 30,
-    alt: 'CoreUI Logo'
+    height: 40,
+    alt: 'BreakTime Logo'
   }"
   [sidebarToggler]="'lg'"
   [asideMenuToggler]="'lg'"
@@ -22,7 +23,7 @@
   </ul>
   
 </app-header>
-<div class="app-body">
+<div class="app-body h">
   <app-sidebar 
     #appSidebar
     [fixed]="true"

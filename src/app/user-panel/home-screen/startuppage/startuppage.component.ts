@@ -1,5 +1,5 @@
 import { ClassField } from "@angular/compiler";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import { cart, catgories, Items, subcatgories } from "../../../Models/usermodel";
@@ -8,6 +8,7 @@ import { AuthserviceService } from "../../../services/authservice.service";
   selector: "app-startuppage",
   templateUrl: "./startuppage.component.html",
   styleUrls: ["./startuppage.component.scss"],
+  encapsulation:ViewEncapsulation.None
 })
 export class StartuppageComponent implements OnInit {
   items: MenuItem[];

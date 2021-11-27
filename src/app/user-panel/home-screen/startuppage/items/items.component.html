@@ -1,69 +1,95 @@
-
 <p-breadcrumb [model]="items" styleClass="breadcrumb"></p-breadcrumb>
 
 <div class="card">
   <h5 class="card-header">Items</h5>
-  <div class="card-body" >
-    
-     <div class="row" *ngIf="loader">
-       <div class="col-sm-4">
-       
-              <div class="custom-skeleton p-p-4">
-                  <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
-                  <div class="p-d-flex p-jc-between p-mt-3">
-                      <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
-                      <p-skeleton styleClass="w-50 mb-1" ></p-skeleton>
-                      <p-skeleton styleClass="w-25 mb-1" ></p-skeleton>
-                  </div>
-              </div>   
-     </div>
-     <div class="col-sm-4">
-       
-      <div class="custom-skeleton p-p-4">
+  <div class="card-body">
+    <div class="row" *ngIf="loader">
+      <div class="col-sm-4">
+        <div class="custom-skeleton p-p-4">
           <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
           <div class="p-d-flex p-jc-between p-mt-3">
-              <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
-              <p-skeleton styleClass="w-50 mb-1" ></p-skeleton>
-              <p-skeleton styleClass="w-25 mb-1" ></p-skeleton>
+            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+            <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
           </div>
-      </div>
-</div>
-<div class="col-sm-4">
-       
-  <div class="custom-skeleton p-p-4">
-      <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
-      <div class="p-d-flex p-jc-between p-mt-3">
-          <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
-          <p-skeleton styleClass="w-50 mb-1" ></p-skeleton>
-          <p-skeleton styleClass="w-25 mb-1" ></p-skeleton>
-      </div>
-  </div>
-
-
-</div>
-       </div>
- 
-<div class="row" *ngIf="!loader">
-<div class="col-sm-4" *ngFor="let i of prditems">
-<div class="card style">
-  
-    <img src="../../../assets/img/burger.jfif" class="card-img-top" alt="...">
-    <div class="card-body">
-     
-      <h5 class="card-title">{{i.Name}}</h5>
-      <p class="card-text"><b>Rs {{i.RetailPrice}}</b></p>
-     <div class="d-flex justify-content-center">
-       <button href="#"  (click)="Addtocart(i.ProductID,i.RetailPrice,i.Name)"  class="btn btn-danger">Add To cart</button> 
-      <!-- <p-inputNumber *ngIf="cart" [(ngModel)]="" [min]="0" [max]="3" (onInput)="onQuntityadd(i.ProductID)" inputStyleClass="w-25" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
-      decrementButtonClass="p-button-danger" (onInput)="input($event)" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
-      </p-inputNumber>       -->
         </div>
       </div>
-  
+      <div class="col-sm-4">
+        <div class="custom-skeleton p-p-4">
+          <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
+          <div class="p-d-flex p-jc-between p-mt-3">
+            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+            <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="custom-skeleton p-p-4">
+          <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
+          <div class="p-d-flex p-jc-between p-mt-3">
+            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+            <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!loader&&isitems">
+      <div class="col-sm-4" *ngFor="let i of prditems">
+        <div class="card style">
+          <img
+            src="../../../assets/img/burger.jfif"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ i.Name }}</h5>
+            <p class="card-text">
+              <b>Rs {{ i.RetailPrice }}</b>
+            </p>
+            <div class="d-flex justify-content-center">
+             <button *ngIf="i.addcart" (click)="Addcart(i.Name,i.ProductID,i.RetailPrice,i.quantity,i.addcart)"  class="btn btn-danger">Add To cart</button>  
+              <p-inputNumber
+              *ngIf="!i.addcart"
+                [(ngModel)]="i.quantity"
+                [min]="0"
+                [max]="3"
+                (onInput)="onproductadd(i.ProductID,i.RetailPrice,i.Name,i.quantity,i.addcart)"
+                inputStyleClass="w-25"
+                [showButtons]="true"
+                 buttonLayout="horizontal"
+                inputId="horizontal"
+                spinnerMode="horizontal"
+                [step]="1"
+                decrementButtonClass="p-button-danger"
+                incrementButtonClass="p-button-success"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                (onFocus)="onfocus($event)"
+                (onBlur)="onblur($event)"
+              >
+              </p-inputNumber>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="alert alert-primary" style="height: 3rem;"  role="alert" *ngIf="!isitems">
+   <p>No items found
+   
+   </p> 
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
-
 </div>
-
-</div>
-</div>
-</div>
+<!-- <pre>
+  {{this.prditems|json}} 
+</pre> -->

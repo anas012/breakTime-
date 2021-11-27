@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -7,6 +7,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UserPanelModule } from './user-panel/user-panel.module';
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
 import { DropdownModule } from 'primeng/dropdown';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -27,6 +28,7 @@ import {
   AppHeaderModule,
   AppFooterModule,
   AppSidebarModule,
+  
 } from '@coreui/angular';
 
 // Import routing module
@@ -37,7 +39,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { OrdersModule } from './views/orders/orders.module';
-import { ItemsModule } from './views/items/items.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorserviceService } from './services/interceptor.service';
 import { ButtonModule } from 'primeng/button';
@@ -59,7 +60,6 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     IconModule,
     UserPanelModule,
     OrdersModule,
-    ItemsModule,
     HttpClientModule,
     DropdownModule,
     ButtonModule,
@@ -86,6 +86,10 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     IconSetService,
   ],
   bootstrap: [ AppComponent ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ],
   exports: [
 
   

@@ -1,5 +1,5 @@
 <p-toast position="top-right"  [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}" [baseZIndex]="9999" styleClass="mt-2"></p-toast>
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg customnav">
   <ul class="navbar-nav temp">
     <li>
       <button
@@ -14,16 +14,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </li>
-    <li class="nav-item">
-      <a class="navbar-brand float-right" href="#">Break Time</a>
+    <li class="nav-item d-flex align-items-sm-start">
+      <a class="navbar-brand"><img src="../../../assets/img/BREAK TIME LOGO.png" class="logo"/></a>
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <button class="btn btn-light ml-2 mr-3">Deliver At</button>
-    </li>
+    </li> -->
     <li>
       <form class="form-inline my-2 my-lg-0">
         <input
-          class="form-control"
+          class="form-control mt-2"
           type="search"
           placeholder="Search"
           aria-label="Search"
@@ -38,7 +38,7 @@
         type="button"
         icon="pi pi-user"
         (click)="UserLogin.toggle($event)"
-        class="p-button-rounded p-button-info"
+        class="p-button-rounded p-button-info mt-2"
       ></button>
 
       <button
@@ -48,7 +48,7 @@
         type="button"
         icon="pi pi-user"
         (click)="UserAccount.toggle($event)"
-        class="p-button-rounded p-button-info"
+        class="p-button-rounded p-button-info mt-2"
       ></button>
 
       <button class="btn btn-sm radius" (click)="cartsidebar = true" (click)="cart()">
@@ -56,7 +56,7 @@
 
         <p-badge
           *ngIf="badgealert"
-          [value]="badgevalue"
+          [value]="cartvalue"
           severity="danger"
         ></p-badge>
       </button>
@@ -75,6 +75,8 @@
 <br />
 <br />
 <br />
+<br />
+
 <div class="container-fluid">
 <router-outlet></router-outlet>
 </div>
@@ -138,13 +140,22 @@
     </div>
     <br/>
   </div>
-
-  <div class="containerfluid">
+  <div *ngIf="!carthasitem">
+    <br>
+    <br>
+    <br>
+    <img src="../../../assets/img/cart.png" class="ml-4 mt-5">
+    <p class="text-center mt-1"><strong>Oops!No Items in Your Cart</strong></p>
+    <br>
+    <br>
+    <br>
+  </div>
+  <div class="containerfluid" *ngIf="carthasitem">
     <p-scrollPanel [style]="{width: '100%', height: '400px'}"  styleClass="custombar1">
     <div *ngFor="let items of arrayofitems">
     <div class="row">
       <div class="justify-content-end ml-auto mr-3">
-        <button class="btn btn-sm ml-auto crossbtn">
+        <button (click)="ondeleteitem(items.ProductID)" class="btn btn-sm ml-auto crossbtn">
           <icon class="pi pi-times"></icon>
         </button>
       </div>
@@ -163,30 +174,58 @@
      
      
     </div>
+    <div class="ml-3"> 
+      <span >
+      <p-inputNumber
+      [(ngModel)]="items.TotalPieces"
+      [min]="1"
+      [max]="3"
+      (onInput)="oneditcart(items.ProductID,items.Name,items.TotalPieces,items.CurrentRate)"
+      inputStyleClass="w-25"
+      [showButtons]="true"
+      buttonLayout="horizontal"
+      inputId="horizontal"
+      spinnerMode="horizontal"
+      [step]="1"
+      decrementButtonClass="p-button-danger"
+      incrementButtonClass="p-button-success"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+
+    >
+    </p-inputNumber>
+  </span>
+    </div>
     <hr />
 
   
     </div>
     </p-scrollPanel>
+    
   </div>
-  <div class="containerfluid"  *ngIf="islogin">
+  
+  <div class="containerfluid" *ngIf="islogin">
+    <br>
     <div class="row">
       <h6 class="ml-3 font-weight-bold mt-1">SubTotal</h6>
       <p class="ml-1">(inclusive of all taxes)</p>
       <span class="ml-auto font-weight-bold mr-3">Rs {{subtotal}}</span>
     </div>
-    <div class="d-flex justify-content-center style1">
+    <div class="d-flex justify-content-center">
+   <br>
+      <button class="btn btn-danger w-100" [disabled]="disable" (click)="proccedtocheckout()" (click)="cartsidebar=false">Proceed To Checkout</button>
    
-      <br>
-      <button class="btn btn-danger w-100" (click)="proccedtocheckout()" (click)="cartsidebar=false">Proceed To Checkout</button>
     </div>
+    <br>
+ 
+   
   </div>
   <div class="containerfluid"  *ngIf="!islogin">
    
     <div class="d-flex justify-content-center style1">
    
       <br>
-      <button class="btn btn-danger w-100" (click)="showloginmodal()" (click)="cartsidebar=false">Login/Signup</button>
+      <button class="btn btn-danger w-100 mt-5" (click)="showloginmodal()" (click)="cartsidebar=false">Login/Signup</button>
     </div>
   </div>
 </p-sidebar>

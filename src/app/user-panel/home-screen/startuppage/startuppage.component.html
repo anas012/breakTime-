@@ -5,10 +5,11 @@
        <h5 class="card-header text-dark ">
         Categories</h5>
             
-     
-           <p-tieredMenu *ngIf="sign" styleClass="w-100" [autoDisplay]="false"  #menu [model]="items"></p-tieredMenu>
-     
-          
+      <!-- <p-scrollPanel [style]="{height: '100px'}" > -->
+         
+           <p-tieredMenu [baseZIndex]="99999"  *ngIf="sign" styleClass="w-100" [autoDisplay]="false"  #menu [model]="items"></p-tieredMenu>
+   <!-- </p-scrollPanel> -->
+
 
 </div>
 

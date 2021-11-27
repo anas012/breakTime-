@@ -17,15 +17,24 @@ export const navItems: INavData[] = [
   },
  
   {
-    name: "Items",
-    url: "/main/items",
+    name: "Products",
+    url: "/main/products",
     icon: "icon-speedometer",
+  children:[
+    {
+      name:'Add products',
+      url:"/main/products/addprd",
+      icon: "icon-speedometer"
+    },
+    {
+      name:'All products',
+      url:"/main/products/allprd",
+      icon: "icon-speedometer"
+    }
+  ]
+  
   },
-  {
-    name: "Add Items",
-    url: "/main/Additems",
-    icon: "icon-speedometer",
-  },
+
   {
     name: "Category",
     url: "/main/cat",

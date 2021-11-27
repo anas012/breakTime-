@@ -1,11 +1,6 @@
 import { StringLiteralLike } from "typescript";
+import { items } from "./items";
 
-export interface cartdetails {
-  Name: string;
-  image: string;
-  price: number;
-  total: number;
-}
 
 export interface order {
   UserID: number;
@@ -59,22 +54,23 @@ export interface subcatgories {
 }
 
 export interface Items {
-  
-  
-    Name: string;
+
+  Name: string;
   ProductID: number;
   PurchasePrice: string;
   RetailPrice: string;
   SubCategoryID: string;
-    
+  quantity:string;
+  addcart:boolean;
 }
 export interface cart 
 {
-    Name?:string;
+     Name?:string;
     ProductID: number;
     CurrentRate:string;
     TotalPieces:number;
     TotalValue?:string;
+    status?:boolean;
 }
 
 export interface userregister{
@@ -101,4 +97,7 @@ export interface placeorder
 
   }]
   
+}
+export interface item {
+item:items[];
 }

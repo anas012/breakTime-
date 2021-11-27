@@ -1,0 +1,110 @@
+<p-toast
+  position="top-right"
+  styleClass="mt-2"
+  [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+  [baseZIndex]="9999"
+></p-toast>
+<div class="card">
+  <div class="card-header d-flex">
+    <strong> All Items</strong>
+
+    <span class="ml-auto">
+      <a type="button" class="btn btn-info" (click)="filter.toggle($event)"
+        >Filter <icon class="pi pi-filter"></icon
+      ></a>
+    </span>
+  </div>
+
+  <p-table
+    [value]="Allprd"
+    styleClass="p-datatable-striped"
+    [paginator]="true"
+    [rows]="3"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[1, 3, 4]"
+    [lazy]="true" [loading]="loading" (onLazyLoad)="loadproducts()"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Product Id</th>
+        <th>Product Name</th>
+        <th>Retail Price</th>
+        <th>Purchase Price</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-Allprd>
+      <tr>
+        <td>{{ Allprd.ProductID }}</td>
+        <td>{{ Allprd.Name }}</td>
+        <td>{{ Allprd.RetailPrice }}</td>
+        <td>{{ Allprd.PurchasePrice }}</td>
+
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-pencil"
+            (click)="Onupdateprd(Allprd.ProductID)"
+            class="p-button-rounded p-button-info"
+          ></button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-trash"
+            (click)="Ondeleteprd(Allprd.ProductID)"
+            class="p-button-rounded p-button-danger"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft"> </ng-template>
+    <ng-template pTemplate="paginatorright"> </ng-template>
+  </p-table>
+</div>
+
+<!--Filter-->
+<p-overlayPanel #filter>
+  <ng-template pTemplate>
+    <p>Categorey</p>
+    <p-dropdown
+      styleClass="highlight-green w-100"
+      [options]="Allcat"
+      [(ngModel)]="selectedCat"
+      [showClear]="false"
+      optionLabel="Name"
+      name="Category"
+      ngModel
+      name="Category"
+      (onChange)="onchangeCat($event)"
+      placeholder="Select a Category"
+      #category="ngModel"
+      required
+    ></p-dropdown>
+
+    <br />
+    <br />
+    <p>Sub category</p>
+    <p-dropdown
+      styleClass="highlight-green w-100"
+      [options]="testsubcategory"
+      [(ngModel)]="selectedsubcat"
+      [showClear]="false"
+      optionLabel="Name"
+      name="subCategory"
+      ngModel
+      name="subCategory"
+      [disabled]="disable"
+      placeholder="Select a sub Category"
+      #subcategory="ngModel"
+      required
+    ></p-dropdown>
+    <button (click)="op.hide()" class="btn btn-sm btn-danger m-3">
+      Cancel
+    </button>
+    <button class="btn btn-sm btn-primary m-3">Apply</button>
+  </ng-template>
+</p-overlayPanel>

@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
 import { AdminauthGuard } from './shared/adminauth.guard';
 import { AuthGuard } from './shared/auth.guard';
-import { HomeScreenComponent } from './user-panel/home-screen/home-screen.component';
 
 
 export const routes: Routes = [
@@ -29,13 +28,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/orders/orders.module').then(m => m.OrdersModule)
         ,canActivate:[AuthGuard,AdminauthGuard] },
       {
-        path: 'items',
-        loadChildren: () => import('./views/items/items.module').then(m => m.ItemsModule)
+        path: 'products',
+        loadChildren: () => import('./views/products/products.module').then(m => m.ProductsModule)
       ,canActivate:[AuthGuard,AdminauthGuard]},
-      {
-        path: 'Additems',
-        loadChildren: () => import('./views/additems/additems.module').then(m => m.AdditemsModule)
-      ,canActivate:[AuthGuard,AdminauthGuard]},
+     
       {
         path: 'cat',
         loadChildren: () => import('./views/crud-cat-subcat/crud-cat-subcat.module').then(m => m.CrudCatSubcatModule)

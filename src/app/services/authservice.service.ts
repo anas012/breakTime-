@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { cart } from "../Models/usermodel";
 
 @Injectable({
@@ -10,8 +11,13 @@ export class AuthserviceService {
   Allcat: any;
   ALLsubcat: any;
   Allprd: any;
-  arrayitems:cart[]=[];
-  userregister:any;
+  arrayitems: cart[] = [];
+  userregister: any;
+  items: any[] = [];
+  custom$: any;
+  arr: any[];
+  data: any[];
+  temparray: cart[];
   BASE_URL = "https://breaktime1.herokuapp.com/";
   constructor(private httpdata: HttpClient) {}
 
@@ -27,29 +33,33 @@ export class AuthserviceService {
       .toPromise();
     return this.Allprd;
   }
-  login(user:any)
-  {
-    return this.httpdata.post(this.BASE_URL + 'v1/auth/login',user);
+  login(user: any) {
+    return this.httpdata.post(this.BASE_URL + "v1/auth/login", user);
   }
 
-  register(user:any)
-  {
-    return this.httpdata.post(this.BASE_URL + 'v1/auth/register',user);
+  register(user: any) {
+    return this.httpdata.post(this.BASE_URL + "v1/auth/register", user);
   }
-  storeitemsarray(array:cart[])
-  {   
-    for(let i=0;i<array.length;i++)
-    {
-      this.arrayitems[i]=array[i];
-    }
-     
-  }
-  getitemsarray()
-  {
-    return this.arrayitems;
-  }
+
   authcheck() {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem("token");
   }
-  
+
+  private _products: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public readonly products: Observable<any> = this._products.asObservable();
+
+  storeitems(array: any) {
+    localStorage.setItem("items array", JSON.stringify(array));
+
+    this.data = JSON.parse(localStorage.getItem("items array"));
+    this._products.next(this.data);
+  }
+  storetemitems(array: cart[]) {
+    localStorage.setItem("items array temp", JSON.stringify(array));
+  }
+  getitems() {
+    return localStorage.getItem("items array");
+  }
+
+ 
 }

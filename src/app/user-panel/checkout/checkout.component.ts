@@ -4,9 +4,11 @@ import { bilingdetails, cart, placeorder } from '../../Models/usermodel';
 import {MessageService} from 'primeng/api';
 import { AuthserviceService } from '../../services/authservice.service';
 import { AuthorizedService } from '../../services/authorized.service';
-
-
-
+import { createorder } from '../../Models/adminmodel';
+import { cilAddressBook } from '@coreui/icons';
+import { AdminService } from '../../services/admin.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { OrderDetails } from '../../Models/Orderdetails';
 
 @Component({
   selector: 'app-checkout',
@@ -23,7 +25,17 @@ ShipChrges:number;
 addrflag=false;
 order:placeorder;
 userid:string;
-  constructor(private messageService: MessageService,private auth:AuthserviceService,private authorized:AuthorizedService) {}
+paymentsmethod = ['Cash on Delivery'];
+array:any[]=[];
+productdetails:any[]=[];
+city:string;
+summary:string;
+message:string;
+orderconfirmmodal=false;
+messagee:string;
+header:string;
+temp:[]=[];
+  constructor(private messageService: MessageService,private auth:AuthserviceService,private authorized:AuthorizedService,private adminser:AdminService) {}
 
   ngOnInit(): void {
     this.getitems();
@@ -36,10 +48,12 @@ if (!form.valid)
 }
 else
 {
-  console.log('fun called')
+ // console.log('fun called')
 var c =this.bilingaddress(form)
-console.log(c);
-this.showbilladressAdd();
+//console.log(c);
+this.summary="Success";
+this.message="Biling Address Added Successfully.Click To Place Order"
+this.showSuccess();
 this.addrflag=true;
 }
   }
@@ -58,21 +72,35 @@ this.addrflag=true;
       email:form.value.email,
       city:form.value.city
     }
+   this.city=address.city;
+    this.array.push(address);
+    
     return address
   }
-  showbilladressAdd() {
-    this.messageService.add({severity:'success', summary: 'Billing Address Added', detail: 'Billing address Added Succesfully! Click to place Order'});
-}
+ 
 getitems()
 {
-  this.itemsarray=this.auth.getitemsarray();
-  this.totalitems=this.itemsarray.length;
+  this.itemsarray=JSON.parse(this.auth.getitems());
+ // console.log("item array",this.itemsarray);
+ 
+  if(this.itemsarray!=null)
+  {
+   this.totalitems=this.itemsarray.length;
   this.calculatetotal();
-  console.log(this.itemsarray);
+  }
+  else 
+  {
+    this.ShipChrges=0;
+    this.Subtotal=0;
+
+  }
+  //console.log(this.itemsarray);
 }
 
 calculatetotal()
 {
+  if(this.itemsarray.length!=null)
+  {
   let sum=0;
   for (let i=0;i<this.itemsarray.length;i++)
   {
@@ -83,36 +111,82 @@ calculatetotal()
   this.Subtotal=sum;
   this.ShipChrges=0;
 }
+else 
+{
+  this.Subtotal=0;
+  this.ShipChrges=0;
 
-onplaceorder()
+}
+}
+
+onplaceorder(form:NgForm)
 {
   if (this.addrflag===false)
   {
-    this.showadressError()
+    this.summary='Error';
+    this.message="Add a Biling Address";
+    this.showError()
   }
+
   else 
   {
+    if(this.Subtotal==0)
+    {
+      this.orderconfirmmodal=true;
+      this.messagee="Nothing In Cart To Place Order!! Shop To Place Order"
+      this.header="Error";
+    }
+    if(this.Subtotal!=0) 
+    {
+    var a =this.Userorder(form);
     
+    this.adminser.createorder(a).subscribe(res=>
+      {
+
+        this.header="Order Confirmed";
+         this.messagee="Order Submitted Successfully.Thankyou For shopping!!";
+         this.orderconfirmmodal=true;
+        // localStorage.setItem('items array',null);
+      // localStorage.removeItem('items array');
+       localStorage.setItem('cartcount',"0");
+      this.temp=[] 
+      this.auth.storeitems(this.temp);
+       // localStorage.setItem('cartcount',null);
+      },(error:HttpErrorResponse)=>
+      {
+        console.log(error);
+        this.summary="Error";
+        this.message=error.error['Status'].message;
+        this.showError();
+      })
+    }
   }
 }
 
 
-showadressError() {
-  this.messageService.add({severity:'error', summary: 'Biling Address not Added', detail: 'Please add the biling address'});
+showError() {
+  this.messageService.add({severity:'error', summary: this.summary, detail: this.message});
+}
+showSuccess() {
+  this.messageService.add({severity:'success', summary: this.summary, detail: this.message});
 }
 
-Userorder()
+Userorder(form:NgForm)
 {
-  this.userid=this.authorized.getuserid();
-//   const order:placeorder=
-// {
-// UserID:this.userid,
-// TotalAmount:this.Subtotal.toString(),
-// OrderDetails:
-// {
-  
-// }
-
-// }
+ const user:createorder=
+ {
+  UserID:this.authorized.getuserid().toString(),
+  PaymentMethod:form.value.paymentsmethod,
+  TotalBill:this.Subtotal.toString(),
+  OrderDetails:this.itemsarray,
+  Addresses:
+  {
+    City:this.city,
+    Details:this.array
+  }
+ }
+ return user;
 }
+
+
 }

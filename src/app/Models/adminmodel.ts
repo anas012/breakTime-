@@ -1,3 +1,6 @@
+
+import { Address, getAddress } from "./Adressdetails";
+import { OrderDetails } from "./Orderdetails";
 export interface cartdetails {
   productId: number;
   Name: string;
@@ -27,3 +30,55 @@ export interface subcat{
     SubCategoryID:string;
     Name:string;
 }
+export interface newprd
+{
+  Name:string;
+  RetailPrice:string;
+  PurcahsePrice:string;
+  SubCategoryID:string;
+
+}
+export interface Allprdoducts
+{
+  ProductID:string;
+  Name:string;
+  RetailPrice:string;
+  PurchasePrice:string;
+  SubCategoryID:string;
+}
+export interface createorder
+{
+  UserID:string;
+  PaymentMethod:string;
+  TotalBill:string;
+  OrderDetails:any[],
+  Addresses:
+  {
+    City:string;
+    Details:Address[];
+  }
+}
+export interface AllOrders
+{
+  Addresses:
+  [
+    {
+      City:string;
+      Details:getAddress[];
+    }
+  ],
+  OrderID: string;
+  OrderDate: string;
+  OrderDetails:OrderDetails[],
+  PaymentMethod:string;
+  TotalBill: string;
+  streetaddress:string;
+  CreatedBy:string;
+}
+
+export interface homeaddress
+{
+  streetaddress:string;
+
+}
+

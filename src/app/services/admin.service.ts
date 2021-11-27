@@ -8,7 +8,10 @@ export class AdminService {
 Allcat:any;
 Allsubcat:any;
 Role:string;
+Allprd:any;
+Allorder:any;
 BASE_URL = "https://breaktime1.herokuapp.com/";
+//BASE_URL="http://192.168.31.142:3000/";
   constructor(private httpdata:HttpClient) { }
 
 
@@ -47,5 +50,29 @@ deletecat(id:string)
 deletesubcat(id:string)
 {
   return this.httpdata.patch(this.BASE_URL+`v1/subcategory/${id}`,null);
+}
+
+createPrd(data:any)
+{
+  return this.httpdata.post(this.BASE_URL +'v1/Product',data);
+}
+
+async getAllprd()
+{
+this.Allprd=await this.httpdata.get(this.BASE_URL+'v1/Product').toPromise();
+return this.Allprd;
+}
+deletePrd(id:string)
+{
+  return this.httpdata.patch(this.BASE_URL +`v1/Product/${id}`,null);
+}
+createorder(data:any)
+{
+  return this.httpdata.post(this.BASE_URL +"v1/order",data);
+}
+async getAllorder()
+{
+ this.Allorder=await this.httpdata.get(this.BASE_URL +'v1/order').toPromise();
+ return this.Allorder;
 }
 }
