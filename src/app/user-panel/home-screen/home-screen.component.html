@@ -51,7 +51,7 @@
         class="p-button-rounded p-button-info mt-2"
       ></button>
 
-      <button class="btn btn-sm radius" (click)="cartsidebar = true" (click)="cart()">
+      <button class="btn btn-sm radius" (click)="cart()">
         <img src="../../../assets/icons/cart.svg" class="icon" />
 
         <p-badge
@@ -122,7 +122,6 @@
   styleClass="sidebarr"
   position="right"
   [baseZIndex]="50"
-  [(visible)]="cartsidebar"
   [blockScroll]="true"
 >
   <div class="containerfluid">
@@ -132,7 +131,6 @@
 
       <button
         type="button"
-        (click)="cartsidebar = false"
         class="btn btn-sm btn-light ml-auto btnstyle"
       >
         <icon class="pi pi-times"></icon>
