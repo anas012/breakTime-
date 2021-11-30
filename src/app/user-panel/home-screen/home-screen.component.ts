@@ -137,7 +137,7 @@ export class HomeScreenComponent implements OnInit {
     else {
       this.loginmodal = false;
       var c = this.userlogin(form);
-
+      console.log(c);
       this.auth.login(c).subscribe(
         (res: logedin) => {
           this.userdata = res["Data"]["data"];
@@ -206,20 +206,29 @@ export class HomeScreenComponent implements OnInit {
   }
 
   userRegister(form: NgForm) {
-    const user: register = {
+    const Data: register = {
       Phone: this.country + form.value.phone,
       Password: form.value.password,
       Email: form.value.email,
       Name: form.value.name,
     };
+
+    var user=
+    {
+      Data
+    }
     return user;
   }
 
   userlogin(form: NgForm) {
-    const user: login = {
+    const Data: login = {
       Email: form.value.email,
       Password: form.value.password,
     };
+    var user=
+    {
+      Data
+    }
     return user;
   }
   cart() {

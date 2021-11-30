@@ -48,13 +48,18 @@ export class SearcheditemComponent implements OnInit {
   
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
+      this.isitems=true;
       this.searchitem= params.get("searchitem");
          console.log(this.searchitem);
-         if(this.searchitem)
+         if(this.searchitem!="")
          {
            this.getAllprd(this.searchitem)
          }
-      
+      else 
+      {
+      this.isitems=false;
+      this.loader=false;
+      }
       
     });
      this.OnItemsupdate();
@@ -67,6 +72,7 @@ async getAllprd(searchitem)
     this.loader=true;
     this.chkflg = false;
     this.flagg = false;
+ 
     const res: Items = await this.auth.getAllProducts(this.pageno);
      console.log("search products",res);
     this.prditems = res["Data"]["data"];
@@ -230,6 +236,7 @@ async getAllprd(searchitem)
         }
       }
     }
+    
     this.loader = false;
   } catch (error) {
     this.loader=false;
