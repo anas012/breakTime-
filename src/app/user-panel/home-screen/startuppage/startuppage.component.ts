@@ -39,7 +39,7 @@ cart:boolean;
       const res:catgories = await this.auth.getAllCategories();
       //console.log(res);
       this.category = res["Data"]["data"];
-     // console.log(this.category);
+    //  console.log("all cat",this.category);
       for (let i = 0; i < this.category.length; i++) {
         this.items.push({ label: this.category[i].Name, items: [] });
 

@@ -18,7 +18,7 @@ import { AuthserviceService } from "../../../../services/authservice.service";
   encapsulation: ViewEncapsulation.None,
 })
 export class ItemsComponent implements OnInit {
-  private items: MenuItem[];
+  public items: MenuItem[];
   addtocart = true;
   cart: boolean;
   id: string;
@@ -74,6 +74,7 @@ export class ItemsComponent implements OnInit {
       this.flagg = false;
       const res: Items = await this.auth.getproducts(id);
       this.prditems = res["Data"]["data"]["Products"];
+     
       this.chkflg = true;
       if (this.prditems.length === 0) {
         this.isitems = false;

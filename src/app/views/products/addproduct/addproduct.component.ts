@@ -4,7 +4,7 @@ import { newprd, subcat } from '../../../Models/adminmodel';
 import { catgories } from '../../../Models/usermodel';
 import { AdminService } from '../../../services/admin.service';
 import { NgForm } from '@angular/forms';
-import { cibLogstash } from '@coreui/icons';
+
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-addproduct',
@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   providers:[MessageService],
   encapsulation:ViewEncapsulation.None
 })
+
 export class AddproductComponent implements OnInit {
   Allcat: catgories[];
   summary: string;

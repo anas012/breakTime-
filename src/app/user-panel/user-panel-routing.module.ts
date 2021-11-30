@@ -5,19 +5,21 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { ItemsComponent } from './home-screen/startuppage/items/items.component';
 import { MainpageComponent } from './home-screen/startuppage/mainpage/mainpage.component';
+import { SearcheditemComponent } from './home-screen/startuppage/searcheditem/searcheditem.component';
 import { StartuppageComponent } from './home-screen/startuppage/startuppage.component';
+
 
 
 const routes: Routes = [
 {path:'',component:HomeScreenComponent,
 children:[
   {path:'checkout',component:CheckoutComponent,canActivate:[AuthGuard]},
- 
 
 {path:'startup',component:StartuppageComponent,
 children:[
    {path:'mainpage',component:MainpageComponent},
-  {path:'items/:id',component:ItemsComponent}
+  {path:'items/:id',component:ItemsComponent},
+   {path:'searcheditem/:searchitem',component:SearcheditemComponent}
 ]
 
 },

@@ -24,6 +24,8 @@ import {StartuppageComponent } from './home-screen/startuppage/startuppage.compo
 import {MainpageComponent } from './home-screen/startuppage/mainpage/mainpage.component';
 import {SkeletonModule} from 'primeng/skeleton';
 import {DropdownModule} from 'primeng/dropdown';
+import {PaginatorModule} from 'primeng/paginator';
+import { SearcheditemComponent } from './home-screen/startuppage/searcheditem/searcheditem.component';
 @NgModule({
   declarations: [
     HomeScreenComponent,
@@ -31,6 +33,8 @@ import {DropdownModule} from 'primeng/dropdown';
     ItemsComponent,
     StartuppageComponent,
     MainpageComponent,
+    SearcheditemComponent,
+  
 
   ],
   imports: [
@@ -53,7 +57,8 @@ import {DropdownModule} from 'primeng/dropdown';
     PasswordModule,
     ToastModule,
     SkeletonModule,
-    DropdownModule
+    DropdownModule,
+    PaginatorModule
     
 
   ],
@@ -63,6 +68,8 @@ import {DropdownModule} from 'primeng/dropdown';
     ItemsComponent,
     StartuppageComponent,
     MainpageComponent,
+    SearcheditemComponent,
+    
 
   ],
   schemas: [

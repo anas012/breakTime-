@@ -101,3 +101,13 @@ export interface placeorder
 export interface item {
 item:items[];
 }
+
+export interface PageInfo
+{
+  hasNextPage:boolean;
+  hasPreviousPage:boolean;
+  lastPage:string;
+  nextPage: string;
+  previousPage:string;
+  totalProducts:string;
+}

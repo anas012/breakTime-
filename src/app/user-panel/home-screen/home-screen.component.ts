@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, Injectable, OnInit, ViewEncapsulation } from "@angular/core";
 import { MegaMenuItem, MenuItem, MessageService } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgForm } from "@angular/forms";
@@ -45,6 +45,7 @@ export class HomeScreenComponent implements OnInit {
   badgealert=false;
   productsubscription;
   data2;
+  cartsidebar:boolean;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -222,7 +223,7 @@ export class HomeScreenComponent implements OnInit {
     return user;
   }
   cart() {
-    
+     this.cartsidebar=true;
       this.arrayofitems = JSON.parse(this.auth.getitems());
       //console.log("cart fun called")
       if(this.arrayofitems!=null)
@@ -242,7 +243,10 @@ export class HomeScreenComponent implements OnInit {
     
   
   }
-
+  cartsidebarclose()
+  {
+    this.cartsidebar=false;
+  }
   checkitemscount()
   {
     this.productsubscription=this.auth.products.subscribe((data)=>
@@ -318,6 +322,12 @@ for(let i=0;i<this.arrayofitems.length;i++)
 
 this.auth.storeitems(this.arrayofitems);
 this.calculatetotal();
+}
+
+onSearch(form:NgForm)
+{
+  var searchitem=form.value.search;
+ this.router.navigate(['startup/searcheditem',searchitem]);
 }
 }
 

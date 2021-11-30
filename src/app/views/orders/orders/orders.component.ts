@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { LazyLoadEvent } from 'primeng/api';
 import { AllOrders, homeaddress, ordersdetails } from '../../../Models/adminmodel';
 import { AdminService } from '../../../services/admin.service';
 

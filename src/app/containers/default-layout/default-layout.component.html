@@ -1,22 +1,26 @@
 <app-header 
-  [navbarBrandRouterLink]="['/dashboard']"
   [fixed]="true"
   class="navheight"
+  class="img-fluid"
+  [sidebarToggler]="'lg'"
+  [asideMenuToggler]="'lg'"
   [navbarBrandFull]="{
     src: 'assets/img/BREAK TIME LOGO.png',
     width: 60,
     height: 60,
+    class:'img-fluid',
     alt: 'BreakTime  Logo'
   }"
   [navbarBrandMinimized]="{
     src: 'assets/img/BREAK TIME LOGO.png',
     width: 30,
     height: 40,
+    class:'img-fluid',
     alt: 'BreakTime Logo'
   }"
-  [sidebarToggler]="'lg'"
-  [asideMenuToggler]="'lg'"
+
 >
+
 <ul class="nav navbar-nav ml-auto">
   <li class="nav-item d-md-down-none">
   </li>
@@ -57,7 +61,7 @@
           <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Welcome, {{adminname}}</div>
       
           <ul class="navbar-nav">   
-            <!-- <li><a class="dropdown-item" style="cursor: pointer;" type="button" (click)="onlogout()" (click)="adminAccount.hide($event)">Signout</a></li> -->
+            <li><a class="dropdown-item" style="cursor: pointer;" type="button" (click)="onlogout()">Signout</a></li>
           </ul>
           
        

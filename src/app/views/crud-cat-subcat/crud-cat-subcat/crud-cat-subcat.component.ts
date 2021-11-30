@@ -13,6 +13,7 @@ import { AdminService } from '../../../services/admin.service';
   providers:[MessageService],
  encapsulation:ViewEncapsulation.None
 })
+
 export class CrudCatSubcatComponent implements OnInit {
 Allcat:category[];
 Allsubcat:subcat[];

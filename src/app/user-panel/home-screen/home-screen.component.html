@@ -21,13 +21,17 @@
       <button class="btn btn-light ml-2 mr-3">Deliver At</button>
     </li> -->
     <li>
-      <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0"  (ngSubmit)="onSearch(S)" #S="ngForm" >
         <input
           class="form-control mt-2"
-          type="search"
-          placeholder="Search"
+          type="text"
+          placeholder="Search items"
           aria-label="Search"
+          name="search"
+          ngModel
+          name="search"
         />
+        <button class="btn btn-danger btn-sm ml-2 mt-2">Search</button>
       </form>
     </li>
     <li>
@@ -122,6 +126,7 @@
   styleClass="sidebarr"
   position="right"
   [baseZIndex]="50"
+  [(visible)]="cartsidebar"
   [blockScroll]="true"
 >
   <div class="containerfluid">
@@ -132,6 +137,7 @@
       <button
         type="button"
         class="btn btn-sm btn-light ml-auto btnstyle"
+        (click)="cartsidebarclose()"
       >
         <icon class="pi pi-times"></icon>
       </button>

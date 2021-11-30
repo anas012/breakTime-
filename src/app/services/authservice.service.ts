@@ -17,6 +17,7 @@ export class AuthserviceService {
   custom$: any;
   arr: any[];
   data: any[];
+  Allprod:any;
   temparray: cart[];
   BASE_URL = "https://breaktime1.herokuapp.com/";
   constructor(private httpdata: HttpClient) {}
@@ -61,5 +62,11 @@ export class AuthserviceService {
     return localStorage.getItem("items array");
   }
 
+  async getAllProducts(pageno) {
+    this.Allprd = await this.httpdata
+      .get(this.BASE_URL + `v1/Product/${pageno}`)
+      .toPromise();
+    return this.Allprd;
+  }
  
 }

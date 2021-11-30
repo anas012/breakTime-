@@ -9,16 +9,17 @@
 <div class="card">
   <div class="card-header d-flex">
     <strong>All Orders</strong>
-    <span class="ml-auto">
+    <!-- <span class="ml-auto">
       <a type="button" class="btn btn-info"
+      (click)="filter.toggle()"
         >Filter <icon class="pi pi-filter"></icon
       ></a>
-    </span>
+    </span> -->
   </div>
 
-  <p-table [value]="Allorders"  [lazy]="true" [loading]="loading" (onLazyLoad)="loadorders()" dataKey="OrderID" responsiveLayout="scroll">
+  <p-table [value]="Allorders" [lazy]="true" [loading]="loading" (onLazyLoad)="loadorders()" dataKey="OrderID">
     <ng-template pTemplate="header">
-      <tr>
+        <tr>
         <th style="width: 3rem"></th>
         <th>OrderID</th>
         <th>Customer Name</th>
@@ -28,9 +29,11 @@
         <th>Total Bill</th>
         <th>Actions</th>
       </tr>
+ 
     </ng-template>
     <ng-template pTemplate="body" let-Allorder let-expanded="expanded">
       <tr>
+   
         <td>
           <button
             type="button"
@@ -51,6 +54,7 @@
           <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"></button>
           <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
         </td>
+     
       </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-Allorders>
