@@ -8,6 +8,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FormsModule } from '@angular/forms';
 import { OrdersComponent } from './orders/orders.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import {PaginatorModule} from 'primeng/paginator';
 @NgModule({
   declarations: [
     OrdersComponent
@@ -20,7 +21,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     DropdownModule,
     OverlayPanelModule,
     FormsModule,
-     NgxSpinnerModule
+     NgxSpinnerModule,
+    PaginatorModule
 
   ],
   exports: [

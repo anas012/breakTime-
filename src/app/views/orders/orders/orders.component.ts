@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AllOrders, homeaddress, ordersdetails } from '../../../Models/adminmodel';
+import { AllOrders, homeaddress, ordersdetails, PageInfo } from '../../../Models/adminmodel';
 import { AdminService } from '../../../services/admin.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { AdminService } from '../../../services/admin.service';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(private adminser:AdminService,private spinner:NgxSpinnerService) { }
+constructor(private adminser:AdminService,private spinner:NgxSpinnerService) { }
 Details:ordersdetails[]
 Allorders:AllOrders[];
 array:any[]=[];
@@ -20,8 +20,12 @@ array2:any[]=[];
 a:any;
 date:string;
 loading:boolean;
-
-  ngOnInit(): void {
+pageno=1;
+first=0;
+lastpage;
+totalRecords;
+pageinfo:PageInfo;
+ngOnInit(): void {
 //this.getorders();
 this.loadorders(); 
 
@@ -29,14 +33,20 @@ this.loadorders();
 async loadorders()
 {
   //this.spinner.show();
-  this.loading=true;
+  
   try 
   {
-
-  const res:AllOrders=await this.adminser.getAllorder();
-    this.Allorders=res['Data']['data'];
+    this.loading=true;
+  const res:AllOrders=await this.adminser.getAllorder(this.pageno);
+  console.log(res);
+   this.Allorders=res['Data']['data'];
+   this.pageinfo=res['Data']['info'];
+  //console.log(this.pageinfo)
     this.loading=false;
-    console.log(this.Allorders);
+    
+this.lastpage=this.pageinfo.lastPage;
+this.totalRecords=this.pageinfo.totalProducts;
+  //  console.log(this.Allorders);
      for (let i =0;i<this.Allorders.length;i++)
      {
        this.a =this.Allorders[i].Addresses[0].Details[0];
@@ -59,6 +69,26 @@ async loadorders()
   {
     this.loading=false;
     console.log(error);
+  }
+}
+
+onPageChange(pages)
+{
+  console.log(pages);
+  var page=pages['first'];
+  if(page>this.first)
+  {
+    this.pageno++;
+    this.first++;
+    this.loadorders();
+    console.log(this.pageno);
+  }
+  if(page<this.first)
+  {
+    this.pageno--;
+    this.first--;
+    this.loadorders();
+    console.log(this.pageno);
   }
 }
 }

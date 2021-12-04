@@ -1,7 +1,12 @@
-import { Component, Injectable, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  Injectable,
+  OnInit,
+  ViewEncapsulation,
+} from "@angular/core";
 import { MegaMenuItem, MenuItem, MessageService } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
-import { NgForm } from "@angular/forms";
+import { FormGroup, NgForm } from "@angular/forms";
 import { logedin, login } from "../../Models/Login";
 import { register } from "../../Models/signup";
 import { AuthserviceService } from "../../services/authservice.service";
@@ -36,97 +41,96 @@ export class HomeScreenComponent implements OnInit {
   username: string;
   userphone: string;
   array: cart[] = [];
-  carthasitem=false;
-  disable=true;
+  carthasitem = false;
+  disable = true;
   productSubscription;
-  sourceProduct:any;
-  data1:any[];
-  cartvalue:number;
-  badgealert=false;
+  sourceProduct: any;
+  data1: any[];
+  cartvalue: number;
+  badgealert = false;
   productsubscription;
   data2;
-  cartsidebar:boolean;
+  cartsidebar: boolean;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private auth: AuthserviceService,
     private authorized: AuthorizedService,
-    private messageservice: MessageService,
+    private messageservice: MessageService
   ) {}
 
   ngOnInit(): void {
-    this.router.navigate(["startup"],{relativeTo:this.route});
-   this.checkcartcount();
-    if (this.authorized.getRole() === "User")
-     {
+    let activeroute = this.router.url;
+    console.log(activeroute);
+    if (activeroute != "/startup/mainpage") {
+      this.router.navigate([activeroute], { relativeTo: this.route });
+    }
+    if (activeroute == "/") {
+      this.router.navigate(["/startup/mainpage"], { relativeTo: this.route });
+    }
+
+    this.checkcartcount();
+    if (localStorage.getItem("rolename") === "User") {
       this.username = this.authorized.getusername();
       this.userphone = this.authorized.getuserphone();
       this.islogin = true;
-    } else 
-    {
+    } else {
       this.islogin = false;
     }
-    this.productSubscription=this.auth.products.subscribe((data)=>
-    {
-      
-      this.data1=data;
-    //  console.log("Home screen data from obser");
-       if(this.data1!=null)
-      {
-    //   console.log("obseravable array",this.data1.length);
-       if(this.data1.length!=0)
-       {
-       // localStorage.setItem('cartcount',this.data1.length.toString());
-        this.badgealert=true;
-        this.checkcartcount();
-        // console.log("length",this.data1.length)
+    this.productSubscription = this.auth.products.subscribe((data) => {
+      this.data1 = data;
+      //  console.log("Home screen data from obser");
+      if (this.data1 != null) {
+        //   console.log("obseravable array",this.data1.length);
+        if (this.data1.length != 0) {
+          // localStorage.setItem('cartcount',this.data1.length.toString());
+          this.badgealert = true;
+          this.checkcartcount();
+          // console.log("length",this.data1.length)
+        } else {
+          //  localStorage.setItem('cartcount',"0");
+          this.badgealert = false;
+        }
       }
-      else 
-      {
-      //  localStorage.setItem('cartcount',"0");
-        this.badgealert=false;
+    });
+    this.checkitemscount();
+  }
+
+  checkcartcount() {
+    let value: any[] = JSON.parse(this.auth.getitems());
+    //console.log("carrt values array ",value);
+    if (value) {
+      if (value.length != 0) {
+        //  console.log(value);
+        this.badgealert = true;
+        this.cartvalue = value.length;
+        //  console.log("cart value",value.length);
+      } else {
+        this.badgealert = false;
       }
+    } else {
+      this.badgealert = false;
     }
-    })
-  this.checkitemscount();
-    }
-
-  checkcartcount()
-  {
-    let value:any[]=JSON.parse(this.auth.getitems());
-     //console.log("carrt values array ",value);
-    if(value.length!=0)
-    {
-    //  console.log(value);
-      this.badgealert=true;
-      this.cartvalue=value.length;
-    //  console.log("cart value",value.length);
-    }
-    else
-    {
-      this.badgealert=false;
-    }
-
   }
 
   showloginmodal() {
     this.loginmodal = true;
   }
   onlogout() {
-     localStorage.removeItem('token');
-     localStorage.removeItem('userid');
-     localStorage.removeItem('roleID');
-     localStorage.removeItem('name');
-     localStorage.removeItem('phone');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userid");
+    localStorage.removeItem("roleID");
+    localStorage.removeItem("name");
+    localStorage.removeItem("phone");
     this.islogin = false;
     this.summary = "Success";
     this.message = "Successfully Logout";
     this.showSuccess();
-    var a=this.router.url;
-    if(a!="startup/mainpage")
-    {
-      this.router.navigate(['startup/mainpage']);
-    }
+    // var a=this.router.url;
+    // if(a!="startup/mainpage")
+    // {
+    this.router.navigate(["startup/mainpage"]);
+    // }
   }
   opensignup() {
     this.loginmodal = false;
@@ -143,24 +147,28 @@ export class HomeScreenComponent implements OnInit {
           this.userdata = res["Data"]["data"];
           this.userdata.token = res["Data"]["token"];
           this.userdata.Role = res["Data"]["data"]["Role"];
+
           this.authorized.settoken(
             this.userdata.token.access_token,
             this.userdata.UserID,
             this.userdata.Role.RoleID,
             this.userdata.Name,
-            this.userdata.Phone
+            this.userdata.Phone,
+            this.userdata.Role.Name
           );
           this.username = this.authorized.getusername();
           this.userphone = this.authorized.getuserphone();
           this.islogin = true;
-          this.authorized.storeRole(this.userdata.Role.Name);
-          var a = this.authorized.getRole();
+          //  this.authorized.storeRole(this.userdata.Role.Name);
+          var role = localStorage.getItem("rolename");
+          console.log("role", role);
           this.summary = "Suceess";
           this.message = "Successfully Logedin";
           this.showSuccess();
-          if (a === "User") {
-            console.log(res);
+          if (role === "User") {
+            console.log("userroute");
           } else {
+            console.log("adminroute");
             this.router.navigate(["main/dashboard"]);
           }
         },
@@ -182,7 +190,7 @@ export class HomeScreenComponent implements OnInit {
   onOK() {
     this.errordialoguemodal = false;
   }
-   onRegister(form: NgForm) {
+  onRegister(form: NgForm) {
     if (!form.valid) return;
     else {
       this.signupmodal = false;
@@ -213,10 +221,9 @@ export class HomeScreenComponent implements OnInit {
       Name: form.value.name,
     };
 
-    var user=
-    {
-      Data
-    }
+    var user = {
+      Data,
+    };
     return user;
   }
 
@@ -225,86 +232,74 @@ export class HomeScreenComponent implements OnInit {
       Email: form.value.email,
       Password: form.value.password,
     };
-    var user=
-    {
-      Data
-    }
+
+    var user = {
+      Data,
+    };
+
     return user;
   }
   cart() {
-     this.cartsidebar=true;
-      this.arrayofitems = JSON.parse(this.auth.getitems());
-      //console.log("cart fun called")
-      if(this.arrayofitems!=null)
-      {
-        
-      this.calculatetotal();  
-      this.itemcount=this.arrayofitems.length;
-   // console.log("items count in cart",this.itemcount)
-      }
-      else{
-        this.carthasitem=false;
-       // console.log("cart item flag",this.carthasitem);
-        this.itemcount=0;
-        this.subtotal = 0;
-        this.disable=true;
-      }
-    
-  
-  }
-  cartsidebarclose()
-  {
-    this.cartsidebar=false;
-  }
-  checkitemscount()
-  {
-    this.productsubscription=this.auth.products.subscribe((data)=>
-    {
-      var array:any[]=[];
-       array=data;
-       if(array!=null)
-       {
-     // console.log("items count",array.length);
-      this.itemcount=array.length;
+    this.cartsidebar = true;
+    this.arrayofitems = JSON.parse(this.auth.getitems());
+    //console.log("cart fun called")
+    if (this.arrayofitems != null) {
+      this.calculatetotal();
+      this.itemcount = this.arrayofitems.length;
+      // console.log("items count in cart",this.itemcount)
+    } else {
+      this.carthasitem = false;
+      // console.log("cart item flag",this.carthasitem);
+      this.itemcount = 0;
+      this.subtotal = 0;
+      this.disable = true;
     }
-  });
+  }
+  cartsidebarclose() {
+    this.cartsidebar = false;
+  }
+  checkitemscount() {
+    this.productsubscription = this.auth.products.subscribe((data) => {
+      var array: any[] = [];
+      array = data;
+      if (array != null) {
+        // console.log("items count",array.length);
+        this.itemcount = array.length;
+      }
+    });
   }
   calculatetotal() {
-   // console.log("fun called")
+    // console.log("fun called")
     let sum = 0;
-    console.log(this.arrayofitems.length)
+    console.log(this.arrayofitems.length);
     if (this.arrayofitems.length != 0) {
-   //   console.log('if called')
+      //   console.log('if called')
       for (let i = 0; i < this.arrayofitems.length; i++) {
         this.subtotal = parseInt(this.arrayofitems[i].TotalValue);
         sum = sum + this.subtotal;
-        this.carthasitem=true;
-   //     console.log("cart item flag",this.carthasitem);
-        this.disable=false;
+        this.carthasitem = true;
+        //     console.log("cart item flag",this.carthasitem);
+        this.disable = false;
       }
 
       this.subtotal = sum;
-    } 
-    else {
-    //  console.log('else called')
-      this.carthasitem=false;
-      console.log("cart item flag",this.carthasitem);
-      this.itemcount=0;
+    } else {
+      //  console.log('else called')
+      this.carthasitem = false;
+      console.log("cart item flag", this.carthasitem);
+      this.itemcount = 0;
       this.subtotal = 0;
-      this.disable=true;
+      this.disable = true;
     }
   }
-    ondeleteitem(id)
-  {
-   for(let i=0;i<this.arrayofitems.length;i++)
-   {
-     if(id==this.arrayofitems[i].ProductID)
-     {
-       this.arrayofitems.splice(i,1);
-     }
-   }
-   this.auth.storeitems(this.arrayofitems);
-   this.calculatetotal();
+  ondeleteitem(id) {
+    for (let i = 0; i < this.arrayofitems.length; i++) {
+      if (id == this.arrayofitems[i].ProductID) {
+        this.arrayofitems.splice(i, 1);
+      }
+    }
+    this.auth.storeitems(this.arrayofitems);
+    this.calculatetotal();
   }
   proccedtocheckout() {
     this.router.navigate(["checkout"]);
@@ -317,27 +312,21 @@ export class HomeScreenComponent implements OnInit {
       detail: this.message,
     });
   }
-  oneditcart(id,name,qty,price)
-{
-for(let i=0;i<this.arrayofitems.length;i++)
-{
-  if(this.arrayofitems[i].ProductID==id)
-  {
-    this.arrayofitems[i].TotalPieces=qty;
-   var totalvalue=qty*price;
-   this.arrayofitems[i].TotalValue=totalvalue.toString();
+  oneditcart(id, name, qty, price) {
+    for (let i = 0; i < this.arrayofitems.length; i++) {
+      if (this.arrayofitems[i].ProductID == id) {
+        this.arrayofitems[i].TotalPieces = qty;
+        var totalvalue = qty * price;
+        this.arrayofitems[i].TotalValue = totalvalue.toString();
+      }
+    }
+
+    this.auth.storeitems(this.arrayofitems);
+    this.calculatetotal();
+  }
+
+  onSearch(form: NgForm) {
+    var searchitem = form.value.search;
+    this.router.navigate(["startup/searcheditem", searchitem]);
   }
 }
-
-this.auth.storeitems(this.arrayofitems);
-this.calculatetotal();
-}
-
-onSearch(form:NgForm)
-{
-  var searchitem=form.value.search;
- this.router.navigate(['startup/searcheditem',searchitem]);
-}
-}
-
-

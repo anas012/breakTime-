@@ -17,9 +17,11 @@ export class InterceptorserviceService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     //this.spinner.isLoading.next(true);
    let authservice = this.injector.get(AuthorizedService);
-    request = request.clone({
-      setHeaders: {
-       Authorization: `Bearer ${authservice.gettoken()}`,
+  
+   request = request.clone({
+      setHeaders: {  
+        Authorization: `Bearer ${authservice.gettoken()}`,
+        
       },
     });
     return next.handle(request).pipe(

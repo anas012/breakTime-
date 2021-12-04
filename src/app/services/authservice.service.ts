@@ -39,10 +39,11 @@ export class AuthserviceService {
   }
 
   register(user: any) {
-    return this.httpdata.post(this.BASE_URL + "v1/auth/register", user);
+    return this.httpdata.post(this.BASE_URL + "v1/customer/register", user);
   }
 
-  authcheck() {
+  authcheck() 
+  {
     return !!localStorage.getItem("token");
   }
 

@@ -13,15 +13,22 @@ export class AdminauthGuard implements CanActivate {
 
   canActivate():boolean
   {
+    if(localStorage.getItem('token'))
+    {
+
+    
 this.role=this.auth.getRole();
-      if (this.role==="Admin")
+      if (localStorage.getItem('rolename')==="Admin")
       {
+       // console.log('admin true')
         return true;
       }
       else 
       {
+        //console.log('admin false')
         this.router.navigate(['startup/mainpage']);
         return false;
       }
   }
+}
 }

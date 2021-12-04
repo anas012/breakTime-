@@ -79,6 +79,13 @@ export interface AllOrders
 export interface homeaddress
 {
   streetaddress:string;
-
 }
-
+export interface PageInfo
+{
+  hasNextPage:boolean;
+  hasPreviousPage:boolean;
+  lastPage:string;
+  nextPage: string;
+  previousPage:string;
+  totalProducts:string;
+}

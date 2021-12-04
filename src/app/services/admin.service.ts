@@ -57,9 +57,9 @@ createPrd(data:any)
   return this.httpdata.post(this.BASE_URL +'v1/Product',data);
 }
 
-async getAllprd()
+async getAllprd(pageno)
 {
-this.Allprd=await this.httpdata.get(this.BASE_URL+'v1/Product').toPromise();
+this.Allprd=await this.httpdata.get(this.BASE_URL+`v1/Product/${pageno}`).toPromise();
 return this.Allprd;
 }
 deletePrd(id:string)
@@ -70,9 +70,9 @@ createorder(data:any)
 {
   return this.httpdata.post(this.BASE_URL +"v1/order",data);
 }
-async getAllorder()
+async getAllorder(pageno)
 {
- this.Allorder=await this.httpdata.get(this.BASE_URL +'v1/order').toPromise();
+ this.Allorder=await this.httpdata.get(this.BASE_URL +`v1/order/${pageno}`).toPromise();
  return this.Allorder;
 }
 }

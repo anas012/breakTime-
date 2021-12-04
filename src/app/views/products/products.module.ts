@@ -10,7 +10,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ConfirmationService } from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -25,12 +26,14 @@ import { ToastModule } from 'primeng/toast';
     DropdownModule,
     OverlayPanelModule,
     FormsModule,
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
   ],
   exports: [
     AddproductComponent,
     AllproductsComponent
   ],
+  providers: [ConfirmationService],
   schemas: [
     NO_ERRORS_SCHEMA
   ],

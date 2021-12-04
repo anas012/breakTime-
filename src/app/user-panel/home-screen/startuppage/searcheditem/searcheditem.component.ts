@@ -89,8 +89,6 @@ async getAllprd(searchitem)
       if(this.prditems.length<=10)
       {
         this.totalRecords=5;
-
-
       }
       else
       {
@@ -98,7 +96,7 @@ async getAllprd(searchitem)
 
       }
       this.isitems = true;
-      //   console.log(this.prditems);
+         console.log(this.prditems);
       this.temp2 = [];
 
       this.temp2 = JSON.parse(this.auth.getitems());

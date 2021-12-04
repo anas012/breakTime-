@@ -17,7 +17,13 @@
     </span> -->
   </div>
 
-  <p-table [value]="Allorders" [lazy]="true" [loading]="loading" (onLazyLoad)="loadorders()" dataKey="OrderID">
+  <p-table [value]="Allorders"  [paginator]="true"
+  [rows]="1"
+  (onPage)="onPageChange($event)"
+  [totalRecords]="lastpage"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {{pageno}} to {{lastpage}} of {{totalRecords}} entries"
+  [first]="first" [lazy]="true" [loading]="loading" (onLazyLoad)="loadorders()" dataKey="OrderID">
     <ng-template pTemplate="header">
         <tr>
         <th style="width: 3rem"></th>
@@ -64,6 +70,7 @@
             <p-table [value]="Allorders.OrderDetails" dataKey="OrderID">
               <ng-template pTemplate="header">
                 <tr>
+                  <th>Product Name</th>
                   <th>ProductID</th>
                   <th>Quantity</th>
                   <th>Amount</th>
@@ -71,6 +78,7 @@
               </ng-template>
               <ng-template pTemplate="body" let-order>
                 <tr>
+                  <td>{{order.Product.Name}}</td>
                   <td>{{ order.ProductID }}</td>
                   <td>{{ order.TotalPieces }}</td>
                   <td>{{ order.TotalValue }}</td>
@@ -86,5 +94,8 @@
         </td>
       </tr>
     </ng-template>
+ 
   </p-table>
+
 </div>
+

@@ -4,6 +4,7 @@
   [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
   [baseZIndex]="9999"
 ></p-toast>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="card">
   <div class="card-header d-flex">
     <strong> All Items</strong>
@@ -19,10 +20,12 @@
     [value]="Allprd"
     styleClass="p-datatable-striped"
     [paginator]="true"
-    [rows]="3"
+    [rows]="1"
+    (onPage)="onPageChange($event)"
+    [totalRecords]="lastpage"
     [showCurrentPageReport]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [rowsPerPageOptions]="[1, 3, 4]"
+    [first]="first"
+    currentPageReportTemplate="Showing {{pageno}} to {{lastpage}} of {{totalRecords}} entries"
     [lazy]="true" [loading]="loading" (onLazyLoad)="loadproducts()"
   >
     <ng-template pTemplate="header">
@@ -55,7 +58,7 @@
             pRipple
             type="button"
             icon="pi pi-trash"
-            (click)="Ondeleteprd(Allprd.ProductID)"
+            (click)="confirmSubmit(Allprd.ProductID)"
             class="p-button-rounded p-button-danger"
           ></button>
         </td>

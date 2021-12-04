@@ -21,7 +21,6 @@ children:[
   {path:'items/:id',component:ItemsComponent},
    {path:'searcheditem/:searchitem',component:SearcheditemComponent}
 ]
-
 },
 
 ]

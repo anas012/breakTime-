@@ -10,12 +10,13 @@ export class AuthorizedService {
   Role: string;
   constructor(private httpdata: HttpClient) {}
  
-  settoken(token: string, userid: number, roleID:number,name:string,phone:string) {
+  settoken(token: string, userid: number, roleID:number,name:string,phone:string,rolename:string) {
     localStorage.setItem("token", token);
     localStorage.setItem("userid", userid.toString());
     localStorage.setItem("roleID", roleID.toString()),
-      localStorage.setItem("name", name);
-      localStorage.setItem("phone", phone);
+    localStorage.setItem("name", name);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("rolename", rolename);
   }
   gettoken() {
     return localStorage.getItem("token");
