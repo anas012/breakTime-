@@ -13,7 +13,8 @@ import { AuthserviceService } from "../../services/authservice.service";
 import { cart, userregister } from "../../Models/usermodel";
 import { HttpErrorResponse } from "@angular/common/http";
 import { AuthorizedService } from "../../services/authorized.service";
-
+import * as SecureLS from 'secure-ls';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: "app-home-screen",
   templateUrl: "./home-screen.component.html",
@@ -51,17 +52,19 @@ export class HomeScreenComponent implements OnInit {
   productsubscription;
   data2;
   cartsidebar: boolean;
+  private ls;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private auth: AuthserviceService,
     private authorized: AuthorizedService,
-    private messageservice: MessageService
+    private messageservice: MessageService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
     let activeroute = this.router.url;
-    console.log(activeroute);
+    //console.log(activeroute);
     if (activeroute != "/startup/mainpage") {
       this.router.navigate([activeroute], { relativeTo: this.route });
     }
@@ -70,9 +73,10 @@ export class HomeScreenComponent implements OnInit {
     }
 
     this.checkcartcount();
-    if (localStorage.getItem("rolename") === "User") {
-      this.username = this.authorized.getusername();
-      this.userphone = this.authorized.getuserphone();
+    let rolename=this.authorized.getUserRole();
+    if (rolename === "User") {
+      this.username = this.authorized.getUserName();
+      this.userphone = this.authorized.getUserPhone();
       this.islogin = true;
     } else {
       this.islogin = false;
@@ -117,11 +121,9 @@ export class HomeScreenComponent implements OnInit {
     this.loginmodal = true;
   }
   onlogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userid");
-    localStorage.removeItem("roleID");
-    localStorage.removeItem("name");
-    localStorage.removeItem("phone");
+    localStorage.removeItem("^&%$*");
+    localStorage.removeItem("$$#@_&*&");
+    localStorage.removeItem("&*@#$$");
     this.islogin = false;
     this.summary = "Success";
     this.message = "Successfully Logout";
@@ -142,38 +144,43 @@ export class HomeScreenComponent implements OnInit {
       this.loginmodal = false;
       var c = this.userlogin(form);
       console.log(c);
+      this.spinner.show();
       this.auth.login(c).subscribe(
         (res: logedin) => {
+          this.spinner.hide();
+          console.log("after login res",res);
           this.userdata = res["Data"]["data"];
           this.userdata.token = res["Data"]["token"];
           this.userdata.Role = res["Data"]["data"]["Role"];
 
-          this.authorized.settoken(
-            this.userdata.token.access_token,
-            this.userdata.UserID,
-            this.userdata.Role.RoleID,
-            this.userdata.Name,
-            this.userdata.Phone,
-            this.userdata.Role.Name
-          );
-          this.username = this.authorized.getusername();
-          this.userphone = this.authorized.getuserphone();
+            localStorage.setItem('$$#@_&*&', this.userdata.token.access_token)
+            var ls = new SecureLS({ encodingType: 'rc4', isCompression: false });
+            ls.set('&*@#$$', this.userdata); 
+            ls.set('^&%$*',this.userdata.Role.Name);
+    
+          this.username = this.authorized.getUserName();
+          this.userphone = this.authorized.getUserPhone();
+          
+          // console.log("username",this.username);
+          // console.log("userphone",this.userphone);
+          let rolename=this.authorized.getUserRole();
+        console.log('rolenameee',rolename);
           this.islogin = true;
-          //  this.authorized.storeRole(this.userdata.Role.Name);
-          var role = localStorage.getItem("rolename");
-          console.log("role", role);
+         
           this.summary = "Suceess";
           this.message = "Successfully Logedin";
           this.showSuccess();
-          if (role === "User") {
-            console.log("userroute");
-          } else {
-            console.log("adminroute");
+          if (rolename === "User") {
+            console.log("userroute in homescree");
+          }
+           else {
+            console.log("adminroute in homescreen");
             this.router.navigate(["main/dashboard"]);
           }
         },
 
         (errorMessage: HttpErrorResponse) => {
+          this.spinner.hide();
           if (errorMessage) {
             this.errmessage = errorMessage.error["Status"].message;
 

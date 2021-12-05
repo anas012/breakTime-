@@ -1,52 +1,46 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import * as SecureLS from "secure-ls";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-
 export class AuthorizedService {
   BASE_URL = "https://breaktime1.herokuapp.com/";
-  Role: string;
+  private ls;
   constructor(private httpdata: HttpClient) {}
- 
-  settoken(token: string, userid: number, roleID:number,name:string,phone:string,rolename:string) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("userid", userid.toString());
-    localStorage.setItem("roleID", roleID.toString()),
-    localStorage.setItem("name", name);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("rolename", rolename);
-  }
+
   gettoken() {
-    return localStorage.getItem("token");
-  }
-getuserid()
-{
-  return localStorage.getItem("userid")
-}
-getusername()
-{
-  return localStorage.getItem("name");
-}
-getuserphone()
-{
-  return localStorage.getItem("phone");
-}
-
-  placeorder(data:any)
-  {
-  return this.httpdata.post(this.BASE_URL+ 'v1/order/',data);
+    return localStorage.getItem("$$#@_&*&");
   }
 
+  getUserName() {
+    let ls = new SecureLS({ encodingType: "rc4", isCompression: false });
+    let userData = ls.get("&*@#$$");
+    return this.ucfirst(userData.Name);
+  }
+  getUserPhone() {
+    let ls = new SecureLS({ encodingType: "rc4", isCompression: false });
+    let userData = ls.get("&*@#$$");
+    return this.ucfirst(userData.Phone);
+  }
+  getUserId() {
+    let ls = new SecureLS({ encodingType: "rc4", isCompression: false });
+    let userData = ls.get("&*@#$$");
+    return userData.UserID;
+  }
+  getUserRole() {
+    let ls = new SecureLS({ encodingType: "rc4", isCompression: false });
+    let userData = ls.get("^&%$*");
+    return this.ucfirst(userData);
+  }
 
-  storeRole(role:string)
-{
-this.Role=role;
-}
+  ucfirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
-getRole()
-{
-  return this.Role;
-}
+  // #region authorized api
+  placeorder(data: any) {
+    return this.httpdata.post(this.BASE_URL + "v1/order/", data);
+  }
+//#endregion
 }

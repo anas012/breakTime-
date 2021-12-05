@@ -6,13 +6,14 @@ import { catgories } from '../../../Models/usermodel';
 import { AdminService } from '../../../services/admin.service';
 import { ConfirmationService } from "primeng/api";
 @Component({
-  selector: 'app-allproducts',
-  templateUrl: './allproducts.component.html',
-  styleUrls: ['./allproducts.component.scss'],
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss'],
   providers:[MessageService],
   encapsulation:ViewEncapsulation.None
 })
-export class AllproductsComponent implements OnInit {
+export class ProductListComponent implements OnInit {
+
   Allcat: catgories[];
   summary: string;
   message: string;
@@ -28,7 +29,8 @@ first=0;
 lastpage;
 totalRecords;
 pageinfo:PageInfo;
-  constructor(private adminserv:AdminService,private messageService: MessageService,private confirmationService: ConfirmationService,) { }
+selectedRow;
+  constructor(private adminserv:AdminService,private messageService: MessageService,private confirmationService: ConfirmationService) { }
 
   Details:cartdetails[];
   ngOnInit(): void {
@@ -74,7 +76,7 @@ this.loadproducts();
         try {
           this.loading=true;
         const res:Allprdoducts=await this.adminserv.getAllprd(this.pageno);
-        // console.log(res);
+       // console.log(res);
          this.loading=false;
          this.Allprd=res['Data']['data'];
          this.pageinfo=res['Data']['Info'];
@@ -170,3 +172,5 @@ onPageChange(pages)
         this.messageService.add({severity:'success', summary:this.summary, detail: this.message});
       }
 }
+
+

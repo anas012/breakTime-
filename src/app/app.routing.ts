@@ -27,15 +27,23 @@ export const routes: Routes = [
         path: 'orders',
         loadChildren: () => import('./views/orders/orders.module').then(m => m.OrdersModule)
         ,canActivate:[AuthGuard,AdminauthGuard] },
-      {
-        path: 'products',
-        loadChildren: () => import('./views/products/products.module').then(m => m.ProductsModule)
-      ,canActivate:[AuthGuard,AdminauthGuard]},
+      
      
       {
         path: 'cat',
         loadChildren: () => import('./views/crud-cat-subcat/crud-cat-subcat.module').then(m => m.CrudCatSubcatModule)
       ,canActivate:[AuthGuard,AdminauthGuard]},
+      {
+        path:'jumbotron',
+        loadChildren: () => import('./views/mainpage-jumbotron/mainpage-jumbotron.module').then(m => m.MainpageJumbotronModule)
+        ,canActivate:[AuthGuard,AdminauthGuard]
+      },
+
+      {
+        path:'product',
+        loadChildren: () => import('./views/products/products.module').then(m => m.ProductsModule)
+        ,canActivate:[AuthGuard,AdminauthGuard]
+      }
     ]
   },
   

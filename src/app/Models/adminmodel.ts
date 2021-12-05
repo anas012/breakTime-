@@ -36,6 +36,7 @@ export interface newprd
   RetailPrice:string;
   PurcahsePrice:string;
   SubCategoryID:string;
+  Identifier:string;
 
 }
 export interface Allprdoducts

@@ -1,22 +1,22 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProductsRoutingModule } from './products-routing.module';
-import { AddproductComponent } from './addproduct/addproduct.component';
-import { AllproductsComponent } from './allproducts/allproducts.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductAddComponent } from './product-add/product-add.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
-
+import {FileUploadModule} from 'primeng/fileupload';
 @NgModule({
   declarations: [
-    AddproductComponent,
-    AllproductsComponent
+    ProductListComponent,
+    ProductAddComponent
   ],
   imports: [
     CommonModule,
@@ -27,11 +27,13 @@ import { ConfirmationService } from "primeng/api";
     OverlayPanelModule,
     FormsModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    FileUploadModule,
+  
   ],
   exports: [
-    AddproductComponent,
-    AllproductsComponent
+    ProductListComponent,
+    ProductAddComponent
   ],
   providers: [ConfirmationService],
   schemas: [

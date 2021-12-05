@@ -30,10 +30,7 @@ BASE_URL = "https://breaktime1.herokuapp.com/";
   authadmincheck() {
     return localStorage.getItem("rolename");
   }
-  getadminname()
-  {
-    return localStorage.getItem("name")
-  }
+
 createcat(data:any)
 {
   return this.httpdata.post(this.BASE_URL+"v1/category",data)
@@ -52,7 +49,7 @@ deletesubcat(id:string)
   return this.httpdata.patch(this.BASE_URL+`v1/subcategory/${id}`,null);
 }
 
-createPrd(data:any)
+createPrd(data)
 {
   return this.httpdata.post(this.BASE_URL +'v1/Product',data);
 }
@@ -72,7 +69,17 @@ createorder(data:any)
 }
 async getAllorder(pageno)
 {
- this.Allorder=await this.httpdata.get(this.BASE_URL +`v1/order/${pageno}`).toPromise();
+ this.Allorder=await this.httpdata.get(this.BASE_URL +`v1/order/all/${pageno}`).toPromise();
  return this.Allorder;
+}
+
+orderconfirmed(id)
+{
+  return this.httpdata.patch(this.BASE_URL +`v1/order/delivered/${id}`,null);
+}
+
+ordercancel(id)
+{
+  return this.httpdata.patch(this.BASE_URL +`v1/order/${id}`,null);
 }
 }

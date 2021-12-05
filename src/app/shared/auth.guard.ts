@@ -10,15 +10,15 @@ export class AuthGuard implements CanActivate {
   constructor(private auth:AuthserviceService,private router:Router){}
   canActivate():boolean
   {
-    if(localStorage.getItem('token'))
+    if(localStorage.getItem('$$#@_&*&'))
     {
      
-    
+  //  console.log('token true');
         return true;
       }
       else 
       {
-        
+       // console.log('token false');
         this.router.navigate(['startup/mainpage']);
         return false;
       }

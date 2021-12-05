@@ -1,4 +1,12 @@
 <p-toast position="top-right"  [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}" [baseZIndex]="9999" styleClass="mt-2"></p-toast>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
 <nav class="navbar fixed-top navbar-expand-lg customnav">
   <ul class="navbar-nav temp">
     <li>
@@ -31,7 +39,7 @@
           ngModel
           name="search"
         />
-        <button class="btn btn-danger btn-sm ml-2 mt-2">Search</button>
+        <button class="btn btn-danger ml-2 mt-2">Search</button>
       </form>
     </li>
     <li>

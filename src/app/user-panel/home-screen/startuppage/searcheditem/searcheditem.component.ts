@@ -50,7 +50,7 @@ export class SearcheditemComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.isitems=true;
       this.searchitem= params.get("searchitem");
-         console.log(this.searchitem);
+     //    console.log(this.searchitem);
          if(this.searchitem!="")
          {
            this.getAllprd(this.searchitem)
@@ -73,11 +73,11 @@ async getAllprd(searchitem)
     this.chkflg = false;
     this.flagg = false;
  
-    const res: Items = await this.auth.getAllProducts(this.pageno);
-     console.log("search products",res);
+    const res: Items = await this.auth.getAllProducts();
+   //  console.log("search products",res);
     this.prditems = res["Data"]["data"];
     this.pageinfo=res['Data']['Info'];
-    
+    //console.log("searched data",res);
    // console.log("page info",this.pageinfo);
     this.prditems=this.prditems.filter(items=>items.Name.toLowerCase().includes(searchitem.toLowerCase()));
     this.chkflg = true;
@@ -86,17 +86,8 @@ async getAllprd(searchitem)
       this.isitems = false;
       this.loader = false;
     } else {
-      if(this.prditems.length<=10)
-      {
-        this.totalRecords=5;
-      }
-      else
-      {
-        this.totalRecords=parseInt(this.pageinfo.lastPage);
-
-      }
       this.isitems = true;
-         console.log(this.prditems);
+      //console.log(this.prditems);
       this.temp2 = [];
 
       this.temp2 = JSON.parse(this.auth.getitems());
@@ -211,7 +202,7 @@ async getAllprd(searchitem)
             for (let i = 0; i < this.prditems.length; i++) {
               let val = this.prditems[i].ProductID;
               if (val === -1) {
-                console.log(this.prditems[i].ProductID);
+           //     console.log(this.prditems[i].ProductID);
                 this.prditems.splice(i, b - a);
               }
             }
@@ -304,7 +295,7 @@ OnItemsupdate() {
             for (let i = 0; i < this.prditems.length; i++) {
               let val = this.prditems[i].ProductID;
               if (val === -1) {
-                console.log(this.prditems[i].ProductID);
+           //     console.log(this.prditems[i].ProductID);
                 this.prditems.splice(i, temp2length - prditemslength);
               }
             }

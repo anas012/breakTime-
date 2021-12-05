@@ -1,38 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddproductComponent } from './addproduct/addproduct.component';
-import { AllproductsComponent } from './allproducts/allproducts.component';
+import { ProductAddComponent } from './product-add/product-add.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductsModule } from './products.module';
 
 const routes: Routes = [
 
-
   {
     path: '',
+  
     data: {
-      title: 'Products'
+      title: 'products'
     },
-    children: [
-      // {
-      //   path: '',
-      //   redirectTo: ''
-      // },
-       {
-        path: 'addprd',
-        component: AddproductComponent,
+    children:[
+      {
+        path:'',
+        component:ProductListComponent,
         data: {
-          title: 'Add Products'
-        }
+          title: '',
+        },
       },
       {
-        path: 'allprd',
-        component: AllproductsComponent,
+        path:'add',
+        component:ProductAddComponent,
         data: {
-          title: 'All Products'
-        }
+          title: 'Add',
+        },
       },
     ]
   }
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

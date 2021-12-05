@@ -10,11 +10,11 @@ import { navItems } from '../../_nav';
 })
 export class DefaultLayoutComponent {
   adminname:string;
-  constructor(private auth:AdminService,private router:Router){}
+  constructor(private auth:AdminService,private router:Router,private _auth:AuthorizedService){}
   ngOnInit(): void 
   {
     
-    this.adminname=this.auth.getadminname();
+      this.adminname=this._auth.getUserName();
 
   }
   public sidebarMinimized = false;
@@ -25,11 +25,9 @@ export class DefaultLayoutComponent {
   }
   onlogout()
   {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userid');
-    localStorage.removeItem('roleID');
-    localStorage.removeItem('name');
-    localStorage.removeItem('phone');
+    localStorage.removeItem("^&%$*");
+    localStorage.removeItem("$$#@_&*&");
+    localStorage.removeItem("&*@#$$");
     this.router.navigate(['startup/mainpage'])
   }
 }

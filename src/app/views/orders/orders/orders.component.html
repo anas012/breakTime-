@@ -1,3 +1,4 @@
+<p-toast position="top-right" [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}" [baseZIndex]="9999" styleClass="mt-2"></p-toast>
 <ngx-spinner
   bdColor="rgba(0, 0, 0, 0.8)"
   size="medium"
@@ -6,6 +7,7 @@
   [fullScreen]="true"
   ><p style="color: white">Loading...</p></ngx-spinner
 >
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 <div class="card">
   <div class="card-header d-flex">
     <strong>All Orders</strong>
@@ -17,7 +19,7 @@
     </span> -->
   </div>
 
-  <p-table [value]="Allorders"  [paginator]="true"
+  <p-table [value]="Allorders" styleClass="p-datatable-striped" selectionMode="single" [(selection)]="selectedRow" [paginator]="true"
   [rows]="1"
   (onPage)="onPageChange($event)"
   [totalRecords]="lastpage"
@@ -57,8 +59,8 @@
         <td>{{ Allorder.streetaddress }}</td>
         <td>{{ Allorder.TotalBill }}</td>
         <td>
-          <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded"></button>
-          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+          <button pButton pRipple type="button" icon="pi pi-check" (click)="confirmsubmitorder(Allorder.OrderID)" class="p-button-rounded"></button>
+          <button pButton pRipple type="button" icon="pi pi-times" (click)="confirmcancelorder(Allorder.OrderID)" class="p-button-rounded p-button-danger"></button>
         </td>
      
       </tr>

@@ -5,10 +5,12 @@ export interface login
 }
 export interface logedin
 {
+
     UserID:number;
     Name:string;
     Email:string;
     Phone:string;
+    
     token:{
         access_token:string;
         exp?:number;

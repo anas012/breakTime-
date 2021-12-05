@@ -26,6 +26,7 @@ import {SkeletonModule} from 'primeng/skeleton';
 import {DropdownModule} from 'primeng/dropdown';
 import {PaginatorModule} from 'primeng/paginator';
 import { SearcheditemComponent } from './home-screen/startuppage/searcheditem/searcheditem.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     HomeScreenComponent,
@@ -58,7 +59,8 @@ import { SearcheditemComponent } from './home-screen/startuppage/searcheditem/se
     ToastModule,
     SkeletonModule,
     DropdownModule,
-    PaginatorModule
+    PaginatorModule,
+    NgxSpinnerModule
     
 
   ],

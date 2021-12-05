@@ -9,23 +9,22 @@ import { AuthorizedService } from '../services/authorized.service';
 })
 export class AdminauthGuard implements CanActivate {
   constructor(private auth:AuthorizedService,private router:Router){}
-  role:string;
+  rolename:string;
 
   canActivate():boolean
   {
-    if(localStorage.getItem('token'))
+    this.rolename=this.auth.getUserRole();
+   // console.log('rolename in admin guard',this.rolename);
+    if(localStorage.getItem('$$#@_&*&'))
     {
-
-    
-this.role=this.auth.getRole();
-      if (localStorage.getItem('rolename')==="Admin")
+      if (this.rolename=="Admin")
       {
-       // console.log('admin true')
+       // console.log('admin route true')
         return true;
       }
       else 
       {
-        //console.log('admin false')
+     //   console.log('admin route false')
         this.router.navigate(['startup/mainpage']);
         return false;
       }

@@ -18,26 +18,18 @@ export const navItems: INavData[] = [
  
   {
     name: "Products",
-    url: "/main/products",
+    url: "/main/product",
     icon: "icon-speedometer",
-  children:[
-    {
-      name:'Add products',
-      url:"/main/products/addprd",
-      icon: "icon-speedometer"
-    },
-    {
-      name:'All products',
-      url:"/main/products/allprd",
-      icon: "icon-speedometer"
-    }
-  ]
-  
   },
 
   {
     name: "Category",
     url: "/main/cat",
+    icon: "icon-speedometer",
+  },
+  {
+    name: "Manage Jumbotron",
+    url: "/main/jumbotron",
     icon: "icon-speedometer",
   },
 ];

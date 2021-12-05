@@ -160,20 +160,24 @@ onDeleteSubCat(form:NgForm)
 }
 ADDCat(form:NgForm)
 {
-const cat:ADDCat=
+const Data:ADDCat=
 {
 Name:form.value.Category
 }
-return cat;
+var data={Data}
+return data;
 }
 Addsubcat(form:NgForm)
 {
-  const subcat:ADDSubcat=
+  const Data:ADDSubcat=
   {
     Name:form.value.SubCategory,
     CategoryID:parseInt(this.selectedCat1.CategoryID)
   }
-return subcat;
+  var data={
+    Data
+  }
+return data;
 }
 onchangeCat()
 {

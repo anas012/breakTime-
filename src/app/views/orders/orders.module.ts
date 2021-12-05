@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { OrdersComponent } from './orders/orders.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import {PaginatorModule} from 'primeng/paginator';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     OrdersComponent
@@ -21,13 +24,15 @@ import {PaginatorModule} from 'primeng/paginator';
     DropdownModule,
     OverlayPanelModule,
     FormsModule,
-     NgxSpinnerModule,
-    PaginatorModule
-
+    NgxSpinnerModule,
+    PaginatorModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
   exports: [
 OrdersComponent
   ],
+  providers: [ConfirmationService],
   schemas: [
     NO_ERRORS_SCHEMA
   ],

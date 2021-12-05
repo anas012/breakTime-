@@ -77,10 +77,6 @@
         </div>
       </div>
     </div>
-  <div class="p-col-10" *ngIf="!loader&&isitems">
-            <p-paginator [first]="first" [rows]="1" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"
-            [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-  </div>
     <div class="alert alert-primary" style="height: 3rem;"  role="alert" *ngIf="!isitems">
    <p>No items found
    

@@ -9,6 +9,7 @@ import { cilAddressBook } from '@coreui/icons';
 import { AdminService } from '../../services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OrderDetails } from '../../Models/Orderdetails';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-checkout',
@@ -35,10 +36,11 @@ orderconfirmmodal=false;
 messagee:string;
 header:string;
 temp:[]=[];
-  constructor(private messageService: MessageService,private auth:AuthserviceService,private authorized:AuthorizedService,private adminser:AdminService) {}
+  constructor(  private spinner: NgxSpinnerService,private messageService: MessageService,private auth:AuthserviceService,private authorized:AuthorizedService,private adminser:AdminService) {}
 
   ngOnInit(): void {
     this.getitems();
+
   }
   onaddAddress(form:NgForm)
   {
@@ -99,8 +101,10 @@ getitems()
 
 calculatetotal()
 {
-  if(this.itemsarray.length!=null)
+ 
+  if(this.itemsarray!=null)
   {
+    console.log('itemsarry not null');
   let sum=0;
   for (let i=0;i<this.itemsarray.length;i++)
   {
@@ -113,6 +117,7 @@ calculatetotal()
 }
 else 
 {
+  console.log('itemsarry null');
   this.Subtotal=0;
   this.ShipChrges=0;
 
@@ -130,40 +135,46 @@ onplaceorder(form:NgForm)
 
   else 
   {
-    if(this.Subtotal==0)
+    this.itemsarray=JSON.parse(this.auth.getitems());
+    //console.log("items array checking",this.itemsarray)
+    if(this.itemsarray.length==0)
     {
-      this.orderconfirmmodal=true;
+     
       this.messagee="Nothing In Cart To Place Order!! Shop To Place Order"
       this.header="Error";
+      this.orderconfirmmodal=true;
     }
-    if(this.Subtotal!=0) 
+    if(this.itemsarray.length!=0)
     {
-    var a =this.Userorder(form);
-    
-    this.adminser.createorder(a).subscribe(res=>
+     // console.log("items array checking must be null",this.itemsarray)
+    var orderdata =this.Userorder(form);
+  // console.log("order details",orderdata);
+    this.spinner.show();
+    this.adminser.createorder(orderdata).subscribe(res=>
       {
-
+        this.spinner.hide();
+        //this.spinner.hide();
         this.header="Order Confirmed";
          this.messagee="Order Submitted Successfully.Thankyou For shopping!!";
          this.orderconfirmmodal=true;
         // localStorage.setItem('items array',null);
       // localStorage.removeItem('items array');
-       localStorage.setItem('cartcount',"0");
+      // localStorage.setItem('cartcount',"0");
       this.temp=[] 
       this.auth.storeitems(this.temp);
        // localStorage.setItem('cartcount',null);
       },(error:HttpErrorResponse)=>
       {
+        this.spinner.hide();
         console.log(error);
         this.summary="Error";
         this.message=error.error['Status'].message;
         this.showError();
       })
     }
+  
   }
 }
-
-
 showError() {
   this.messageService.add({severity:'error', summary: this.summary, detail: this.message});
 }
@@ -173,9 +184,9 @@ showSuccess() {
 
 Userorder(form:NgForm)
 {
- const user:createorder=
+ const Data:createorder=
  {
-  UserID:this.authorized.getuserid().toString(),
+  UserID:this.authorized.getUserId(),
   PaymentMethod:form.value.paymentsmethod,
   TotalBill:this.Subtotal.toString(),
   OrderDetails:this.itemsarray,
@@ -185,8 +196,11 @@ Userorder(form:NgForm)
     Details:this.array
   }
  }
- return user;
+ var data=
+ {
+   Data
+ }
+ return data;
 }
-
 
 }

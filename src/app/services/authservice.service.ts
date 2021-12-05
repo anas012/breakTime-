@@ -18,6 +18,7 @@ export class AuthserviceService {
   arr: any[];
   data: any[];
   Allprod:any;
+  popularprd:any;
   temparray: cart[];
   BASE_URL = "https://breaktime1.herokuapp.com/";
   constructor(private httpdata: HttpClient) {}
@@ -63,9 +64,17 @@ export class AuthserviceService {
     return localStorage.getItem("items array");
   }
 
-  async getAllProducts(pageno) {
+  async getpopularproducts()
+  {
+    this.popularprd = await this.httpdata
+    .get(this.BASE_URL + 'v1/Product/popular')
+    .toPromise();
+  return this.popularprd;
+  }
+
+  async getAllProducts() {
     this.Allprd = await this.httpdata
-      .get(this.BASE_URL + `v1/Product/${pageno}`)
+      .get(this.BASE_URL + 'v1/Product')
       .toPromise();
     return this.Allprd;
   }

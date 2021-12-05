@@ -23,47 +23,79 @@
   <div class="card">
     <h5 class="card-header">Popular Products</h5>
     <div class="card-body">
-  
-  <div class="row">
-  <div class="col-sm-4">
-  <div class="card style" >
-    
-      <img src="../../../assets/img/burger.jfif" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-       <div class="d-flex justify-content-center">
-         <button href="#" *ngIf="addtocart" (click)="Addtocart()"  class="btn btn-danger">Add To cart</button> 
-        <p-inputNumber *ngIf="cart" [(ngModel)]="value" inputStyleClass="w-25" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
-        decrementButtonClass="p-button-danger" (onInput)="input($event)" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
-        </p-inputNumber>      
+      <div class="row" *ngIf="loader">
+        <div class="col-sm-4">
+          <div class="custom-skeleton p-p-4">
+            <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
+            <div class="p-d-flex p-jc-between p-mt-3">
+              <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+              <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+              <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
+            </div>
           </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="custom-skeleton p-p-4">
+            <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
+            <div class="p-d-flex p-jc-between p-mt-3">
+              <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+              <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+              <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="custom-skeleton p-p-4">
+            <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
+            <div class="p-d-flex p-jc-between p-mt-3">
+              <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+              <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
+              <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="row">
+  <div class="row" *ngIf="!loader&&isitems">
+    <div class="col-sm-4" *ngFor="let i of popularprd">
+      <div class="card style">
+        <img
+          src="../../../assets/img/burger.jfif"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ i.Name }}</h5>
+          <p class="card-text">
+            <b>Rs {{ i.RetailPrice }}</b>
+          </p>
+          <div class="d-flex justify-content-center">
+           <button *ngIf="i.addcart" (click)="Addcart(i.Name,i.ProductID,i.RetailPrice,i.quantity,i.addcart)"  class="btn btn-danger">Add To cart</button>  
+            <p-inputNumber
+            *ngIf="!i.addcart"
+              [(ngModel)]="i.quantity"
+              [min]="0"
+              [max]="3"
+              (onInput)="onproductadd(i.ProductID,i.RetailPrice,i.Name,i.quantity,i.addcart)"
+              inputStyleClass="w-25"
+              [showButtons]="true"
+               buttonLayout="horizontal"
+              inputId="horizontal"
+              spinnerMode="horizontal"
+              [step]="1"
+              decrementButtonClass="p-button-danger"
+              incrementButtonClass="p-button-success"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+              (onFocus)="onfocus($event)"
+              (onBlur)="onblur($event)"
+            >
+            </p-inputNumber>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
-  <div class="col-sm-4">
-    <div class="card style" >
-      <img src="../../../assets/img/burger.jfif" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="" class="btn btn-danger">Add to Cart</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="card style" >
-      <img src="../../../assets/img/burger.jfif" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="" class="btn btn-danger">Add to Cart</a>
-      </div>
-    </div>
-  </div>
- 
-  </div> 
 </div>
    </div>
  
