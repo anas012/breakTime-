@@ -1,224 +1,207 @@
-.height
-{
-    height:4.1rem
+.height {
+  height: 4.1rem;
 }
-.temp
-{
-    justify-content: center !important;
+.temp {
+  justify-content: center !important;
 }
-.w
-{
-    width: 20rem;
+.w {
+  width: 20rem;
 }
-.icon
-{
-    height: 1.5rem;
+.icon {
+  height: 1.5rem;
 }
-.color
-{
-    color:red;
-    height: 1.5rem;
+.color {
+  color: red;
+  height: 1.5rem;
 }
-.radius
-{
-    border-radius: 2.5rem;
+.radius {
+  border-radius: 2.5rem;
 }
-.temp
-{
-    display: flex !important;
-    flex-direction: row !important;
-    flex-grow: 6 !important;
-    flex-wrap:wrap!important;
-    justify-content:space-around !important;
+.temp {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-grow: 6 !important;
+  flex-wrap: wrap !important;
+  justify-content: space-around !important;
 }
 
-.size
-{
-    height: 15rem;
-
+.size {
+  height: 15rem;
 }
-.fixed-top
-{
-position: fixed;
+.fixed-top {
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 1030;
 }
 
-
-
-  
- .p-submenu-list {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1060;
-    display: block;
-    max-width: 276px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: left;
-    text-align: start;
-    text-decoration: none;
-    text-shadow: none;
-    text-transform: none;
-    letter-spacing: normal;
-    word-break: normal;
-    word-spacing: normal;
-    white-space: normal;
-    line-break: auto;
-    font-size: 0.875rem;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 0.3rem;
- }
- 
-
-
-
-   @media (max-width: 1023px) {
-    #test {
-        display: none;
-    }
-
+.p-submenu-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: block;
+  max-width: 276px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  white-space: normal;
+  line-break: auto;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
 }
-.sidebarr
-{
-    width: 25rem!important;
+
+@media (max-width: 1023px) {
+  #test {
+    display: none;
+  }
 }
-.Mycart
-{
-  padding: 10px!important;
-  box-shadow:  1.5px 1.5px 1.5px 1.5px grey!important;
+.sidebarr {
+  width: 25rem !important;
+}
+.Mycart {
+  padding: 10px !important;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px grey !important;
 }
 
 @media (max-width: 1024px) {
-    .p-sidebar .p-sidebar-header 
-    {
-        padding: 0rem!important;
-    }
-    .sidebarr
-{
-    width: 20rem!important;
-}
+  .p-sidebar .p-sidebar-header {
+    padding: 0rem !important;
+  }
+  .sidebarr {
+    width: 20rem !important;
+  }
 }
 
-
-.btnstyle
-{
-   border-radius: 20px!important;
+.btnstyle {
+  border-radius: 20px !important;
 }
-.btnstyle:hover
-{
-  
-    background-color: rgb(238, 102, 102)!important;
-    color: white !important;
+.btnstyle:hover {
+  background-color: rgb(238, 102, 102) !important;
+  color: white !important;
 }
 @media (max-width: 1023px) {
-    
-    .footer
-    {
-        margin-top: 35rem!important;
-        }
-   
+  .footer {
+    margin-top: 35rem !important;
+  }
 }
 
-.H:hover
-{
-
-    overflow-x: hidden !important;
-    overflow-y:visible ;
-    height: 200px;
-    position:relative;
-    width:100%;
-    display: block;
+.H:hover {
+  overflow-x: hidden !important;
+  overflow-y: visible;
+  height: 200px;
+  position: relative;
+  width: 100%;
+  display: block;
 }
 
-.style1
-    {
-    margin-top: 2rem!important;
-    }
-    
-    @media only screen and  (max-width: 1024px) {
-      
-        .style1
-        {
-            margin-bottom: 4rem !important;
-            }
-       
-    }
-    .imgsize
-    {
-        height:40px;
-        width:40px
-    }
-    
-    .crossbtn:hover
-    {
-       
-        color:red;
-    }
-    .crossicon
-    {
-        height: 2px!important;
-        width: 2px !important;
-    }
+.style1 {
+  margin-top: 2rem !important;
+}
 
-    .feildheight
-{
+@media only screen and (max-width: 1024px) {
+  .style1 {
+    margin-bottom: 4rem !important;
+  }
+}
+.imgsize {
+  height: 38px;
+  width: 40px;
+}
+
+.crossbtn:hover {
+  color: red;
+}
+.crossicon {
+  height: 2px !important;
+  width: 2px !important;
+}
+
+.feildheight {
   height: 2.4rem !important;
   width: 4.8rem !important;
 }
-.help-block
-{
-    color: red;
+.help-block {
+  color: red;
 }
-.custom:hover
-{
-    cursor: pointer;
+.custom:hover {
+  cursor: pointer;
 }
-.h
-{
-overflow: hidden;
+.h {
+  overflow: hidden;
 }
-.p-dialog-content{
-    overflow: hidden !important;
+.p-dialog-content {
+  overflow: hidden !important;
+}
+.custombar1 {
+  .p-scrollpanel-wrapper {
+    border-right: 9px solid var(--layer-1);
   }
-  .custombar1 {
-    .p-scrollpanel-wrapper {
-      border-right: 9px solid var(--layer-1);
-    }
-  
-    .p-scrollpanel-bar {
-      background-color:grey;
-      opacity: 0.1;
-      border-radius: 0;
-      .p-scrollpanel-wrapper:hover {
-        background-color: grey !important;
-      }
-    }
-  }
-.p-sidebar-content
-{
-overflow: hidden !important;
-}
-.pic{
-margin-bottom: 150rem;   
 
-}
-.logo 
-{
-    
-    height: 50px;
-    width: 50px;
-}
-.customnav
-{
-    
-     background-color:#8B4513
+  .p-scrollpanel-bar {
+    background-color: grey;
+    opacity: 0.1;
+    border-radius: 0;
+    .p-scrollpanel-wrapper:hover {
+      background-color: grey !important;
     }
+  }
+}
+.p-sidebar-content {
+  overflow: hidden !important;
+}
+.pic {
+  margin-bottom: 150rem;
+}
+.logo {
+  height: 50px;
+  width: 50px;
+}
+.customnav {
+  background-color: #8b4513;
+}
+.cartpic {
+  margin-top: 70px;
+}
+@media only screen and (max-width: 1024px) {
+  .cartpic {
+    margin-bottom: 20px !important;
+  }
+}
+.loginbtn {
+  margin-top: 150px;
+}
+@media only screen and (max-width: 1024px) {
+  .loginbtn {
+    margin-top: 50px !important;
+  }
+}
+
+.subtotal {
+  margin-top: 0px;
+}
+@media only screen and (max-width: 1024px) {
+  .subtotal {
+    margin-top: 50px !important;
+  }
+}
+.heighttt
+{
+  height: 24em;
+}

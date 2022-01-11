@@ -1,0 +1,46 @@
+<p-toast
+  position="top-right"
+  styleClass="mt-2"
+  [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+  [baseZIndex]="9999"
+></p-toast>
+<div
+  id="carouselExampleIndicators"
+  class="carousel slide mb-2"
+  data-ride="carousel"
+>
+  <ol class="carousel-indicators">
+    <li
+      data-target="#carouselExampleIndicators"
+      data-slide-to="0"
+      class="active"
+    ></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block pic" [src]="url" alt="" />
+    </div>
+  </div>
+</div>
+<br />
+
+<input
+  type="file"
+  id="file"
+  pt="image/*"
+  class="mt-4 ml-4"
+  class="file"
+  (change)="onfileselected($event)"
+  required
+/>
+<label for="file" type="button" class="style p-2 mt-4">Upload pic</label>
+<div>
+  <span class="help-block" *ngIf="filenotify">Please upload the pic</span>
+</div>
+<br />
+<br />
+<div>
+  <button class="btn btn-primary" (click)="savechanges()">Save changes</button>
+</div>
+<br />
+<br />

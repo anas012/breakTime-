@@ -6,11 +6,11 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { cibGlassdoor, flagSet } from "@coreui/icons";
 
 import { MenuItem } from "primeng/api";
 import { cart, item, Items } from "../../../../Models/usermodel";
 import { AuthserviceService } from "../../../../services/authservice.service";
+import { CommonserviceService } from "../../../../services/commonservice.service";
 @Component({
   selector: "app-items",
   templateUrl: "./items.component.html",
@@ -41,21 +41,22 @@ export class ItemsComponent implements OnInit {
   qtyy: number;
   localtemparray: cart[] = [];
   count;
-  readonly=true;
+  readonly = true;
   isitems = true;
   chkflg = false;
   productSubscription;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private auth: AuthserviceService
+    private auth: AuthserviceService,
+    private commonserv: CommonserviceService
   ) {}
 
   ngOnInit(): void {
-
     // this.id = this.route.snapshot.params['id'];
     this.route.paramMap.subscribe((params) => {
       this.id = params.get("id");
+      this.isitems = true;
       //   console.log(this.id);
       this.getAllprd(this.id);
       this.OnItemsupdate();
@@ -69,12 +70,12 @@ export class ItemsComponent implements OnInit {
 
   async getAllprd(id: string) {
     try {
-      this.loader=true;
+      this.loader = true;
       this.chkflg = false;
       this.flagg = false;
       const res: Items = await this.auth.getproducts(id);
       this.prditems = res["Data"]["data"]["Products"];
-     
+      console.log("Allitems", this.prditems);
       this.chkflg = true;
       if (this.prditems.length === 0) {
         this.isitems = false;
@@ -84,7 +85,7 @@ export class ItemsComponent implements OnInit {
         //   console.log(this.prditems);
         this.temp2 = [];
 
-        this.temp2 = JSON.parse(this.auth.getitems());
+        this.temp2 = JSON.parse(this.commonserv.getitems());
 
         // this.temp2=JSON.parse(data);
         // console.log("data",this.temp2);
@@ -168,9 +169,10 @@ export class ItemsComponent implements OnInit {
                 Name: "x",
                 RetailPrice: "-1",
                 PurchasePrice: "-1",
-
                 SubCategoryID: "-1",
                 quantity: "-1",
+                Instock: null,
+                Quantity: null,
                 addcart: true,
               };
 
@@ -221,8 +223,12 @@ export class ItemsComponent implements OnInit {
       }
       this.loader = false;
     } catch (error) {
-      this.loader=false;
-      console.log(error);
+      this.loader = false;
+      // console.log(error);
+      if (error.status == 404) {
+        this.isitems = false;
+        this.loader = false;
+      }
     }
   }
   onfocus() {
@@ -249,7 +255,7 @@ export class ItemsComponent implements OnInit {
     };
     this.array = [];
 
-    var z = JSON.parse(this.auth.getitems());
+    var z = JSON.parse(this.commonserv.getitems());
     if (z != null) {
       this.array = z;
     }
@@ -271,7 +277,7 @@ export class ItemsComponent implements OnInit {
             this.flag = true;
           }
         }
-        this.auth.storeitems(this.array);
+        this.commonserv.storeitems(this.array);
         this.array = [];
       } else {
         if (this.array.length != 0) {
@@ -285,20 +291,22 @@ export class ItemsComponent implements OnInit {
               //console.log(this.sum);
               this.array[i].TotalValue = this.sum.toString();
               this.flag = true;
-              this.auth.storeitems(this.array);
+              this.commonserv.storeitems(this.array);
               this.array = [];
             }
           }
         }
         if (this.flag === false) {
           this.array.push(newitem);
-          this.auth.storeitems(this.array);
+          this.commonserv.storeitems(this.array);
           this.array = [];
         }
       }
     }
   }
-
+  change(event) {
+    console.log("chnage", event);
+  }
   Addcart(name, id, price, quantity, status) {
     //  console.log(id);
     for (let i = 0; i < this.prditems.length; i++) {
@@ -316,7 +324,7 @@ export class ItemsComponent implements OnInit {
 
     this.array.push(newitem);
     if (!localStorage.getItem("items array")) {
-      this.auth.storeitems(this.array);
+      this.commonserv.storeitems(this.array);
       this.array = [];
     } else {
       this.localtemparray = JSON.parse(localStorage.getItem("items array"));
@@ -324,19 +332,19 @@ export class ItemsComponent implements OnInit {
       //console.log("data array",this.array);
       var a: any = this.array[0];
       this.localtemparray.push(a);
-      this.auth.storeitems(this.localtemparray);
+      this.commonserv.storeitems(this.localtemparray);
       this.array = [];
     }
     // console.log(this.auth.getitems());
   }
   OnItemsupdate() {
-    this.productSubscription = this.auth.products.subscribe((data) => {
-    //  console.log("temp data first", data);
+    this.productSubscription = this.commonserv.products.subscribe((data) => {
+      //  console.log("temp data first", data);
       this.temp2 = [];
       this.temp2 = data;
-      if (this.chkflg = true) {
+      if ((this.chkflg = true)) {
         if (this.temp2 != null) {
-      //    console.log("PRD ITEMS second", this.prditems);
+          //    console.log("PRD ITEMS second", this.prditems);
 
           var prditemslength = this.prditems.length;
           var temp2length = this.temp2.length;
@@ -346,7 +354,8 @@ export class ItemsComponent implements OnInit {
               Name: "x",
               RetailPrice: "-1",
               PurchasePrice: "-1",
-
+              Instock: null,
+              Quantity: null,
               SubCategoryID: "-1",
               quantity: "-1",
               addcart: true,
@@ -356,51 +365,92 @@ export class ItemsComponent implements OnInit {
               this.prditems[i] = newitem;
             }
           }
-            if (temp2length != prditemslength) {
-              let newitem: cart = {
-                ProductID: 0,
-                CurrentRate: "1",
-                TotalPieces: parseInt("1"),
-                TotalValue: "1",
-                status: true,
-              };
-              for (let i = temp2length; i < prditemslength; i++) {
-                this.temp2[i] = newitem;
-              }
+          if (temp2length != prditemslength) {
+            let newitem: cart = {
+              ProductID: 0,
+              CurrentRate: "1",
+              TotalPieces: parseInt("1"),
+              TotalValue: "1",
+              status: true,
+            };
+            for (let i = temp2length; i < prditemslength; i++) {
+              this.temp2[i] = newitem;
             }
+          }
 
+          for (let i = 0; i < this.prditems.length; i++) {
+            this.prditems[i].addcart = true;
+            this.prditems[i].quantity = "1";
+          }
+
+          for (let i = 0; i < this.prditems.length; i++) {
             for (let i = 0; i < this.prditems.length; i++) {
-              this.prditems[i].addcart = true;
-              this.prditems[i].quantity = "1";
-            }
-
-            for (let i = 0; i < this.prditems.length; i++) {
+              this.val2 = this.temp2[i].ProductID;
+              this.qty = this.temp2[i].TotalPieces;
+              this.stat = this.temp2[i].status;
               for (let i = 0; i < this.prditems.length; i++) {
-                this.val2 = this.temp2[i].ProductID;
-                this.qty = this.temp2[i].TotalPieces;
-                this.stat = this.temp2[i].status;
-                for (let i = 0; i < this.prditems.length; i++) {
-                  if (this.prditems[i].ProductID === this.val2) {
-                    this.prditems[i].quantity = this.qty.toString();
-                    this.prditems[i].addcart = this.stat;
-                   // console.log("Condition run 3rd");
-                  }
-                }
-              }
-
-              for (let i = 0; i < this.prditems.length; i++) {
-                let val = this.prditems[i].ProductID;
-                if (val === -1) {
-                  console.log(this.prditems[i].ProductID);
-                  this.prditems.splice(i, temp2length - prditemslength);
+                if (this.prditems[i].ProductID === this.val2) {
+                  this.prditems[i].quantity = this.qty.toString();
+                  this.prditems[i].addcart = this.stat;
+                  // console.log("Condition run 3rd");
                 }
               }
             }
 
-            // console.log("data from observable after ",this.prditems);
+            for (let i = 0; i < this.prditems.length; i++) {
+              let val = this.prditems[i].ProductID;
+              if (val === -1) {
+                console.log(this.prditems[i].ProductID);
+                this.prditems.splice(i, temp2length - prditemslength);
+              }
+            }
+          }
+
+          // console.log("data from observable after ",this.prditems);
+        }
+      }
+    });
+  }
+
+  Repeatskeleton(n: number): Array<number> {
+    return Array(n);
+  }
+
+  checkinginput(id, price, name, quantity, addcart, inputvalue) {
+    console.log(inputvalue.value);
+
+    var products: cart[] = JSON.parse(this.commonserv.getitems());
+    if (products != null) {
+      if (inputvalue.value >= 1 && inputvalue.value <= quantity) {
+        // console.log("first run")
+        for (let i = 0; i < products.length; i++) {
+          if (id === products[i].ProductID) {
+            products[i].TotalPieces = inputvalue.value;
+            this.sum = 0;
+            products[i].TotalPieces = inputvalue.value;
+            this.sum = inputvalue.value * parseInt(price);
           }
         }
-      
-    });
+        this.commonserv.storeitems(products);
+        products = [];
+      } else {
+        //  console.log("second run")
+        for (let i = 0; i < this.prditems.length; i++) {
+          if (this.prditems[i].ProductID == id) {
+            this.prditems[i].addcart = true;
+            this.prditems[i].quantity = "1";
+          }
+        }
+        //  console.log("deleteing items from array");
+        for (let i = 0; i < products.length; i++) {
+          if (products[i].ProductID === id) {
+            //    console.log("items matched");
+            products.splice(i, 1);
+          }
+        }
+        this.commonserv.storeitems(products);
+        products = [];
+      }
+    }
   }
 }

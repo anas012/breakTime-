@@ -1,22 +1,28 @@
 <div class="row justify-content-center">
-   
-    <div class="col-sm-3" id="test">
-       
-       <h5 class="card-header text-dark ">
-        Categories</h5>
-            
-      <!-- <p-scrollPanel [style]="{height: '100px'}" > -->
-         
-           <p-tieredMenu [baseZIndex]="99999"  *ngIf="sign" styleClass="w-100" [autoDisplay]="false"  #menu  [model]="items"></p-tieredMenu>
-   <!-- </p-scrollPanel> -->
+  <div class="col-sm-3" id="test">
+    <h5 class="card-header text-dark">Categories</h5>
 
+    <!-- <p-scrollPanel [style]="{height: '100px'}" > -->
 
-</div>
+    <p-tieredMenu
+      [baseZIndex]="99999"
+      *ngIf="sign && !isloading"
+      styleClass="w-100"
+      [autoDisplay]="false"
+      #menu
+      [model]="items"
+    ></p-tieredMenu>
+    <!-- </p-scrollPanel> -->
 
+    <div *ngFor="let n of Repeatskeleton(10)">
+      <p-skeleton *ngIf="isloading" styleClass="w-100 mt-2"></p-skeleton>
+      <p-skeleton *ngIf="isloading" styleClass="w-75 mt-2"></p-skeleton>
+      <p-skeleton *ngIf="isloading" styleClass="w-50 mt-2"></p-skeleton>
+      <br />
+    </div>
+  </div>
 
- <div class="col-sm-8">
-  
+  <div class="col-sm-8">
     <router-outlet></router-outlet>
-
-
+  </div>
 </div>

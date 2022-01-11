@@ -67,11 +67,27 @@ createorder(data:any)
 {
   return this.httpdata.post(this.BASE_URL +"v1/order",data);
 }
-async getAllorder(pageno)
+ async getAllorder(Url,pageno,count)
 {
- this.Allorder=await this.httpdata.get(this.BASE_URL +`v1/order/all/${pageno}`).toPromise();
+if(Url=="Allorder")
+{
+  this.Allorder= await this.httpdata.get(this.BASE_URL +`v1/order/all/${pageno}?count=${count}`).toPromise();
  return this.Allorder;
 }
+else if (Url=="listdelivered")
+{
+  this.Allorder= await this.httpdata.get(this.BASE_URL +`v1/order/listdelivered/${pageno}?count=${count}`).toPromise();
+  return this.Allorder;
+}
+else if(Url=='listcancelled')
+{
+  {
+    this.Allorder=await this.httpdata.get(this.BASE_URL +`v1/order/listcancelled/${pageno}?count=${count}`).toPromise();
+    return this.Allorder;
+  }
+}
+}
+
 
 orderconfirmed(id)
 {
@@ -81,5 +97,14 @@ orderconfirmed(id)
 ordercancel(id)
 {
   return this.httpdata.patch(this.BASE_URL +`v1/order/${id}`,null);
+}
+resetpw(data,id)
+{
+  return this.httpdata.post(this.BASE_URL +`v1/auth/resetpassword/${id}`,data);
+}
+
+registeradmin(data)
+{
+  return this.httpdata.post(this.BASE_URL+'v1/auth/register',data);
 }
 }

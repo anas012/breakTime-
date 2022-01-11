@@ -1,4 +1,4 @@
-import { StringLiteralLike } from "typescript";
+import { BooleanLiteral, StringLiteralLike } from "typescript";
 import { items } from "./items";
 
 
@@ -61,6 +61,8 @@ export interface Items {
   RetailPrice: string;
   SubCategoryID: string;
   quantity:string;
+  Instock:boolean;
+  Quantity:string;
   addcart:boolean;
 }
 export interface cart 

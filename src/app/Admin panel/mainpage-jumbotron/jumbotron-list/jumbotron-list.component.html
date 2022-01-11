@@ -1,0 +1,32 @@
+<button
+  class="btn btn-primary"
+  [routerLink]="'add'"
+  style="margin-bottom: 10px"
+>
+  New Jumbotron Add
+</button>
+<div class="card">
+  <div class="card-header d-flex">
+    <strong>Jumbotron List</strong>
+  </div>
+
+  <p-table>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Image</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body">
+      <tr>
+        <td>Hello</td>
+        <td>
+          <button class="btn btn-primary">Active</button>
+          <button class="btn btn-primary">Disable</button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft"> </ng-template>
+    <ng-template pTemplate="paginatorright"> </ng-template>
+  </p-table>
+</div>

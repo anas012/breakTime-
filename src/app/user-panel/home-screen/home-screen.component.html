@@ -1,4 +1,9 @@
-<p-toast position="top-right"  [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}" [baseZIndex]="9999" styleClass="mt-2"></p-toast>
+<p-toast
+  position="top-right"
+  [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+  [baseZIndex]="9999"
+  styleClass="mt-2"
+></p-toast>
 <ngx-spinner
   bdColor="rgba(0, 0, 0, 0.8)"
   size="medium"
@@ -23,13 +28,19 @@
       </button>
     </li>
     <li class="nav-item d-flex align-items-sm-start">
-      <a class="navbar-brand"><img src="../../../assets/img/BREAK TIME LOGO.png" class="logo"/></a>
+      <a class="navbar-brand"
+        ><img src="../../../assets/img/BREAK TIME LOGO.png" class="logo"
+      /></a>
     </li>
     <!-- <li class="nav-item">
       <button class="btn btn-light ml-2 mr-3">Deliver At</button>
     </li> -->
     <li>
-      <form class="form-inline my-2 my-lg-0"  (ngSubmit)="onSearch(S)" #S="ngForm" >
+      <form
+        class="form-inline my-2 my-lg-0"
+        (ngSubmit)="onSearch(S)"
+        #S="ngForm"
+      >
         <input
           class="form-control mt-2"
           type="text"
@@ -44,7 +55,7 @@
     </li>
     <li>
       <button
-      *ngIf="!islogin"
+        *ngIf="!islogin"
         pButton
         pRipple
         type="button"
@@ -54,7 +65,7 @@
       ></button>
 
       <button
-      *ngIf="islogin"
+        *ngIf="islogin"
         pButton
         pRipple
         type="button"
@@ -90,10 +101,10 @@
 <br />
 
 <div class="container-fluid">
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
 
-<footer class="bg-light">
+<footer class="bg-dark">
   <div class="container">
     <div class="row">
       <div class="col-sm-4">
@@ -140,7 +151,7 @@
   <div class="containerfluid">
     <div class="row Mycart">
       <h5 class="text-dark">My Cart</h5>
-      <span class="ml-1 text-danger">({{itemcount}} items)</span>
+      <span class="ml-1 text-danger">({{ itemcount }} items)</span>
 
       <button
         type="button"
@@ -150,103 +161,126 @@
         <icon class="pi pi-times"></icon>
       </button>
     </div>
-    <br/>
+    <br />
   </div>
-  <div *ngIf="!carthasitem">
-    <br>
-    <br>
-    <br>
-    <img src="../../../assets/img/cart.png" class="ml-4 mt-5">
+  <div *ngIf="!carthasitem" class="mt-5 heighttt">
+    <img src="../../../assets/img/cart.png" class="cartpic ml-3" />
     <p class="text-center mt-1"><strong>Oops!No Items in Your Cart</strong></p>
-    <br>
-    <br>
-    <br>
   </div>
   <div class="containerfluid" *ngIf="carthasitem">
-    <p-scrollPanel [style]="{width: '100%', height: '400px'}"  styleClass="custombar1">
-    <div *ngFor="let items of arrayofitems">
-    <div class="row">
-      <div class="justify-content-end ml-auto mr-3">
-        <button (click)="ondeleteitem(items.ProductID)" class="btn btn-sm ml-auto crossbtn">
-          <icon class="pi pi-times"></icon>
-        </button>
-      </div>
-    </div>
-    <div class="row">
-      
-      <img src="../../../assets/img/bread.jpg" class="ml-1 imgsize" />
-      <p class="ml-5 mt-1">
-        {{items.Name}}
-        <br />
-        <span><b>{{items.TotalPieces}}</b></span>
-        x
-        <span class="font-weight-light mt-3 ml-auto mr-4">Rs {{items.CurrentRate}}</span>
-      </p>
-      <span class="font-weight-bold mt-4 ml-auto mr-4">Rs {{items.TotalValue}}</span>
-     
-     
-    </div>
-    <div class="ml-3"> 
-      <span >
-      <p-inputNumber
-      [(ngModel)]="items.TotalPieces"
-      [min]="1"
-      [max]="3"
-      (onInput)="oneditcart(items.ProductID,items.Name,items.TotalPieces,items.CurrentRate)"
-      inputStyleClass="w-25"
-      [showButtons]="true"
-      buttonLayout="horizontal"
-      inputId="horizontal"
-      spinnerMode="horizontal"
-      [step]="1"
-      decrementButtonClass="p-button-danger"
-      incrementButtonClass="p-button-success"
-      incrementButtonIcon="pi pi-plus"
-      decrementButtonIcon="pi pi-minus"
-
+    <p-scrollPanel
+      [style]="{ width: '100%', height: '465px' }"
+      styleClass="custombar1"
     >
-    </p-inputNumber>
-  </span>
-    </div>
-    <hr />
-
-  
-    </div>
+      <div *ngFor="let items of arrayofitems">
+        <div class="row">
+          <div class="justify-content-end ml-auto mr-3">
+            <button
+              (click)="ondeleteitem(items.ProductID)"
+              class="btn btn-sm ml-auto crossbtn"
+            >
+              <icon class="pi pi-times"></icon>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <img src="../../../assets/img/bread.jpg" class="ml-1 imgsize" />
+          <p class="ml-5 mt-1">
+            {{ items.Name }}
+            <br />
+            <span
+              ><b>{{ items.TotalPieces }}</b></span
+            >
+            x
+            <span class="font-weight-light mt-3 ml-auto mr-4"
+              >Rs {{ items.CurrentRate }}</span
+            >
+          </p>
+          <span class="font-weight-bold mt-4 ml-auto mr-4"
+            >Rs {{ items.TotalValue }}</span
+          >
+        </div>
+        <div class="ml-3">
+          <span>
+            <p-inputNumber
+              [(ngModel)]="items.TotalPieces"
+              [min]="1"
+              [max]="10"
+              (onInput)="
+                oneditcart(
+                  items.ProductID,
+                  items.Name,
+                  items.TotalPieces,
+                  items.CurrentRate
+                )
+              "
+              (onInput)="
+                checkinginput(
+                  i.ProductID,
+                  i.RetailPrice,
+                  i.Name,
+                  i.quantity,
+                  i.addcart,
+                  $event
+                )
+              "
+              inputStyleClass="w-25"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              inputId="horizontal"
+              spinnerMode="horizontal"
+              [step]="1"
+              decrementButtonClass="p-button-danger"
+              incrementButtonClass="p-button-success"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            >
+            </p-inputNumber>
+          </span>
+        </div>
+        <hr />
+      </div>
     </p-scrollPanel>
-    
   </div>
-  
+
   <div class="containerfluid" *ngIf="islogin">
-    <br>
+  
     <div class="row">
-      <h6 class="ml-3 font-weight-bold mt-1">SubTotal</h6>
+      <h6 class="ml-3 mt-1 font-weight-bold">SubTotal</h6>
       <p class="ml-1">(inclusive of all taxes)</p>
-      <span class="ml-auto font-weight-bold mr-3">Rs {{subtotal}}</span>
+      <span class="ml-auto font-weight-bold mr-3">Rs {{ subtotal }}</span>
     </div>
     <div class="d-flex justify-content-center">
-   <br>
-      <button class="btn btn-danger w-100" [disabled]="disable" (click)="proccedtocheckout()" (click)="cartsidebar=false">Proceed To Checkout</button>
-   
+      <button
+        class="btn btn-danger w-100"
+        [disabled]="disable"
+        (click)="proccedtocheckout()"
+        (click)="cartsidebar = false"
+      >
+        Proceed To Checkout
+      </button>
     </div>
-    <br>
- 
-   
+    <br />
   </div>
-  <div class="containerfluid"  *ngIf="!islogin">
-   
+  <div class="containerfluid" *ngIf="!islogin">
     <div class="d-flex justify-content-center style1">
-   
-      <br>
-      <button class="btn btn-danger w-100 mt-5" (click)="showloginmodal()" (click)="cartsidebar=false">Login/Signup</button>
+      <br />
+      <button
+        class="btn btn-danger w-100"
+        (click)="showloginmodal()"
+        (click)="cartsidebar = false"
+      >
+        Login/Signup
+      </button>
     </div>
   </div>
 </p-sidebar>
 
-<p-overlayPanel #UserAccount  [baseZIndex]="50">
-  <ng-template pTemplate >
+<p-overlayPanel #UserAccount [baseZIndex]="50">
+  <ng-template pTemplate>
     <div>
-      <h5 class="ml-4">{{username}}</h5>
-      <span class="ml-4">{{userphone}}</span>
+      <h5 class="ml-4">{{ username }}</h5>
+      <span class="ml-4">{{ userphone }}</span>
     </div>
     <hr />
     <ul class="navbar-nav">
@@ -266,7 +300,15 @@
         </a>
       </li>
       <li><a class="dropdown-item" href="#">Complaints</a></li>
-      <li><a class="dropdown-item" style="cursor: pointer;" (click)="onlogout()" (click)="UserAccount.hide($event)">Signout</a></li>
+      <li>
+        <a
+          class="dropdown-item"
+          style="cursor: pointer"
+          (click)="onlogout()"
+          (click)="UserAccount.hide($event)"
+          >Signout</a
+        >
+      </li>
     </ul>
     <hr />
     <ul class="navbar-nav">
@@ -283,12 +325,16 @@
   </ng-template>
 </p-overlayPanel>
 
-<p-overlayPanel #UserLogin  [baseZIndex]="50">
-
-
+<p-overlayPanel #UserLogin [baseZIndex]="50">
   <ng-template pTemplate>
     <div>
-      <button class="btn btn-danger w-100" (click)="showloginmodal()" (click)="UserLogin.hide($event)">Login or Signup</button>
+      <button
+        class="btn btn-danger w-100"
+        (click)="showloginmodal()"
+        (click)="UserLogin.hide($event)"
+      >
+        Login or Signup
+      </button>
     </div>
 
     <hr />
@@ -305,177 +351,172 @@
   </ng-template>
 </p-overlayPanel>
 
-
 <!--Login Modal code-->
-<p-dialog  [modal]="true" [(visible)]="loginmodal" [breakpoints]="{'500px': '98vw'}" styleClass="w-25"
-    [draggable]="false" [resizable]="false" [baseZIndex]="50">
- 
-   <p class="font-weight-bold">Welcome Back</p>
+<p-dialog
+  [modal]="true"
+  [(visible)]="loginmodal"
+  [breakpoints]="{ '500px': '98vw' }"
+  styleClass="w-25"
+  [draggable]="false"
+  [resizable]="false"
+  [baseZIndex]="50"
+>
+  <p class="font-weight-bold">Welcome Back</p>
 
-   <p >Dont have an Account? <a (click)="opensignup()" class="text-danger custom">Signup Now</a></p>
+  <p>
+    Dont have an Account?
+    <a (click)="opensignup()" class="text-danger custom">Signup Now</a>
+  </p>
 
-   <!--end col-->
-   <form   (ngSubmit)="onLogin(login)"  #login="ngForm" >
-  
+  <!--end col-->
+  <form (ngSubmit)="onLogin(login)" #login="ngForm">
     <div class="mb-3">
       <label class="form-label">Email <span class="text-danger">*</span></label>
       <div class="form-icon position-relative">
         <i data-feather="user-check" class="fea icon-sm icons"></i>
         <input
-        type="text"
-        class="form-control"
-        placeholder="Email"
-        name="email"
-        ngModel
-        name="email"
-        #email="ngModel"
-        required
-      />
+          type="text"
+          class="form-control"
+          placeholder="Email"
+          name="email"
+          ngModel
+          name="email"
+          #email="ngModel"
+          required
+        />
 
-      <span
-        class="help-block"
-        *ngIf="
-          !email.valid &&
-          email.touched
-        "
-        >Please enter Email</span
-      >
-      </div>
-  
-  </div>
-
-      <div class="mb-3">
-        <label class="form-label"
-          >Password<span class="text-danger"> *</span></label
+        <span class="help-block" *ngIf="!email.valid && email.touched"
+          >Please enter Email</span
         >
-        <br>
-       
-          <i data-feather="user" class="fea icon-sm icons"></i>
-          <p-password
-                    inputStyleClass="form-control"
-                    styleClass="w-100"
-                    placeholder="password"
-                    name="password"
-                    ngModel
-                    name="password"
-                    #passwordd="ngModel"
-                    [feedback]="false"
-                    required
-                  ></p-password>
-            <div>   
-        <span
-          class="help-block"
-          *ngIf="!passwordd.valid && passwordd.touched"
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label"
+        >Password<span class="text-danger"> *</span></label
+      >
+      <br />
+
+      <i data-feather="user" class="fea icon-sm icons"></i>
+      <p-password
+        inputStyleClass="form-control"
+        styleClass="w-100"
+        placeholder="password"
+        name="password"
+        ngModel
+        name="password"
+        #passwordd="ngModel"
+        [feedback]="false"
+        required
+      ></p-password>
+      <div>
+        <span class="help-block" *ngIf="!passwordd.valid && passwordd.touched"
           >Please enter password</span
         >
       </div>
-      </div>
-    <div class="text-center">
-<span><a href="#" class="text-danger">Forgot Password?</a></span>
     </div>
-    <br>
+    <div class="text-center">
+      <span><a href="#" class="text-danger">Forgot Password?</a></span>
+    </div>
+    <br />
 
-      <div>
-        <button class="btn btn-danger w-100" [disabled]="!login.valid">Login</button>
-      </div>
-    </form>
+    <div>
+      <button class="btn btn-danger w-100" [disabled]="!login.valid">
+        Login
+      </button>
+    </div>
+  </form>
 </p-dialog>
 <!--Signup Modal code-->
 
-<p-dialog [modal]="true" [(visible)]="signupmodal" [breakpoints]="{'500px': '98vw'}" styleClass="w-25 mt-5"
-    [draggable]="false" [resizable]="false" [baseZIndex]="50">
-   
-   <p class="font-weight-bold">Create your Account</p>
-  
-   <form  (ngSubmit)="onRegister(R)" #R="ngForm">
-  
+<p-dialog
+  [modal]="true"
+  [(visible)]="signupmodal"
+  [breakpoints]="{ '500px': '98vw' }"
+  styleClass="w-25 mt-5"
+  [draggable]="false"
+  [resizable]="false"
+  [baseZIndex]="50"
+>
+  <p class="font-weight-bold">Create your Account</p>
+
+  <form (ngSubmit)="onRegister(R)" #R="ngForm">
     <div class="mb-3">
       <label class="form-label">Email <span class="text-danger">*</span></label>
       <div class="form-icon position-relative">
         <i data-feather="user-check" class="fea icon-sm icons"></i>
         <input
-        type="text"
-        class="form-control"
-        placeholder="Email"
-        name="email"
-        ngModel
-        name="email"
-        #emaill="ngModel"
-        required
-      />
+          type="text"
+          class="form-control"
+          placeholder="Email"
+          name="email"
+          ngModel
+          name="email"
+          #emaill="ngModel"
+          required
+        />
 
-      <span
-        class="help-block"
-        *ngIf="
-          !emaill.valid &&
-          emaill.touched
-        "
-        >Please enter Email</span
-      >
+        <span class="help-block" *ngIf="!emaill.valid && emaill.touched"
+          >Please enter Email</span
+        >
       </div>
-  
-  </div>
+    </div>
 
-  <div class="mb-3">
-    <label class="form-label"
-      >Password <span class="text-danger">*</span></label
-    >
-    <br>
-   
+    <div class="mb-3">
+      <label class="form-label"
+        >Password <span class="text-danger">*</span></label
+      >
+      <br />
+
       <i data-feather="user" class="fea icon-sm icons"></i>
       <p-password
-             inputStyleClass="w-100"
-                styleClass="w-100"
-                placeholder="password"
-                name="password"
-                ngModel
-                name="password"
-                #passwordd="ngModel"
-                [toggleMask]="true"
-                [feedback]="true"
-                required
-              ></p-password>
-           
-    <span
-      class="help-block"
-      *ngIf="!passwordd.valid && passwordd.touched"
-      >Please enter password</span
-    >
-  </div>
- 
+        inputStyleClass="w-100"
+        styleClass="w-100"
+        placeholder="password"
+        name="password"
+        ngModel
+        name="password"
+        #passwordd="ngModel"
+        [toggleMask]="true"
+        [feedback]="true"
+        required
+      ></p-password>
+
+      <span class="help-block" *ngIf="!passwordd.valid && passwordd.touched"
+        >Please enter password</span
+      >
+    </div>
+
     <div class="mb-3">
-      <label class="form-label">Full name <span class="text-danger">*</span></label>
+      <label class="form-label"
+        >Full name <span class="text-danger">*</span></label
+      >
       <div class="form-icon position-relative">
         <i data-feather="user-check" class="fea icon-sm icons"></i>
         <input
-        type="text"
-        class="form-control"
-        placeholder="Name"
-        name="name"
-        ngModel
-        name="name"
-        #name="ngModel"
-        required
-      />
+          type="text"
+          class="form-control"
+          placeholder="Name"
+          name="name"
+          ngModel
+          name="name"
+          #name="ngModel"
+          required
+        />
 
-      <span
-        class="help-block"
-        *ngIf="
-          !name.valid &&
-          name.touched
-        "
-        >Please enter full name</span
-      >
-  
+        <span class="help-block" *ngIf="!name.valid && name.touched"
+          >Please enter full name</span
+        >
+      </div>
     </div>
-  </div> 
 
     <div class="mb-3">
-      <label class="form-label">Phone <span class="text-danger"> *</span></label>
+      <label class="form-label"
+        >Phone <span class="text-danger"> *</span></label
+      >
       <div class="form-icon position-relative">
         <i data-feather="user" class="fea icon-sm icons"></i>
         <div class="row">
-          
           <select
             class="form-select form-control feildheight ml-3"
             name="countrycode"
@@ -487,11 +528,10 @@
           >
             <option selected>+92</option>
             <option value="+93">+93</option>
-
           </select>
-         
+
           <p-inputMask
-            styleClass="form-control" 
+            styleClass="form-control"
             mask="9999999999"
             id="phone"
             ngModel
@@ -504,27 +544,43 @@
         </div>
       </div>
       <span class="help-block" *ngIf="!phonee.valid && phonee.touched"
-        >Please enter phone number</span> 
-      </div>
-      <div>
-        <button class="btn btn-danger w-100" [disabled]="!R.valid">Signup</button> 
-      </div>
-      <br>
-      <span class="font-weight-light text-justify">By clicking Signup you agreeing to the terms and conditions of Break Time</span>
-
-    </form>
-  
-    </p-dialog>
-    <!--Error dialougue modal starts-->
-    <p-dialog [(visible)]="errordialoguemodal" [position]="position" [modal]="true" 
-[style]="{width: '35vw' }" [closable]="false" styleClass="mt-5"
-[breakpoints]="{ '960px': '85vw' }" [draggable]="false" [baseZIndex]="50" [resizable]="false">
-<h5 class="text-danger float-left">Error</h5>
-<br><br>
-  <p class="text-center">{{errmessage}}</p>
+        >Please enter phone number</span
+      >
+    </div>
+    <div>
+      <button class="btn btn-danger w-100" [disabled]="!R.valid">Signup</button>
+    </div>
+    <br />
+    <span class="font-weight-light text-justify"
+      >By clicking Signup you agreeing to the terms and conditions of Break
+      Time</span
+    >
+  </form>
+</p-dialog>
+<!--Error dialougue modal starts-->
+<p-dialog
+  [(visible)]="errordialoguemodal"
+  [position]="position"
+  [modal]="true"
+  [style]="{ width: '35vw' }"
+  [closable]="false"
+  styleClass="mt-5"
+  [breakpoints]="{ '960px': '85vw' }"
+  [draggable]="false"
+  [baseZIndex]="50"
+  [resizable]="false"
+>
+  <h5 class="text-danger float-left">Error</h5>
+  <br /><br />
+  <p class="text-center">{{ errmessage }}</p>
 
   <ng-template pTemplate="footer">
-          <p-button icon="pi pi-check" (click)="onOK()" label="Ok" styleClass="p-button-text"></p-button>
-      </ng-template>
+    <p-button
+      icon="pi pi-check"
+      (click)="onOK()"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
 </p-dialog>
 <!--Error dialogue midal ends-->

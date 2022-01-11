@@ -1,0 +1,179 @@
+<p-toast
+  position="top-right"
+  [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+  [baseZIndex]="9999"
+  styleClass="mt-2"
+></p-toast>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+
+<!--Tabview start -->
+<!--All orders view start-->
+
+<div class="card">
+  <!-- <div class="card-header d-flex"> -->
+  <strong
+    ><p-tabMenu
+      #tab
+      [model]="menuList"
+      [activeItem]="activeItem"
+      (click)="onMenuChange(tab)"
+      styleClass="mt-1 mr-1"
+    ></p-tabMenu
+  ></strong>
+
+  <!-- </div> -->
+
+  <p-table
+    #dt
+    [columns]="cols"
+    [value]="Allorders"
+    styleClass="p-datatable-striped p-datatable-scrollable"
+    selectionMode="single"
+    [(selection)]="selectedRow"
+    
+    [loading]="loading"
+    dataKey="OrderID"
+    [globalFilterFields]="[
+      'OrderID',
+      'Status',
+      'CreatedBy',
+      'PaymentMethod',
+      'OrderDate',
+      'streetaddress',
+      'TotalBill',
+      'City'
+    ]"
+  >
+  <ng-template pTemplate="caption">
+    <div class="row" style="display: flex; align-items: center">
+      <div class="col-md-6">
+        <input
+          pInputText
+          type="text"
+          name="Filter"
+          class="form-control"
+          required
+          placeholder="Filter"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+        />
+      </div>
+      <div class="col-md-6" style="display: flex; justify-content: flex-end">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="dt.exportCSV()"
+        >
+          <i class="fa fa-file-excel-o fa-lg"></i> Export CSV
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3rem"></th>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{ col.header }}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+      <th *ngIf="this.activeItem.id === '1'">Actions</th>
+    </tr>
+  </ng-template>
+
+  <ng-template
+    pTemplate="body"
+    let-Allorder
+    let-rowData
+    let-columns="columns"
+    let-expanded="expanded"
+    styleClass="text-center"
+  >
+
+    <tr [pSelectableRow]="rowData">
+      
+      <td>
+        <button *ngIf="this.activeItem.id === '1'" type="button" pButton pRipple [pRowToggler]="Allorder" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+    </td>
+      <td *ngFor="let col of columns">
+        {{ rowData[col.field] }}
+      </td>
+      <td *ngIf="this.activeItem.id === '1'">
+      
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-check"
+          (click)="confirmsubmitorder(rowData.OrderID)"
+          class="p-button-rounded "
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          (click)="confirmcancelorder(rowData.OrderID)"
+          class="p-button-rounded p-button-danger"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+<ng-template
+    pTemplate="rowexpansion"
+    let-Allorders
+    *ngIf="this.activeItem.id === '1'"
+  >
+    <tr>
+      <td colspan="10">
+        <div class="p-p-3">
+          <p-table [value]="Allorders.OrderDetails" dataKey="OrderID">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Product Name</th>
+                <th>ProductID</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-order>
+              <tr [pSelectableRow]="order">
+                <td>{{ order.Product.Name }}</td>
+                <td>{{ order.ProductID }}</td>
+                <td>{{ order.TotalPieces }}</td>
+                <td>{{ order.TotalValue }}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="3">There are no order for this product yet.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+ 
+   
+  </p-table>
+  <div>
+    <p-paginator
+      [rows]="Rows"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {{ pageno }} to {{ lastpage }}  of {{
+        totalRecords
+      }} entries"
+      (onPageChange)="onPageChange($event)"
+      [rowsPerPageOptions]="[50, 100, 150]"
+      [totalRecords]="totalRecords"
+    ></p-paginator>
+  </div>
+</div>

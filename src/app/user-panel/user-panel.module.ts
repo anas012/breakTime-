@@ -27,6 +27,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {PaginatorModule} from 'primeng/paginator';
 import { SearcheditemComponent } from './home-screen/startuppage/searcheditem/searcheditem.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @NgModule({
   declarations: [
     HomeScreenComponent,
@@ -60,8 +61,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SkeletonModule,
     DropdownModule,
     PaginatorModule,
-    NgxSpinnerModule
-    
+    NgxSpinnerModule,
+    NgxSkeletonLoaderModule
 
   ],
   exports: [

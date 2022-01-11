@@ -4,7 +4,7 @@
   <h5 class="card-header">Items</h5>
   <div class="card-body">
     <div class="row" *ngIf="loader">
-      <div class="col-sm-4">
+      <div class="col-sm-4" *ngFor="let n of Repeatskeleton(30)">
         <div class="custom-skeleton p-p-4">
           <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
           <div class="p-d-flex p-jc-between p-mt-3">
@@ -13,30 +13,11 @@
             <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
           </div>
         </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="custom-skeleton p-p-4">
-          <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
-          <div class="p-d-flex p-jc-between p-mt-3">
-            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
-            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
-            <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="custom-skeleton p-p-4">
-          <p-skeleton styleClass="w-75 mb-1" height="150px"></p-skeleton>
-          <div class="p-d-flex p-jc-between p-mt-3">
-            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
-            <p-skeleton styleClass="w-50 mb-1"></p-skeleton>
-            <p-skeleton styleClass="w-25 mb-1"></p-skeleton>
-          </div>
-        </div>
+        <br />
       </div>
     </div>
 
-    <div class="row" *ngIf="!loader&&isitems">
+    <div class="row" *ngIf="!loader && isitems">
       <div class="col-sm-4" *ngFor="let i of prditems">
         <div class="card style">
           <img
@@ -49,17 +30,53 @@
             <p class="card-text">
               <b>Rs {{ i.RetailPrice }}</b>
             </p>
+            <p class="card-text text-center" *ngIf="!i.InStock">
+              <p-badge styleClass="text-center" value="Out of Stock" severity="danger"></p-badge>
+          </p>
             <div class="d-flex justify-content-center">
-             <button *ngIf="i.addcart" (click)="Addcart(i.Name,i.ProductID,i.RetailPrice,i.quantity,i.addcart)"  class="btn btn-danger">Add To cart</button>  
+              <button
+                *ngIf="i.addcart"
+                (click)="
+                  Addcart(
+                    i.Name,
+                    i.ProductID,
+                    i.RetailPrice,
+                    i.quantity,
+                    i.addcart
+                  )
+                "
+                [disabled]="!i.InStock"
+                class="btn btn-danger"
+              >
+                Add To cart
+              </button>
               <p-inputNumber
-              *ngIf="!i.addcart"
+                *ngIf="!i.addcart"
                 [(ngModel)]="i.quantity"
                 [min]="0"
-                [max]="3"
-                (onInput)="onproductadd(i.ProductID,i.RetailPrice,i.Name,i.quantity,i.addcart)"
+                [max]="i.Quantity"
+                (onInput)="
+                  onproductadd(
+                    i.ProductID,
+                    i.RetailPrice,
+                    i.Name,
+                    i.quantity,
+                    i.addcart
+                  )
+                "
+                (onInput)="
+                  checkinginput(
+                    i.ProductID,
+                    i.RetailPrice,
+                    i.Name,
+                    i.Quantity,
+                    i.addcart,
+                    $event
+                  )
+                "
                 inputStyleClass="w-25"
                 [showButtons]="true"
-                 buttonLayout="horizontal"
+                buttonLayout="horizontal"
                 inputId="horizontal"
                 spinnerMode="horizontal"
                 [step]="1"
@@ -72,22 +89,23 @@
               >
               </p-inputNumber>
             </div>
-
           </div>
         </div>
       </div>
     </div>
-    <div class="alert alert-primary" style="height: 3rem;"  role="alert" *ngIf="!isitems">
-   <p>No items found
-   
-   </p> 
-
+    <div
+      class="alert alert-primary"
+      style="height: 3rem"
+      role="alert"
+      *ngIf="!isitems"
+    >
+      <p>No items found</p>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </div>
 <!-- <pre>

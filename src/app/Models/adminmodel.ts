@@ -36,6 +36,8 @@ export interface newprd
   RetailPrice:string;
   PurcahsePrice:string;
   SubCategoryID:string;
+  Quantity:string;
+  InStock:boolean;
   Identifier:string;
 
 }
@@ -74,7 +76,9 @@ export interface AllOrders
   PaymentMethod:string;
   TotalBill: string;
   streetaddress:string;
+  City;
   CreatedBy:string;
+  Status:any;
 }
 
 export interface homeaddress

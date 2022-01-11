@@ -38,11 +38,12 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { OrdersModule } from './views/orders/orders.module';
+import { OrdersModule } from './Admin panel/orders/orders.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorserviceService } from './services/interceptor.service';
 import { ButtonModule } from 'primeng/button';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -70,6 +71,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     AppComponent,
     ...APP_CONTAINERS,
    
+   
   
 
   ],
@@ -93,7 +95,6 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
   exports: [
 
   
- 
   ]
 })
 export class AppModule { }

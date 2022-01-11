@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { cart, Items } from '../../../../Models/usermodel';
-import { AuthserviceService } from '../../../../services/authservice.service';
+import { Component, OnInit } from "@angular/core";
+import { cart, Items } from "../../../../Models/usermodel";
+import { AuthserviceService } from "../../../../services/authservice.service";
+import { CommonserviceService } from "../../../../services/commonservice.service";
 
 @Component({
-  selector: 'app-mainpage',
-  templateUrl: './mainpage.component.html',
-  styleUrls: ['./mainpage.component.scss']
+  selector: "app-mainpage",
+  templateUrl: "./mainpage.component.html",
+  styleUrls: ["./mainpage.component.scss"],
 })
 export class MainpageComponent implements OnInit {
-
   popularprd: Items[] = [];
   addtocart = true;
   cart: boolean;
@@ -31,13 +31,11 @@ export class MainpageComponent implements OnInit {
   qtyy: number;
   localtemparray: cart[] = [];
   count;
-  readonly=true;
+  readonly = true;
   isitems = true;
   chkflg = false;
   productSubscription;
-  constructor(private auth:AuthserviceService) { 
-    
-  }
+  constructor(private auth: AuthserviceService,private commonserv:CommonserviceService) {}
 
   ngOnInit(): void {
     this.loadpopularproducts();
@@ -45,12 +43,12 @@ export class MainpageComponent implements OnInit {
   }
   async loadpopularproducts() {
     try {
-      this.loader=true;
+      this.loader = true;
       this.chkflg = false;
       this.flagg = false;
       const res: Items = await this.auth.getpopularproducts();
-      this.popularprd= res["Data"]["data"];
-     
+      this.popularprd = res["Data"]["data"];
+
       this.chkflg = true;
       if (this.popularprd.length === 0) {
         this.isitems = false;
@@ -60,7 +58,7 @@ export class MainpageComponent implements OnInit {
         //   console.log(this.prditems);
         this.temp2 = [];
 
-        this.temp2 = JSON.parse(this.auth.getitems());
+        this.temp2 = JSON.parse(this.commonserv.getitems());
 
         // this.temp2=JSON.parse(data);
         // console.log("data",this.temp2);
@@ -144,7 +142,8 @@ export class MainpageComponent implements OnInit {
                 Name: "x",
                 RetailPrice: "-1",
                 PurchasePrice: "-1",
-
+                Quantity: null,
+                Instock: null,
                 SubCategoryID: "-1",
                 quantity: "-1",
                 addcart: true,
@@ -197,7 +196,7 @@ export class MainpageComponent implements OnInit {
       }
       this.loader = false;
     } catch (error) {
-      this.loader=false;
+      this.loader = false;
       console.log(error);
     }
   }
@@ -218,7 +217,7 @@ export class MainpageComponent implements OnInit {
     };
     this.array = [];
 
-    var z = JSON.parse(this.auth.getitems());
+    var z = JSON.parse(this.commonserv.getitems());
     if (z != null) {
       this.array = z;
     }
@@ -240,7 +239,7 @@ export class MainpageComponent implements OnInit {
             this.flag = true;
           }
         }
-        this.auth.storeitems(this.array);
+        this.commonserv.storeitems(this.array);
         this.array = [];
       } else {
         if (this.array.length != 0) {
@@ -254,14 +253,14 @@ export class MainpageComponent implements OnInit {
               //console.log(this.sum);
               this.array[i].TotalValue = this.sum.toString();
               this.flag = true;
-              this.auth.storeitems(this.array);
+              this.commonserv.storeitems(this.array);
               this.array = [];
             }
           }
         }
         if (this.flag === false) {
           this.array.push(newitem);
-          this.auth.storeitems(this.array);
+          this.commonserv.storeitems(this.array);
           this.array = [];
         }
       }
@@ -270,7 +269,8 @@ export class MainpageComponent implements OnInit {
   Addcart(name, id, price, quantity, status) {
     //  console.log(id);
     for (let i = 0; i < this.popularprd.length; i++) {
-      if (id === this.popularprd[i].ProductID) this.popularprd[i].addcart = false;
+      if (id === this.popularprd[i].ProductID)
+        this.popularprd[i].addcart = false;
     }
 
     let newitem: cart = {
@@ -284,7 +284,7 @@ export class MainpageComponent implements OnInit {
 
     this.array.push(newitem);
     if (!localStorage.getItem("items array")) {
-      this.auth.storeitems(this.array);
+      this.commonserv.storeitems(this.array);
       this.array = [];
     } else {
       this.localtemparray = JSON.parse(localStorage.getItem("items array"));
@@ -292,7 +292,7 @@ export class MainpageComponent implements OnInit {
       //console.log("data array",this.array);
       var a: any = this.array[0];
       this.localtemparray.push(a);
-      this.auth.storeitems(this.localtemparray);
+      this.commonserv.storeitems(this.localtemparray);
       this.array = [];
     }
     // console.log(this.auth.getitems());
@@ -306,13 +306,13 @@ export class MainpageComponent implements OnInit {
     //console.log(this.flag1);
   }
   OnItemsupdate() {
-    this.productSubscription = this.auth.products.subscribe((data) => {
-    //  console.log("temp data first", data);
+    this.productSubscription = this.commonserv.products.subscribe((data) => {
+      //  console.log("temp data first", data);
       this.temp2 = [];
       this.temp2 = data;
-      if (this.chkflg = true) {
+      if ((this.chkflg = true)) {
         if (this.temp2 != null) {
-      //    console.log("PRD ITEMS second", this.prditems);
+          //    console.log("PRD ITEMS second", this.prditems);
 
           var prditemslength = this.popularprd.length;
           var temp2length = this.temp2.length;
@@ -322,7 +322,8 @@ export class MainpageComponent implements OnInit {
               Name: "x",
               RetailPrice: "-1",
               PurchasePrice: "-1",
-
+              Quantity: null,
+              Instock: null,
               SubCategoryID: "-1",
               quantity: "-1",
               addcart: true,
@@ -332,51 +333,90 @@ export class MainpageComponent implements OnInit {
               this.popularprd[i] = newitem;
             }
           }
-            if (temp2length != prditemslength) {
-              let newitem: cart = {
-                ProductID: 0,
-                CurrentRate: "1",
-                TotalPieces: parseInt("1"),
-                TotalValue: "1",
-                status: true,
-              };
-              for (let i = temp2length; i < prditemslength; i++) {
-                this.temp2[i] = newitem;
-              }
+          if (temp2length != prditemslength) {
+            let newitem: cart = {
+              ProductID: 0,
+              CurrentRate: "1",
+              TotalPieces: parseInt("1"),
+              TotalValue: "1",
+              status: true,
+            };
+            for (let i = temp2length; i < prditemslength; i++) {
+              this.temp2[i] = newitem;
             }
+          }
 
+          for (let i = 0; i < this.popularprd.length; i++) {
+            this.popularprd[i].addcart = true;
+            this.popularprd[i].quantity = "1";
+          }
+
+          for (let i = 0; i < this.popularprd.length; i++) {
             for (let i = 0; i < this.popularprd.length; i++) {
-              this.popularprd[i].addcart = true;
-              this.popularprd[i].quantity = "1";
-            }
-
-            for (let i = 0; i < this.popularprd.length; i++) {
+              this.val2 = this.temp2[i].ProductID;
+              this.qty = this.temp2[i].TotalPieces;
+              this.stat = this.temp2[i].status;
               for (let i = 0; i < this.popularprd.length; i++) {
-                this.val2 = this.temp2[i].ProductID;
-                this.qty = this.temp2[i].TotalPieces;
-                this.stat = this.temp2[i].status;
-                for (let i = 0; i < this.popularprd.length; i++) {
-                  if (this.popularprd[i].ProductID === this.val2) {
-                    this.popularprd[i].quantity = this.qty.toString();
-                    this.popularprd[i].addcart = this.stat;
-                   // console.log("Condition run 3rd");
-                  }
-                }
-              }
-
-              for (let i = 0; i < this.popularprd.length; i++) {
-                let val = this.popularprd[i].ProductID;
-                if (val === -1) {
-                  console.log(this.popularprd[i].ProductID);
-                  this.popularprd.splice(i, temp2length - prditemslength);
+                if (this.popularprd[i].ProductID === this.val2) {
+                  this.popularprd[i].quantity = this.qty.toString();
+                  this.popularprd[i].addcart = this.stat;
+                  // console.log("Condition run 3rd");
                 }
               }
             }
 
-            // console.log("data from observable after ",this.prditems);
+            for (let i = 0; i < this.popularprd.length; i++) {
+              let val = this.popularprd[i].ProductID;
+              if (val === -1) {
+                console.log(this.popularprd[i].ProductID);
+                this.popularprd.splice(i, temp2length - prditemslength);
+              }
+            }
+          }
+
+          // console.log("data from observable after ",this.prditems);
+        }
+      }
+    });
+  }
+  checkinginput(id, price, name, quantity, addcart, inputvalue) {
+    console.log(inputvalue.value);
+
+    var products: cart[] = JSON.parse(this.commonserv.getitems());
+    if (products != null) {
+      if (inputvalue.value >= 1 && inputvalue.value <= quantity) {
+        // console.log("first run")
+        for (let i = 0; i < products.length; i++) {
+          if (id === products[i].ProductID) {
+            products[i].TotalPieces = inputvalue.value;
+            this.sum = 0;
+            products[i].TotalPieces = inputvalue.value;
+            this.sum = inputvalue.value * parseInt(price);
           }
         }
-      
-    });
+        this.commonserv.storeitems(products);
+        products = [];
+      } else {
+        //  console.log("second run")
+        for (let i = 0; i < this.popularprd.length; i++) {
+          if (this.popularprd[i].ProductID == id) {
+            this.popularprd[i].addcart = true;
+            this.popularprd[i].quantity = "1";
+          }
+        }
+        //  console.log("deleteing items from array");
+        for (let i = 0; i < products.length; i++) {
+          if (products[i].ProductID === id) {
+            //    console.log("items matched");
+            products.splice(i, 1);
+          }
+        }
+        this.commonserv.storeitems(products);
+        products = [];
+      }
+    }
+  }
+  Repeatskeleton(n: number): Array<number> {
+    return Array(n);
   }
 }

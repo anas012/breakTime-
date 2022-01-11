@@ -21,6 +21,7 @@ export class StartuppageComponent implements OnInit {
   value:number;
 addtocart=true;
 cart:boolean;
+isloading:boolean;
 
   constructor(
     private auth: AuthserviceService,
@@ -35,9 +36,11 @@ cart:boolean;
 
   async getAllcategories() {
     try {
+      this.isloading=true;
       this.items = [];
       const res:catgories = await this.auth.getAllCategories();
       //console.log(res);
+      this.isloading=false;
       this.category = res["Data"]["data"];
     //  console.log("all cat",this.category);
       for (let i = 0; i < this.category.length; i++) {
@@ -108,4 +111,7 @@ if(this.value==0)
   //   }
   //  console.log(this.array);
   // }
+  Repeatskeleton(n: number): Array<number> {
+    return Array(n);
+  }
 }

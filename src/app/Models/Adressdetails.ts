@@ -1,10 +1,6 @@
-export interface Address{
-    Details:[]
+export interface Address {
+  Details: [];
 }
-export interface getAddress{
-    Details:[
-        {
-          
-        }
-    ]
+export interface getAddress {
+  Details: [{}];
 }

@@ -1,0 +1,100 @@
+<p-toast
+  position="top-right"
+  styleClass="mt-2"
+  [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+  [baseZIndex]="9999"
+></p-toast>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+<button
+  kendoButton
+  class="btn btn-primary"
+  [routerLink]="'add'"
+  style="margin-bottom: 10px"
+  [primary]="true"
+>
+  New Product
+</button>
+<div class="card">
+  <div class="card-header d-flex">
+    <strong> All Items</strong>
+  </div>
+  <p-table
+    #dt
+    [globalFilterFields]="[
+      'ProductID',
+      'Name',
+      'RetailPrice',
+      'PurchasePrice',
+      'SubCategoryID'
+    ]"
+    [columns]="cols"
+    [value]="Allprd"
+    selectionMode="single"
+    [(selection)]="selectedRow"
+    styleClass="p-datatable-striped"
+    [paginator]="false"
+    [rows]="10"
+    (onPage)="onPageChange($event)"
+    [totalRecords]="lastpage"
+    [showCurrentPageReport]="true"
+    [first]="first"
+    currentPageReportTemplate="Showing {{ pageno }} to {{ lastpage }} of {{
+      totalRecords
+    }} entries"
+    [loading]="loading"
+  >
+    <ng-template pTemplate="caption">
+      <div class="row" style="display: flex; align-items: center">
+        <div class="col-md-6">
+          <input
+            pInputText
+            type="text"
+            name="Filter"
+            class="form-control"
+            required
+            placeholder="Filter"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+          />
+        </div>
+        <div class="col-md-6" style="display: flex; justify-content: flex-end">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="dt.exportCSV()"
+          >
+            <i class="fa fa-file-excel-o fa-lg"></i> Export CSV
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+      
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{ col.header }}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
+      
+      </tr>
+    </ng-template>
+  </p-table>
+  <div>
+    <p-paginator
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {{ pageno }} to {{ lastpage }}  of {{
+        totalRecords
+      }} entries"
+      (onPageChange)="onPageChange($event)"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [totalRecords]="totalRecords"
+    ></p-paginator>
+  </div>
+</div>
