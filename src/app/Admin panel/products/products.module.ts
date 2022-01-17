@@ -8,7 +8,7 @@ import { TableModule } from "primeng/table";
 import { ButtonModule } from "primeng/button";
 import { DropdownModule } from "primeng/dropdown";
 import { OverlayPanelModule } from "primeng/overlaypanel";
-import { FormsModule, NgForm } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { ToastModule } from "primeng/toast";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
@@ -17,8 +17,9 @@ import { PaginatorModule } from "primeng/paginator";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
 import {InputNumberModule} from 'primeng/inputnumber';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import { ProductEditComponent } from "./product-edit/product-edit.component";
 @NgModule({
-  declarations: [ProductListComponent, ProductAddComponent],
+  declarations: [ProductListComponent, ProductAddComponent,ProductEditComponent],
   imports: [
     CommonModule,
     ProductsRoutingModule,
@@ -35,7 +36,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     InputNumberModule,
     InputSwitchModule
   ],
-  exports: [ProductListComponent, ProductAddComponent],
+  exports: [ProductListComponent, ProductAddComponent,ProductEditComponent],
   providers: [ConfirmationService],
   schemas: [NO_ERRORS_SCHEMA],
 })

@@ -69,8 +69,8 @@ export class OrdersComponent implements OnInit {
       { field: "CreatedBy", header: "Customer Name" },
       { field: "PaymentMethod", header: "Payment Method" },
       { field: "OrderDate", header: "Order Date" },
-      { field: "City", header: "City" },
-      { field: "streetaddress", header: "Biling Address" },
+      { field: "Addresses.City", header: "City" },
+      // { field: "Addresses.Details.streetaddress", header: "Biling Address" },
       { field: "TotalBill", header: "Total Bill" },
       { field: "Status", header: "Status" },
     ];
@@ -78,45 +78,19 @@ export class OrdersComponent implements OnInit {
   async loadorders() {
     //  this.spinner.show();
     try {
-      // console.log("checking rows",this.Rows);
-      // console.log("initial page",this.initialpage);
-    //  console.log("Page no",this.pageno);
       this.loading = true;
       const res: AllOrders = await this.adminser.getAllorder(
         this.activeItem.badge,
         this.pageno,
         this.Rows
       );
-     //console.log(res);
+      console.log(res);
       this.Allorders = res["Data"]["data"];
       this.pageinfo = res["Data"]["info"];
       //console.log(this.pageinfo)
       this.loading = false;
       this.lastpage = this.pageinfo.lastPage;
       this.totalRecords = this.pageinfo.totalProducts;
-      // console.log(this.totalRecords);
-      //    console.log(this.Allorders);
-      for (let i = 0; i < this.Allorders.length; i++) {
-        this.Allorders[i].City = this.Allorders[i].Addresses[0].City;
-        this.detail = this.Allorders[i].Addresses[0].Details[0];
-        this.array[i] = JSON.parse(this.detail);
-        //console.log(this.array[i]);
-        //conversion of date
-        this.date = this.Allorders[i].OrderDate;
-        let date = moment.utc(this.date).local();
-        let newdate = date.format(`MM/DD/YYYY HH:mm:ss`);
-        this.Allorders[i].OrderDate = newdate;
-        if (this.Allorders[i].Status === true) {
-          this.Allorders[i].Status = "Open";
-        } else {
-          this.Allorders[i].Status = "Settled";
-        }
-      }
-
-      for (let i = 0; i < this.Allorders.length; i++) {
-        this.Allorders[i].streetaddress = this.array[i].House;
-        this.Allorders[i].streetaddress = this.array[i].streetaddress;
-      }
     } catch (error) {
       this.loading = false;
       console.log(error);
@@ -125,6 +99,24 @@ export class OrdersComponent implements OnInit {
 
       this.showerror();
     }
+  }
+  manipulateOutput(rowData, field) {
+    if (field === "Addresses.City") {
+      return rowData.Addresses[0].City;
+    }
+    //  else if (field === "Addresses.Details.streetaddress") {
+    //   let value = JSON.parse(rowData.Addresses[0].Details);
+    //   return value.streetaddress;
+    //}
+    else if (field == "Status") {
+      return rowData.Status === true ? "Open" : "Settled ";
+    } else if (field == "OrderDate") {
+      let value = rowData.OrderDate;
+      let date = moment.utc(value).local();
+      let newdate = date.format(`MM/DD/YYYY HH:mm:ss`);
+      return newdate;
+    }
+    return rowData[field];
   }
 
   confirmsubmitorder(id) {
@@ -195,12 +187,11 @@ export class OrdersComponent implements OnInit {
     var pagee = page + 1;
     var rows = pages["rows"];
     this.Rows = rows;
-  
-    if(pagee==this.initialpage)
-    {
+
+    if (pagee == this.initialpage) {
       this.loadorders();
     }
-      
+
     // console.log("rows in fun",this.Rows);
     if (pagee > this.initialpage) {
       this.pageno = pagee;
@@ -232,11 +223,11 @@ export class OrdersComponent implements OnInit {
 
   onMenuChange(tab) {
     this.Allorders = [];
-    console.log(tab);
+    //console.log(tab);
     this.activeItem = tab.activeItem;
-    console.log(this.activeItem.badge);
+    // console.log(this.activeItem.badge);
     this.initialpage = 1;
-    this.Rows=50;
+    this.Rows = 50;
     this.lastpage = null;
     this.totalRecords = null;
     this.loadorders();

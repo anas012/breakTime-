@@ -47,7 +47,17 @@ export interface Allprdoducts
   Name:string;
   RetailPrice:string;
   PurchasePrice:string;
-  SubCategoryID:string;
+  InStock:boolean;
+  Quantity:string;
+  SubCategory:
+  {
+    Category:{
+      Name:string
+    },
+    Name:string,
+    SubCategoryID:string;
+  }
+ 
 }
 export interface createorder
 {
@@ -64,21 +74,20 @@ export interface createorder
 export interface AllOrders
 {
   Addresses:
-  [
+
     {
       City:string;
-      Details:getAddress[];
-    }
-  ],
+      Details:[];
+    },
   OrderID: string;
   OrderDate: string;
   OrderDetails:OrderDetails[],
   PaymentMethod:string;
   TotalBill: string;
   streetaddress:string;
-  City;
   CreatedBy:string;
   Status:any;
+
 }
 
 export interface homeaddress

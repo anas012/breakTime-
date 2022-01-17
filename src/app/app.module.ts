@@ -42,7 +42,7 @@ import { OrdersModule } from './Admin panel/orders/orders.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorserviceService } from './services/interceptor.service';
 import { ButtonModule } from 'primeng/button';
-import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {OverlayPanelModule} from 'primeng/overlaypanel'
 
 @NgModule({
   imports: [
@@ -95,6 +95,8 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
   exports: [
 
   
+  
+ 
   ]
 })
 export class AppModule { }

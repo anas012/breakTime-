@@ -20,9 +20,10 @@
 .temp {
   display: flex !important;
   flex-direction: row !important;
-  flex-grow: 6 !important;
+  flex-grow: 20 !important;
   flex-wrap: wrap !important;
   justify-content: space-around !important;
+ 
 }
 
 .size {
@@ -174,7 +175,7 @@
   width: 50px;
 }
 .customnav {
-  background-color: #8b4513;
+  background-color: rgb(133, 92, 92);
 }
 .cartpic {
   margin-top: 70px;
@@ -204,4 +205,14 @@
 .heighttt
 {
   height: 24em;
+}
+
+.wi
+{
+  width: 26rem!important;
+}
+@media only screen and (max-width: 1024px) {
+  .wi {
+    width: 8rem !important;
+  }
 }

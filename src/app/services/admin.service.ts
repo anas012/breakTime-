@@ -107,4 +107,9 @@ registeradmin(data)
 {
   return this.httpdata.post(this.BASE_URL+'v1/auth/register',data);
 }
+
+productById(id)
+{
+  return this.httpdata.get(this.BASE_URL+`v1/Product/id/${id}`);
+}
 }

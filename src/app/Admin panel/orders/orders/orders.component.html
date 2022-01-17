@@ -102,7 +102,7 @@
         <button *ngIf="this.activeItem.id === '1'" type="button" pButton pRipple [pRowToggler]="Allorder" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
     </td>
       <td *ngFor="let col of columns">
-        {{ rowData[col.field] }}
+        {{ manipulateOutput(rowData, col.field) }}
       </td>
       <td *ngIf="this.activeItem.id === '1'">
       
@@ -128,16 +128,14 @@
 <ng-template
     pTemplate="rowexpansion"
     let-Allorders
-    *ngIf="this.activeItem.id === '1'"
   >
-    <tr>
+    <tr *ngIf="this.activeItem.id === '1'">
       <td colspan="10">
         <div class="p-p-3">
           <p-table [value]="Allorders.OrderDetails" dataKey="OrderID">
             <ng-template pTemplate="header">
               <tr>
                 <th>Product Name</th>
-                <th>ProductID</th>
                 <th>Quantity</th>
                 <th>Amount</th>
               </tr>
@@ -145,7 +143,6 @@
             <ng-template pTemplate="body" let-order>
               <tr [pSelectableRow]="order">
                 <td>{{ order.Product.Name }}</td>
-                <td>{{ order.ProductID }}</td>
                 <td>{{ order.TotalPieces }}</td>
                 <td>{{ order.TotalValue }}</td>
               </tr>

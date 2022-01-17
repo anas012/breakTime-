@@ -14,7 +14,7 @@
 >
 <nav class="navbar fixed-top navbar-expand-lg customnav">
   <ul class="navbar-nav temp">
-    <li>
+    <!-- <li>
       <button
         class="navbar-toggler"
         type="button"
@@ -26,8 +26,8 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-    </li>
-    <li class="nav-item d-flex align-items-sm-start">
+    </li> -->
+    <li class="nav-item d-flex">
       <a class="navbar-brand"
         ><img src="../../../assets/img/BREAK TIME LOGO.png" class="logo"
       /></a>
@@ -36,24 +36,36 @@
       <button class="btn btn-light ml-2 mr-3">Deliver At</button>
     </li> -->
     <li>
-      <form
-        class="form-inline my-2 my-lg-0"
+     
+
+      <form 
+      class="form-inline"
         (ngSubmit)="onSearch(S)"
         #S="ngForm"
       >
+      <div class="input-group">
         <input
-          class="form-control mt-2"
+          class="form-control d-flex align-items-center flex-nowrap mt-2 wi"
           type="text"
           placeholder="Search items"
           aria-label="Search"
           name="search"
           ngModel
           name="search"
+        
         />
-        <button class="btn btn-danger ml-2 mt-2">Search</button>
+        <div class="mt-2">
+          <button class="btn btn-danger"><i class="pi pi-search"></i></button>
+        </div>
+      </div>
+      
       </form>
+      
+
+      
     </li>
-    <li>
+ 
+    <li >
       <button
         *ngIf="!islogin"
         pButton
@@ -74,7 +86,7 @@
         class="p-button-rounded p-button-info mt-2"
       ></button>
 
-      <button class="btn btn-sm radius" (click)="cart()">
+      <button class="btn btn-sm radius box3" (click)="cart()">
         <img src="../../../assets/icons/cart.svg" class="icon" />
 
         <p-badge

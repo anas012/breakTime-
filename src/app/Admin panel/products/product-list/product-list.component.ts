@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit {
   testsubcategory: subcat[] = [];
   selectedCat: catgories;
   selectedsubCat: subcat;
-  Allprd: Allprdoducts[];
+  Allprd:Allprdoducts[];
   disable: boolean;
   loading: boolean;
   pageno = 1;
@@ -48,14 +48,21 @@ export class ProductListComponent implements OnInit {
     this.loadproducts();
 
     this.cols = [
-      { field: "ProductID", header: "Product Id" },
       { field: "Name", header: "Name" },
       { field: "RetailPrice", header: "Retail price" },
       { field: "PurchasePrice", header: "Purcahse Price" },
-      { field: "SubCategoryID", header: "SubcategoryID" },
+      { field: "SubCategory.Category.Name", header: "Category Name" },
+      { field: "SubCategory.Name", header: "SubCategory Name" }
     ];
   }
-
+  manipulateOutput(rowData, field) {
+    if (field === 'SubCategory.Category.Name') {
+      return rowData.SubCategory.Category.Name;
+    } else if (field === 'SubCategory.Name') {
+      return rowData.SubCategory.Name;
+    }
+    return rowData[field];
+  }
   async getAllcat() {
     try {
       const res: catgories = await this.adminserv.getAllCategories();
@@ -84,7 +91,6 @@ export class ProductListComponent implements OnInit {
     try {
       this.loading = true;
       const res: Allprdoducts = await this.adminserv.getAllprd(this.pageno);
-      // console.log(res);
       this.loading = false;
       this.Allprd = res["Data"]["data"];
       this.pageinfo = res["Data"]["Info"];
@@ -174,4 +180,5 @@ export class ProductListComponent implements OnInit {
       detail: this.message,
     });
   }
+
 }

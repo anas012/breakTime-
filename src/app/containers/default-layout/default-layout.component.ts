@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { AuthorizedService } from '../../services/authorized.service';
 import { navItems } from '../../_nav';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'
@@ -13,6 +13,7 @@ export class DefaultLayoutComponent {
   constructor(private auth:AdminService,private router:Router,private _auth:AuthorizedService){}
   ngOnInit(): void 
   {
+ 
     
       this.adminname=this._auth.getUserName();
 
