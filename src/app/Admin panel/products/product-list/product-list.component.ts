@@ -10,6 +10,7 @@ import {
 import { catgories } from "../../../Models/usermodel";
 import { AdminService } from "../../../services/admin.service";
 import { ConfirmationService } from "primeng/api";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-product-list",
   templateUrl: "./product-list.component.html",
@@ -38,11 +39,24 @@ export class ProductListComponent implements OnInit {
   constructor(
     private adminserv: AdminService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
-  ) {}
+    private confirmationService: ConfirmationService,
+    private router:Router
+  ) {
+  }
 
   Details: cartdetails[];
   ngOnInit(): void {
+   
+    
+  //   const state = navigation.extras.state as {data: string};
+  //   if(state)
+  //   { 
+  //   let data = state.data;
+  //   this.summary="Success";
+  //   this.message=data;
+  //   this.showSuccess();
+  // }
+  
     this.getAllcat();
     this.getAllSubcat();
     this.loadproducts();
@@ -51,15 +65,21 @@ export class ProductListComponent implements OnInit {
       { field: "Name", header: "Name" },
       { field: "RetailPrice", header: "Retail price" },
       { field: "PurchasePrice", header: "Purcahse Price" },
+      { field: "Quantity", header: "Available Quantity" },
       { field: "SubCategory.Category.Name", header: "Category Name" },
-      { field: "SubCategory.Name", header: "SubCategory Name" }
+      { field: "SubCategory.Name", header: "SubCategory Name" },
+      { field: "InStock", header: "InStock" }
     ];
+  
   }
   manipulateOutput(rowData, field) {
     if (field === 'SubCategory.Category.Name') {
       return rowData.SubCategory.Category.Name;
     } else if (field === 'SubCategory.Name') {
       return rowData.SubCategory.Name;
+    }
+    else if (field === 'InStock') {
+      return rowData.InStock===true ? "Yes":"No";
     }
     return rowData[field];
   }
@@ -91,6 +111,7 @@ export class ProductListComponent implements OnInit {
     try {
       this.loading = true;
       const res: Allprdoducts = await this.adminserv.getAllprd(this.pageno);
+      console.log(res);
       this.loading = false;
       this.Allprd = res["Data"]["data"];
       this.pageinfo = res["Data"]["Info"];

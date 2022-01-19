@@ -112,4 +112,9 @@ productById(id)
 {
   return this.httpdata.get(this.BASE_URL+`v1/Product/id/${id}`);
 }
+
+updateProduct(id,data)
+{
+  return this.httpdata.put(this.BASE_URL+`v1/Product/${id}`,data);
+}
 }

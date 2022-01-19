@@ -27,12 +27,24 @@
           />
           <div class="card-body">
             <h5 class="card-title">{{ i.Name }}</h5>
-            <p class="card-text">
-              <b>Rs {{ i.RetailPrice }}</b>
-            </p>
-            <p class="card-text text-center" *ngIf="!i.InStock">
-              <p-badge styleClass="text-center" value="Out of Stock" severity="danger"></p-badge>
-          </p>
+
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="card-text">
+                  <b>Rs {{ i.RetailPrice }}</b>
+                </p>
+              </div>
+              <div class="col-sm-6">
+                <p class="card-text text-center" *ngIf="!i.InStock">
+                  <p-badge
+                    styleClass="text-center"
+                    value="Out of Stock"
+                    severity="danger"
+                  ></p-badge>
+                </p>
+              </div>
+            </div>
+            <br />
             <div class="d-flex justify-content-center">
               <button
                 *ngIf="i.addcart"

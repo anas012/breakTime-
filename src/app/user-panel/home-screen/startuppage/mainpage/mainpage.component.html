@@ -63,13 +63,27 @@
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title">{{ i.Name }}</h5>
-              <p class="card-text">
+                <h5 class="card-title">{{ i.Name }}</h5>
+            <div class="row">
+              
+              <div class="col-sm-6">
+                <p class="card-text">
                 <b>Rs {{ i.RetailPrice }}</b>
               </p>
+            </div>
+            <div class="col-sm-6">
               <p class="card-text text-center" *ngIf="!i.InStock">
-                <p-badge  value="Out of Stock" severity="danger"></p-badge>
+                <p-badge styleClass="text-center" value="Out of Stock" severity="danger"></p-badge>
             </p>
+            </div>
+            </div>
+          <br>
+            
+          
+
+              <!-- <p class="card-text text-center" *ngIf="!i.InStock">
+                <p-badge  value="Out of Stock" severity="danger"></p-badge>
+            </p> -->
               <div class="d-flex justify-content-center">
                 <button
                   *ngIf="i.addcart"

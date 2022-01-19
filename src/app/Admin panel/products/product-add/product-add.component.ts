@@ -133,7 +133,6 @@ export class ProductAddComponent implements OnInit {
   }
   handleChange(e) {
     this.checked = e.checked;
-    console.log(this.checked);
 }
   oncreateproduct(form: NgForm) {
     if (this.selectedfile == null) {
